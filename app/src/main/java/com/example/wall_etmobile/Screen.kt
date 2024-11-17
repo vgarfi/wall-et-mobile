@@ -9,17 +9,10 @@ import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
-import compose.icons.AllIcons
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.*
 import compose.icons.fontawesomeicons.regular.CreditCard
-import compose.icons.fontawesomeicons.regular.Eye
-import compose.icons.fontawesomeicons.regular.FileArchive
-import compose.icons.fontawesomeicons.regular.FilePdf
 import compose.icons.fontawesomeicons.regular.ListAlt
-import compose.icons.fontawesomeicons.solid.File
-import compose.icons.fontawesomeicons.solid.Home
-import compose.icons.fontawesomeicons.solid.HouseUser
 
 sealed class Screen(val route: String, val label: String, val icon: ImageVector, val tiny: Boolean) {
     object Home : Screen(route = "home", label = "Inicio", icon = Icons.Outlined.Home, tiny = false)
