@@ -22,6 +22,7 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -152,7 +153,9 @@ fun MainApp(modifier: Modifier = Modifier) {
             exitTransition = { ExitTransition.None },
             modifier = Modifier.padding(innerPadding)) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                WalletMobileTheme {
+                    HomeScreen()
+                }
             }
             composable(Screen.Transactions.route) {
                 TransactionsScreen()
