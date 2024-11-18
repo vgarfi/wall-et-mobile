@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +25,9 @@ fun BaseScaffold (
     bigText: String,
     content: @Composable () -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize().background(color = MainWhite)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(color = MainWhite)) {
         Image(
             painter = painterResource(id = R.drawable.header),
             contentDescription = "Fondo",
@@ -40,6 +43,7 @@ fun BaseScaffold (
                 .padding(16.dp)
         ) {
             TitleRow(tinyText = tinyText, bigText = bigText)
+            Box(modifier = Modifier.height(55.dp))
             content()
         }
     }
