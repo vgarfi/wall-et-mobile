@@ -26,5 +26,5 @@ sealed class Screen(val route: String, val label: String, val icon: ImageVector,
     object Transfer : Screen("transfer", label = "Transferir", icon = Icons.Outlined.KeyboardArrowUp, tiny = false)
     object Charge: Screen("charge", label = "Cobrar", icon = Icons.Outlined.MoreVert, tiny = false)
     object Enter: Screen("enter", label = "Ingresar", icon = Icons.Outlined.KeyboardArrowDown, tiny = false)
-
+    object TransactionDetails: Screen("transaction-details", label = "Detalles de la transaccion", icon = Icons.Outlined.KeyboardArrowDown, tiny = false)
 }

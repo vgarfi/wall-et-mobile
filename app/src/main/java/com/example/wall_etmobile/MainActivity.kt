@@ -43,6 +43,7 @@ import com.example.wall_etmobile.screens.ProfileScreen
 import com.example.wall_etmobile.screens.TransactionsScreen
 import com.example.wall_etmobile.screens.cashflow.ChargeScreen
 import com.example.wall_etmobile.screens.cashflow.EnterScreen
+import com.example.wall_etmobile.screens.cashflow.TransactionDetailsScreen
 import com.example.wall_etmobile.screens.cashflow.TransferScreen
 import com.example.wall_etmobile.ui.theme.MainGrey
 import com.example.wall_etmobile.ui.theme.MainPurple
@@ -72,7 +73,7 @@ fun MainApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val hideBottomNavRoutes = listOf(Screen.Transfer.route, Screen.Charge.route, Screen.Enter.route)
+    val hideBottomNavRoutes = listOf(Screen.Transfer.route, Screen.Charge.route, Screen.Enter.route, Screen.TransactionDetails.route)
 
     val screens = listOf(
         Screen.Home,
@@ -180,6 +181,9 @@ fun MainApp(modifier: Modifier = Modifier) {
             }
             composable(Screen.Enter.route) {
                 EnterScreen(navController = navController)
+            }
+            composable(Screen.TransactionDetails.route) {
+                TransactionDetailsScreen(navController = navController)
             }
         }
     }

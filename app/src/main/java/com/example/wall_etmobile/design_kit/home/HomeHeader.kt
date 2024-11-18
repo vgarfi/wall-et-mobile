@@ -22,12 +22,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.ui.theme.MainBlack
 import com.example.wall_etmobile.ui.theme.MainWhite
+import com.pathak.barberapp.navigation.Screen
 
 @Composable
-fun HomeHeader() {
+fun HomeHeader(
+    navController: NavController
+) {
     Row (
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -52,7 +56,10 @@ fun HomeHeader() {
                 .background(color = MainWhite, shape = RoundedCornerShape(20.dp))
                 .padding(horizontal = 20.dp, vertical = 3.dp)
                 .clickable {
-                    // TODO hace el onCLick del chip este
+                    navController.navigate(Screen.TransactionDetails.route) {
+                        popUpTo(Screen.Home.route) { inclusive = false }
+                        launchSingleTop = true
+                    }
                 }
         ){
            Row(

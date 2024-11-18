@@ -60,7 +60,8 @@ fun HomeScreen(navController: NavController) {
                 .padding(16.dp)
                 .padding(top = 1.dp)
         ) {
-            HomeHeader()
+            // TODO remover este navController de testeo
+            HomeHeader(navController)
             Box(modifier = Modifier.height(60.dp))
             Column (
                 verticalArrangement = Arrangement.Center,
