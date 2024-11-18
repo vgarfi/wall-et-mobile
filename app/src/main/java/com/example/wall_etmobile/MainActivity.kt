@@ -83,7 +83,7 @@ fun MainApp(modifier: Modifier = Modifier) {
 
     return Scaffold(
     contentWindowInsets = WindowInsets.safeDrawing,
-    modifier = Modifier.fillMaxSize(),
+    modifier = Modifier.fillMaxWidth(),
         floatingActionButton = {
             if (currentRoute !in hideBottomNavRoutes) {
             Box(){
@@ -154,12 +154,12 @@ fun MainApp(modifier: Modifier = Modifier) {
             }
             }
         },
-    ) { innerPadding ->
+    ) { _ ->
         NavHost(navController = navController,
             startDestination = Screen.Home.route,
             enterTransition = { EnterTransition.None },
             exitTransition = { ExitTransition.None },
-            modifier = Modifier.padding(innerPadding)) {
+            ) {
             composable(Screen.Home.route) {
                 HomeScreen(navController = navController)
             }

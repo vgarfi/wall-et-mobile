@@ -29,6 +29,7 @@ fun BaseScaffold (
             painter = painterResource(id = R.drawable.header),
             contentDescription = "Fondo",
             modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter
         )
         Column(

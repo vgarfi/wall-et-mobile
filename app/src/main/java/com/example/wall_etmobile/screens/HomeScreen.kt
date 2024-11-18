@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -48,6 +49,7 @@ fun HomeScreen(navController: NavController) {
             painter = painterResource(id = R.drawable.home_header),
             contentDescription = "Fondo",
             modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter
         )
         Column(
@@ -59,7 +61,7 @@ fun HomeScreen(navController: NavController) {
                 .padding(top = 1.dp)
         ) {
             HomeHeader()
-            Box(modifier = Modifier.height(55.dp))
+            Box(modifier = Modifier.height(60.dp))
             Column (
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -77,7 +79,7 @@ fun HomeScreen(navController: NavController) {
                 Spacer(modifier = Modifier.weight(1f))
             }
             }
-            Box(modifier = Modifier.height(5.dp))
+            Box(modifier = Modifier.height(15.dp))
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 color = MainWhite,
