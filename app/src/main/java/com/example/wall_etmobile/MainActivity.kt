@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -22,13 +21,11 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,6 +39,10 @@ import com.example.wall_etmobile.screens.CardsScreen
 import com.example.wall_etmobile.screens.HomeScreen
 import com.example.wall_etmobile.screens.ProfileScreen
 import com.example.wall_etmobile.screens.TransactionsScreen
+import com.example.wall_etmobile.screens.cashflow.ChargeScreen
+import com.example.wall_etmobile.screens.cashflow.EnterScreen
+import com.example.wall_etmobile.screens.cashflow.TransactionDetailsScreen
+import com.example.wall_etmobile.screens.cashflow.TransferScreen
 import com.example.wall_etmobile.ui.theme.MainGrey
 import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.MainWhite
@@ -70,6 +71,7 @@ fun MainApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val hideBottomNavRoutes = listOf(Screen.Transfer.route, Screen.Charge.route, Screen.Enter.route, Screen.TransactionDetails.route)
 
     val screens = listOf(
         Screen.Home,
@@ -80,8 +82,9 @@ fun MainApp(modifier: Modifier = Modifier) {
 
     return Scaffold(
     contentWindowInsets = WindowInsets.safeDrawing,
-    modifier = Modifier.fillMaxSize(),
+    modifier = Modifier.fillMaxWidth(),
         floatingActionButton = {
+            if (currentRoute !in hideBottomNavRoutes) {
             Box(){
                 FloatingActionButton(
                     containerColor = MainPurple,
@@ -101,9 +104,12 @@ fun MainApp(modifier: Modifier = Modifier) {
                     )
                 }
             }
+            }
         },
         floatingActionButtonPosition = FabPosition.Center,
         bottomBar = {
+            if (currentRoute !in hideBottomNavRoutes) {
+
             BottomAppBar(
                 containerColor = MainWhite,
                 contentColor = MainGrey,
@@ -145,17 +151,16 @@ fun MainApp(modifier: Modifier = Modifier) {
                     }
                 }
             }
+            }
         },
-    ) { innerPadding ->
+    ) { _ ->
         NavHost(navController = navController,
             startDestination = Screen.Home.route,
             enterTransition = { EnterTransition.None },
             exitTransition = { ExitTransition.None },
-            modifier = Modifier.padding(innerPadding)) {
+            ) {
             composable(Screen.Home.route) {
-                WalletMobileTheme {
-                    HomeScreen()
-                }
+                HomeScreen(navController = navController)
             }
             composable(Screen.Transactions.route) {
                 TransactionsScreen()
@@ -165,6 +170,18 @@ fun MainApp(modifier: Modifier = Modifier) {
             }
             composable(Screen.Profile.route) {
                 ProfileScreen()
+            }
+            composable(Screen.Transfer.route) {
+                TransferScreen(navController = navController)
+            }
+            composable(Screen.Charge.route) {
+                ChargeScreen(navController = navController)
+            }
+            composable(Screen.Enter.route) {
+                EnterScreen(navController = navController)
+            }
+            composable(Screen.TransactionDetails.route) {
+                TransactionDetailsScreen(navController = navController)
             }
         }
     }

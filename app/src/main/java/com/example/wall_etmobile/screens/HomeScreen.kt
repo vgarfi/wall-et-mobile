@@ -6,31 +6,40 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.IconButton
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.VerticalDivider
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.ui.theme.MainWhite
-import androidx.compose.material3.Icon
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
+import androidx.navigation.NavController
+import com.example.wall_etmobile.design_kit.home.SectionButton
+import com.pathak.barberapp.navigation.Screen
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.regular.Copy
@@ -198,20 +207,18 @@ fun Header(onClick: () -> Unit){
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     var showCvu by rememberSaveable { mutableStateOf(false) }
     var showMoney by rememberSaveable { mutableStateOf(true) }
     val clipboardManager = LocalClipboardManager.current
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = MainWhite)
-    ) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(color = MainWhite)) {
         Image(
             painter = painterResource(id = R.drawable.home_header),
             contentDescription = "Fondo",
             modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter
         )
         Column(
@@ -219,7 +226,7 @@ fun HomeScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(30.dp)
         ) {
             Header(onClick = { showCvu = !showCvu })
             MoneyVisor(
@@ -227,20 +234,69 @@ fun HomeScreen() {
                 onClick = { showMoney = !showMoney },
                 showMoney = showMoney
             )
-
-
-            if (showCvu) {
+            
+            Box(modifier = Modifier.height(15.dp))
+            Surface(
+                shape = MaterialTheme.shapes.medium,
+                color = MainWhite,
+                shadowElevation = 5.dp,
+                modifier = Modifier
+                    .padding(vertical = 30.dp)
+                    .fillMaxWidth()
+                    .height(100.dp)
+            ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    verticalAlignment = Alignment.Bottom
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxHeight().padding(horizontal = 25.dp)
                 ) {
-                    CvuDialog(
-                        onDismissRequest = { showCvu = false },
-                        onCopyCvu = { clipboardManager.setText(AnnotatedString(it)) }
+                    SectionButton(
+                        title = "Transferir",
+                        icon = R.drawable.transfer_icon,
+                        onClick = {
+                            navController.navigate(Screen.Transfer.route) {
+                                popUpTo(Screen.Home.route) { inclusive = false }
+                                launchSingleTop = true
+                            }
+                        }
                     )
+                    VerticalDivider(
+                        modifier = Modifier.padding(vertical = 20.dp),
+                        color = Color(0xFFE8E8E8)
+                    )
+                    SectionButton(title = "Cobrar", icon = R.drawable.charge_icon,
+                        onClick = {
+                            navController.navigate(Screen.Charge.route) {
+                                popUpTo(Screen.Home.route) { inclusive = false }
+                                launchSingleTop = true
+                            }
+                        }
+                    )
+                    VerticalDivider(
+                        modifier = Modifier.padding(vertical = 20.dp),
+                        color = Color(0xFFE8E8E8)
+                    )
+                    SectionButton(title = "Ingresar", icon = R.drawable.enter_icon,
+                        onClick = {
+                            navController.navigate(Screen.Enter.route) {
+                                popUpTo(Screen.Home.route) { inclusive = false }
+                                launchSingleTop = true
+                            }
+                        })
                 }
             }
+        }
+    }
+    if (showCvu) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            CvuDialog(
+                onDismissRequest = { showCvu = false },
+                onCopyCvu = { clipboardManager.setText(AnnotatedString(it)) }
+            )
         }
     }
 }
