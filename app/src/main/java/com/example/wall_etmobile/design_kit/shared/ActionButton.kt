@@ -37,8 +37,8 @@ import com.example.wall_etmobile.R
 fun ActionButton(
     title: String,
     onClick: () -> Unit = {},
-    height: Int = 48,
-    width: Int = 150,
+    height: Int = 20,
+    width: Int = 300,
     modifier: Modifier = Modifier,
     @ColorRes contentColorRes: Int = R.color.white,
     @ColorRes containerColorRes: Int = R.color.purple_500,
@@ -141,8 +141,6 @@ fun ActionButtonPreviews() {
         ActionButton(
             title = "Ingresar",
             onClick = { /* Do something */ },
-            height = 40,
-            width = 300,
             elevation = true,
             enabled = false
         )
