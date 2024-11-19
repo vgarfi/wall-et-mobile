@@ -18,12 +18,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,15 +29,17 @@ import androidx.compose.ui.window.Dialog
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.ui.theme.MainWhite
 import androidx.compose.material3.Icon
-import androidx.compose.material.icons.Icons
 import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.unit.TextUnit
-import android.opengl.Visibility
+import compose.icons.FontAwesomeIcons
+import compose.icons.fontawesomeicons.Regular
+import compose.icons.fontawesomeicons.regular.Copy
+import compose.icons.fontawesomeicons.regular.Eye
+import compose.icons.fontawesomeicons.regular.EyeSlash
+
 
 @Composable
-fun CvuDialog(onDismissRequest: () -> Unit) {
+fun CvuDialog(onDismissRequest: () -> Unit, onCopyCvu: (text:String) -> Unit) {
     Dialog(
         onDismissRequest = { onDismissRequest() }
     ) {
@@ -54,31 +54,111 @@ fun CvuDialog(onDismissRequest: () -> Unit) {
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    text = "Tu CVU"
+                    text = "Hola Valentin!",
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                val clipboardManager = LocalClipboardManager.current
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                Text(
+                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    text = "Tu CVU:"
+                )
+                ElevatedCard (
+                    colors = CardDefaults.elevatedCardColors(MaterialTheme.colorScheme.surface),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
-                    Text(
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                        text = "12345678901234567890",
-                        modifier = Modifier.weight(1f)
-                    )
-                    IconButton(
-                        onClick = {
-                            clipboardManager.setText(AnnotatedString("12345678901234567890"))
-                        }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .padding(6.dp)
+                            .fillMaxWidth()
+                            .align(Alignment.CenterHorizontally)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Email,
-                            contentDescription = "Copiar CVU"
+                        Text(
+                            fontWeight = MaterialTheme.typography.titleSmall.fontWeight,
+                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            text = "12345678901234567890",
+                            modifier = Modifier
+                                .align(Alignment.CenterVertically)
+                                .weight(1f)
                         )
+                        IconButton(
+                            onClick = {
+                                onCopyCvu("12345678901234567890")
+                            }
+                        ) {
+                            Icon(
+                                imageVector = FontAwesomeIcons.Regular.Copy,
+                                contentDescription = "Copy CVU",
+                                tint = MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.padding(6.dp)
+                            )
+                        }
                     }
+                }
+                Text(
+                    text = "Tu cvu es unico e identifica tu cuenta Wall-et",
+                    fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                    fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                    color = MaterialTheme.colorScheme.outline,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MoneyVisor(money:String, showMoney: Boolean, onClick: () -> Unit){
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+    ) {
+        Text(
+            text = "Dinero disponible",
+            fontWeight = MaterialTheme.typography.titleSmall.fontWeight,
+            fontSize = MaterialTheme.typography.titleSmall.fontSize,
+            fontStyle = MaterialTheme.typography.titleSmall.fontStyle,
+            color = MaterialTheme.colorScheme.onPrimary
+        )
+        Row {
+            if (showMoney) {
+                Text(
+                    text = "$ ${money}",
+                    fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                    fontStyle = MaterialTheme.typography.titleLarge.fontStyle,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+                IconButton(onClick = { onClick() }) {
+                    Icon(
+                        imageVector = FontAwesomeIcons.Regular.Eye,
+                        contentDescription = "Eye",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+            } else {
+                Text(
+                    text = "$ ·······",
+                    fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                    fontStyle = MaterialTheme.typography.titleLarge.fontStyle,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+                IconButton(onClick = { onClick() }) {
+                    Icon(
+                        imageVector = FontAwesomeIcons.Regular.EyeSlash,
+                        contentDescription = "EyeSlash",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
                 }
             }
         }
@@ -86,8 +166,42 @@ fun CvuDialog(onDismissRequest: () -> Unit) {
 }
 
 @Composable
+fun Header(onClick: () -> Unit){
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Text(
+            text = "Wall-et",
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .weight(1f)
+        )
+        ElevatedButton(
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+            onClick = {
+                onClick()
+            }
+        ) {
+            Text(
+                text = "Tu informacion",
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.ExtraBold
+            )
+        }
+    }
+}
+
+
+
+@Composable
 fun HomeScreen() {
     var showCvu by rememberSaveable { mutableStateOf(false) }
+    var showMoney by rememberSaveable { mutableStateOf(true) }
+    val clipboardManager = LocalClipboardManager.current
 
     Box(
         modifier = Modifier
@@ -107,62 +221,13 @@ fun HomeScreen() {
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start
-            ) {
-                Text(
-                    text = "Wall-et",
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .weight(1f)
-                )
-                ElevatedButton(
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically),
-                    onClick = {
-                        showCvu = true
-                    }
-                ) {
-                    Text(
-                        text = "Tu informacion",
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.ExtraBold
-                    )
-                }
-            }
+            Header(onClick = { showCvu = !showCvu })
+            MoneyVisor(
+                money = "12672.68",
+                onClick = { showMoney = !showMoney },
+                showMoney = showMoney
+            )
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ){
-                    Text(
-                        text = "Dinero disponible",
-                        fontWeight = MaterialTheme.typography.titleSmall.fontWeight,
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                        fontStyle = MaterialTheme.typography.titleSmall.fontStyle,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                    Row {
-                        Text(
-                            text = "$ 12672.68",
-                            fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
-                            fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                            fontStyle = MaterialTheme.typography.titleLarge.fontStyle,
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
-
-
-                    }
-                }
-            }
 
             if (showCvu) {
                 Row(
@@ -170,10 +235,14 @@ fun HomeScreen() {
                     horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.Bottom
                 ) {
-                    CvuDialog(onDismissRequest = { showCvu = false })
+                    CvuDialog(
+                        onDismissRequest = { showCvu = false },
+                        onCopyCvu = { clipboardManager.setText(AnnotatedString(it)) }
+                    )
                 }
             }
         }
     }
 }
+
 
