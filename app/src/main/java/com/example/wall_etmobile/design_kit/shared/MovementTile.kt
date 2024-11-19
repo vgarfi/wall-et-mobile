@@ -1,5 +1,7 @@
 package com.example.wall_etmobile.design_kit.shared
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,7 +37,7 @@ import com.example.wall_etmobile.ui.theme.MainGreen
 import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.WalletMobileTheme
 
-enum class TransactionType(val color: Color, val sign: Char , val description: String, val iconId: Int) {
+enum class TransactionType(val color: Color, val sign: Char , val description: String, @DrawableRes val iconId: Int) {
     INCOME(MainGreen, '+', "Income", iconId = R.drawable.enter_icon),
     CHARGE(MainGreen, '+', "Charge", iconId = R.drawable.charge_icon),
     TRANSFER(Color.Red, '-', "Transfer", iconId = R.drawable.transfer_icon)
@@ -45,7 +48,7 @@ enum class TransactionType(val color: Color, val sign: Char , val description: S
 fun MovementTile(
     tileHeight: Dp,
     tileWidth: Dp? = null,
-    title: String,
+    @StringRes title: Int,
     titleSize: TextUnit,
     subTitle: String,
     subTitleSize: TextUnit,
@@ -87,7 +90,7 @@ fun MovementTile(
                     .padding(5.dp)
             ) {
                 Text(
-                    text = title,
+                    text = stringResource(title),
                     fontSize = titleSize,
                     fontWeight = FontWeight.Normal,
                     color = MainBlack
@@ -100,7 +103,7 @@ fun MovementTile(
             }
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "${transactionType.sign}${String.format("%.2f", mount)}",
+                text = "${transactionType.sign}${"%.2f".format(mount)}",
                 fontSize = mountSize,
                 color = transactionType.color,
                 modifier = Modifier
@@ -111,13 +114,13 @@ fun MovementTile(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, locale = "es")
 @Composable
 fun MovementTileTransferPreview(){
     WalletMobileTheme {
         MovementTile(
             tileHeight = 80.dp,
-            title = "Transferiste",
+            title = R.string.transfer_text,
             titleSize = 25.sp,
             subTitle = "19:12 a Tomas",
             subTitleSize = 12.sp,
@@ -128,13 +131,13 @@ fun MovementTileTransferPreview(){
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, locale = "es")
 @Composable
 fun MovementTileChargePreview(){
     WalletMobileTheme {
         MovementTile(
             tileHeight = 80.dp,
-            title = "Cobraste",
+            title = R.string.charge_text,
             titleSize = 25.sp,
             subTitle = "19:12 a Tomas",
             subTitleSize = 12.sp,
@@ -145,13 +148,13 @@ fun MovementTileChargePreview(){
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, locale = "es")
 @Composable
 fun MovementTileIncomePreview(){
     WalletMobileTheme {
         MovementTile(
             tileHeight = 80.dp,
-            title = "Ingresaste",
+            title = R.string.income_text,
             titleSize = 25.sp,
             subTitle = "19:12 a Tomas",
             subTitleSize = 12.sp,

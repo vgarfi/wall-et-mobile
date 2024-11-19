@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wall-et</string>
+    <string name="home_information">Tu informacion</string>
+    <string name="home_mount_text">Dinero disponible</string>
+
+    <string name="cvu_info">Tu CVU es único e identifica tu cuenta Wall-et.</string>
+    <string name="cvu_presenter">Tu CVU:</string>
+
+
+    <string name="transfer_text">Transferencia</string>
+    <string name="charge_text">Cobrar</string>
+    <string name="income_text">Ingresar</string>
+
+    <string name="greeting">Hola</string>
+</resources>
