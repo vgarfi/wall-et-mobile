@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -35,6 +37,7 @@ import com.example.wall_etmobile.ui.theme.LightPurple
 import com.example.wall_etmobile.ui.theme.MainBlack
 import com.example.wall_etmobile.ui.theme.MainGreen
 import com.example.wall_etmobile.ui.theme.MainPurple
+import com.example.wall_etmobile.ui.theme.MainWhite
 import com.example.wall_etmobile.ui.theme.WalletMobileTheme
 
 enum class TransactionType(val color: Color, val sign: Char , val description: String, @DrawableRes val iconId: Int) {
@@ -58,7 +61,6 @@ fun MovementTile(
 ){
     ElevatedCard(
         modifier = Modifier.padding(5.dp)
-
     ) {
         Row(
             modifier = Modifier.padding(5.dp)
