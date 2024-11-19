@@ -35,9 +35,9 @@ import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.WalletMobileTheme
 
 enum class TransactionType(val color: Color, val sign: Char , val description: String, val iconId: Int) {
-    INCOME(MainGreen, '+', "Income", iconId = R.drawable.down_right_arrow),
-    CHARGE(MainGreen, '+', "Charge", iconId = R.drawable.cash),
-    TRANSFER(Color.Red, '-', "Transfer", iconId = R.drawable.up_right_row)
+    INCOME(MainGreen, '+', "Income", iconId = R.drawable.enter_icon),
+    CHARGE(MainGreen, '+', "Charge", iconId = R.drawable.charge_icon),
+    TRANSFER(Color.Red, '-', "Transfer", iconId = R.drawable.transfer_icon)
 }
 
 
