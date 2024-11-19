@@ -3,6 +3,7 @@ package com.example.wall_etmobile.design_kit.shared
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,6 +37,7 @@ import com.example.wall_etmobile.ui.theme.LightPurple
 import com.example.wall_etmobile.ui.theme.MainBlack
 import com.example.wall_etmobile.ui.theme.MainGreen
 import com.example.wall_etmobile.ui.theme.MainPurple
+import com.example.wall_etmobile.ui.theme.MainWhite
 import com.example.wall_etmobile.ui.theme.WalletMobileTheme
 
 enum class TransactionType(val color: Color, val sign: Char , val description: String, @DrawableRes val iconId: Int) {
@@ -54,11 +57,14 @@ fun MovementTile(
     subTitleSize: TextUnit,
     mount: Double,
     mountSize: TextUnit,
-    transactionType: TransactionType
+    transactionType: TransactionType,
+    onClick: () -> Unit
 ){
-    ElevatedCard(
-        modifier = Modifier.padding(5.dp)
-
+    Card(
+        modifier = Modifier
+            .padding(5.dp)
+            .clickable(onClick = { onClick() }),
+        colors = CardDefaults.cardColors(MainWhite)
     ) {
         Row(
             modifier = Modifier.padding(5.dp)
@@ -126,7 +132,8 @@ fun MovementTileTransferPreview(){
             subTitleSize = 12.sp,
             mount = 60.00,
             mountSize = 30.sp,
-            transactionType = TransactionType.TRANSFER
+            transactionType = TransactionType.TRANSFER,
+            onClick = {}
         )
     }
 }
@@ -143,7 +150,8 @@ fun MovementTileChargePreview(){
             subTitleSize = 12.sp,
             mount = 60.00,
             mountSize = 30.sp,
-            transactionType = TransactionType.CHARGE
+            transactionType = TransactionType.CHARGE,
+            onClick = {}
         )
     }
 }
@@ -160,7 +168,8 @@ fun MovementTileIncomePreview(){
             subTitleSize = 12.sp,
             mount = 60.00,
             mountSize = 30.sp,
-            transactionType = TransactionType.INCOME
+            transactionType = TransactionType.INCOME,
+            onClick = {}
         )
     }
 }
