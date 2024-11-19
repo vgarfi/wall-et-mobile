@@ -14,5 +14,6 @@ data class MovementData(
     val subTitleSize: TextUnit,
     val mount: Double,
     val mountSize: TextUnit,
-    val transactionType: TransactionType
+    val transactionType: TransactionType,
+    val onClick: () -> Unit
 )
