@@ -41,6 +41,10 @@ import com.example.wall_etmobile.screens.CardsScreen
 import com.example.wall_etmobile.screens.HomeScreen
 import com.example.wall_etmobile.screens.ProfileScreen
 import com.example.wall_etmobile.screens.TransactionsScreen
+import com.example.wall_etmobile.screens.cashflow.ChargeScreen
+import com.example.wall_etmobile.screens.cashflow.EnterScreen
+import com.example.wall_etmobile.screens.cashflow.TransactionDetailsScreen
+import com.example.wall_etmobile.screens.cashflow.TransferScreen
 import com.example.wall_etmobile.ui.theme.MainGrey
 import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.MainWhite
@@ -69,6 +73,7 @@ fun MainApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val hideBottomNavRoutes = listOf(Screen.Transfer.route, Screen.Charge.route, Screen.Enter.route, Screen.TransactionDetails.route)
 
     val screens = listOf(
         Screen.Home,
@@ -79,8 +84,9 @@ fun MainApp(modifier: Modifier = Modifier) {
 
     return Scaffold(
     contentWindowInsets = WindowInsets.safeDrawing,
-    modifier = Modifier.fillMaxSize(),
+    modifier = Modifier.fillMaxWidth(),
         floatingActionButton = {
+            if (currentRoute !in hideBottomNavRoutes) {
             Box(){
                 FloatingActionButton(
                     containerColor = MainPurple,
@@ -100,9 +106,12 @@ fun MainApp(modifier: Modifier = Modifier) {
                     )
                 }
             }
+            }
         },
         floatingActionButtonPosition = FabPosition.Center,
         bottomBar = {
+            if (currentRoute !in hideBottomNavRoutes) {
+
             BottomAppBar(
                 containerColor = MainWhite,
                 contentColor = MainGrey,
@@ -144,15 +153,16 @@ fun MainApp(modifier: Modifier = Modifier) {
                     }
                 }
             }
+            }
         },
-    ) { innerPadding ->
+    ) { _ ->
         NavHost(navController = navController,
             startDestination = Screen.Home.route,
             enterTransition = { EnterTransition.None },
             exitTransition = { ExitTransition.None },
-            modifier = Modifier.padding(innerPadding)) {
+            ) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(navController = navController)
             }
             composable(Screen.Transactions.route) {
                 TransactionsScreen()
@@ -162,6 +172,18 @@ fun MainApp(modifier: Modifier = Modifier) {
             }
             composable(Screen.Profile.route) {
                 ProfileScreen()
+            }
+            composable(Screen.Transfer.route) {
+                TransferScreen(navController = navController)
+            }
+            composable(Screen.Charge.route) {
+                ChargeScreen(navController = navController)
+            }
+            composable(Screen.Enter.route) {
+                EnterScreen(navController = navController)
+            }
+            composable(Screen.TransactionDetails.route) {
+                TransactionDetailsScreen(navController = navController)
             }
         }
     }

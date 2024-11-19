@@ -5,7 +5,10 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.KeyboardArrowDown
+import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -19,4 +22,9 @@ sealed class Screen(val route: String, val label: String, val icon: ImageVector,
     object Transactions : Screen("transactions", label = "Movimientos", icon = FontAwesomeIcons.Regular.ListAlt, tiny = true)
     object Cards : Screen("cards", label = "Tarjetas", icon = FontAwesomeIcons.Regular.CreditCard, tiny = true)
     object Profile : Screen("profile", label = "Perfil", icon = Icons.Outlined.Person, tiny = false)
+    // CashFlow
+    object Transfer : Screen("transfer", label = "Transferir", icon = Icons.Outlined.KeyboardArrowUp, tiny = false)
+    object Charge: Screen("charge", label = "Cobrar", icon = Icons.Outlined.MoreVert, tiny = false)
+    object Enter: Screen("enter", label = "Ingresar", icon = Icons.Outlined.KeyboardArrowDown, tiny = false)
+    object TransactionDetails: Screen("transaction-details", label = "Detalles de la transaccion", icon = Icons.Outlined.KeyboardArrowDown, tiny = false)
 }

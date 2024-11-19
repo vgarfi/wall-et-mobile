@@ -41,7 +41,7 @@ fun TitleRow(
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp)
+            .padding(15.dp)
     ){
         Spacer(Modifier.weight(1f))
         SectionTitle(tinyText = tinyText, bigText = bigText)
