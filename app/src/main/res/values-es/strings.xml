@@ -4,6 +4,12 @@
     <string name="home_information">Informacion</string>
     <string name="home_mount_text">Dinero disponible</string>
 
+    <string name="last_transactions">Últimos Movimientos</string>
+
+    <string name="see_moore">Ver más</string>
+
+    <string name="favorites">Favoritos</string>
+
     <string name="cvu_info">Tu CVU es único e identifica tu cuenta Wall-et.</string>
     <string name="cvu_presenter">Tu CVU:</string>
 

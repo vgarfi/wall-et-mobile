@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
@@ -22,11 +23,11 @@ import com.example.wall_etmobile.ui.theme.MainWhite
 import com.example.wall_etmobile.navigation.Screen
 
 @Composable
-fun SectionButtons(navWrapper: NavigatorWrapper){
+fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp){
     ElevatedCard(
         colors =  CardDefaults.elevatedCardColors(MainWhite),
         modifier = Modifier
-            .height(100.dp)
+            .height(height = height)
             .fillMaxWidth()
     ) {
         Row(

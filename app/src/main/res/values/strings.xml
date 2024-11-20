@@ -23,5 +23,11 @@
 
     <string name="transactions">Transactions</string>
 
+    <string name="last_transactions">Last Transactions</string>
+
+    <string name="see_moore">See more</string>
+
+    <string name="favorites">Favorites</string>
+
     <string name="greeting">Hello</string>
 </resources>

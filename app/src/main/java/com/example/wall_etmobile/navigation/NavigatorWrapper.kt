@@ -41,6 +41,13 @@ class NavigatorWrapper(
             launchSingleTop = true
         }
     }
+
+    fun navigateToDetailsFromHome(){
+        navController.navigate(Screen.TRANSACTIONDETAILS.route) {
+            popUpTo(Screen.HOME.route) { inclusive = false }
+            launchSingleTop = true
+        }
+    }
 }
 
 

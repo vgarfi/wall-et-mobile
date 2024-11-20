@@ -52,8 +52,8 @@ fun TransactionsScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiv
     val titleSize = (screenHeight*0.025).sp
     val subTitleSize = (screenHeight*0.015).sp
     val mountSize = (screenHeight*0.03).sp
-
     val onMovementClick = { navWrapper.navigateToDetailsFromMovements() }
+
     val searchText = remember { mutableStateOf("") }
 
     var showDatePicker by remember { mutableStateOf(false) }
