@@ -59,8 +59,8 @@ fun ActionButton(
     val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
     val containerColor = colorResource(id = containerColorRes)
     val contentColor = colorResource(id = contentColorRes)
-    var adaptativeHeight by remember { mutableDoubleStateOf(0.0)}
-    var adaptativeWidth by remember { mutableDoubleStateOf(0.0)}
+    var adaptiveHeight by remember { mutableDoubleStateOf(0.0)}
+    var adaptiveWidth by remember { mutableDoubleStateOf(0.0)}
     val buttonColors: ButtonColors = if (elevation) {
         ButtonDefaults.elevatedButtonColors(
             containerColor = containerColor,
@@ -82,30 +82,30 @@ fun ActionButton(
 
     when (windowSizeClass.windowWidthSizeClass) {
         WindowWidthSizeClass.COMPACT -> {
-            adaptativeWidth = (width*1f).toDouble()
+            adaptiveWidth = (width*1f).toDouble()
         }
         WindowWidthSizeClass.MEDIUM -> {
-            adaptativeWidth = (width*1.5f).toDouble()
+            adaptiveWidth = (width*1.5f).toDouble()
         }
         WindowWidthSizeClass.EXPANDED -> {
-            adaptativeWidth = (width*2f).toDouble()
+            adaptiveWidth = (width*2f).toDouble()
         }
     }
 
     when (windowSizeClass.windowHeightSizeClass) {
         WindowHeightSizeClass.COMPACT -> {
-            adaptativeHeight = (height*1f).toDouble()
+            adaptiveHeight = (height*1f).toDouble()
         }
         WindowHeightSizeClass.MEDIUM -> {
-            adaptativeHeight = (height*1.3f).toDouble()
+            adaptiveHeight = (height*1.3f).toDouble()
         }
         WindowHeightSizeClass.EXPANDED -> {
-            adaptativeHeight = (height*2f).toDouble()
+            adaptiveHeight = (height*2f).toDouble()
         }
     }
 
 
-    val adjustedFontSize = if (adaptativeWidth > 300) 18.sp else if (adaptativeWidth > 150) 16.sp else 14.sp
+    val adjustedFontSize = if (adaptiveWidth > 300) 18.sp else if (adaptiveWidth > 150) 16.sp else 14.sp
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -119,8 +119,8 @@ fun ActionButton(
                 modifier = modifier
                     .widthIn(min = minWidth.dp)
                     .heightIn(min = minHeight.dp)
-                    .height(adaptativeHeight.dp)
-                    .width(adaptativeWidth.dp)
+                    .height(adaptiveHeight.dp)
+                    .width(adaptiveWidth.dp)
                     ,
                 colors = buttonColors,
                 contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
@@ -141,8 +141,8 @@ fun ActionButton(
                 modifier = modifier
                     .widthIn(min = minWidth.dp)
                     .heightIn(min = minHeight.dp)
-                    .height(adaptativeHeight.dp)
-                    .width(adaptativeWidth.dp),
+                    .height(adaptiveHeight.dp)
+                    .width(adaptiveWidth.dp),
                 contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
                 colors = buttonColors,
                 enabled = enabled
