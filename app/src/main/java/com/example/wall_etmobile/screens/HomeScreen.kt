@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -29,9 +30,10 @@ import com.example.wall_etmobile.design_kit.home.CvuDialog
 import com.example.wall_etmobile.design_kit.home.HomeHeader
 import com.example.wall_etmobile.design_kit.home.MountVisor
 import com.example.wall_etmobile.design_kit.home.SectionButtons
+import com.example.wall_etmobile.navigation.NavigatorWrapper
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiveInfo) {
     var showCvu by rememberSaveable { mutableStateOf(false) }
     var showMoney by rememberSaveable { mutableStateOf(true) }
     val clipboardManager = LocalClipboardManager.current
@@ -62,7 +64,7 @@ fun HomeScreen(navController: NavController) {
                 showMoney = showMoney
             )
             Spacer(modifier = Modifier.padding(vertical = 4.dp))
-            SectionButtons(navController)
+            SectionButtons(navWrapper)
         }
     }
     if (showCvu) {

@@ -2,6 +2,7 @@ package com.example.wall_etmobile.screens
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
@@ -12,10 +13,12 @@ import com.example.wall_etmobile.data.MovementData
 import com.example.wall_etmobile.design_kit.shared.BaseScaffold
 import com.example.wall_etmobile.design_kit.shared.MovementTileList
 import com.example.wall_etmobile.design_kit.shared.TransactionType
+import com.example.wall_etmobile.navigation.NavigatorWrapper
+
 
 
 @Composable
-fun TransactionsScreen() {
+fun TransactionsScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiveInfo) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
 
@@ -604,14 +607,6 @@ fun TransactionsScreen() {
             onClick = onMovementClick
         )
     )
+    MovementTileList(movements = movements)
 
-    BaseScaffold(tinyText = "tus", bigText = "Movimientos") {
-        MovementTileList(movements = movements)
-    }
-}
-
-@Preview
-@Composable
-fun TransactionsScreenPreview() {
-    TransactionsScreen()
 }
