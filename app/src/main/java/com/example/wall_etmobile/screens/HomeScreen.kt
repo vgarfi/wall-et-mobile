@@ -36,16 +36,21 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.window.core.layout.WindowWidthSizeClass
-import com.example.wall_etmobile.data.FavoriteData
+import com.example.wall_etmobile.data.FavoriteTileData
 import com.example.wall_etmobile.data.MovementData
-import com.example.wall_etmobile.design_kit.FavoriteTile
+import com.example.wall_etmobile.data.RoundedImageData
 import com.example.wall_etmobile.design_kit.home.CvuDialog
+import com.example.wall_etmobile.design_kit.home.FavoriteDialog
 import com.example.wall_etmobile.design_kit.home.HomeHeader
 import com.example.wall_etmobile.design_kit.home.MountVisor
 import com.example.wall_etmobile.design_kit.home.SectionButtons
 import com.example.wall_etmobile.design_kit.shared.CircularAddButton
 import com.example.wall_etmobile.design_kit.shared.MovementTileList
+import com.example.wall_etmobile.design_kit.shared.RoundedImage
+import com.example.wall_etmobile.design_kit.shared.RoundedImageWithText
 import com.example.wall_etmobile.design_kit.shared.TitleWithTextButton
 import com.example.wall_etmobile.design_kit.shared.TransactionType
 import com.example.wall_etmobile.navigation.NavigatorWrapper
@@ -73,29 +78,200 @@ fun HomeScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiveInfo) {
     var mountSize = (screenHeight*0.03).sp
     val onMovementClick = { navWrapper.navigateToDetailsFromHome() }
 
-    val favoriteSize = (screenHeight * 0.08).dp
-    val favorites = listOf(
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null),
-        FavoriteData(painter = null)
+    val contactsSize = (screenHeight * 0.08).dp
+
+    val contacts = listOf(
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize),
+        RoundedImageData(painter = null, title = "Tomas", size = contactsSize)
     )
 
+    val favoriteHeight = (screenHeight*0.055).dp
+    val favoriteTileTitleSize = (screenHeight*0.02).sp
+    val favoriteTileBankSize = (screenHeight*0.015).dp
+
+    val favorites = listOf(
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = true,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = false,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = true,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = false,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = true,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = false,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = true,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = false,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = true,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = false,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = true,
+            onClick = {
+
+            }
+        ),
+        FavoriteTileData(
+            tileHeight = favoriteHeight,
+            title = "Agustin",
+            titleSize = favoriteTileTitleSize,
+            bankAccounts = listOf(
+                { RoundedImage(size = favoriteTileBankSize) },
+                { RoundedImage(size = favoriteTileBankSize) }
+            ),
+            userImage = { RoundedImage(size = favoriteHeight) },
+            isFavorite = false,
+            onClick = {
+
+            }
+        )
+    )
 
     val onAddFavoriteButton = {
-        showFavoriteModal = false
+        showFavoriteModal = true
     }
 
     if (isRotated || adaptiveInfo.windowSizeClass.windowWidthSizeClass != WindowWidthSizeClass.COMPACT) {
@@ -1352,7 +1528,7 @@ fun HomeScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiveInfo) {
 
                 Column(
                     modifier = Modifier
-                        .height((screenHeight * 0.15).dp)
+                        .height((screenHeight * 0.18).dp)
                         .fillMaxWidth()
                 ) {
                     Text(
@@ -1364,19 +1540,23 @@ fun HomeScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiveInfo) {
                     )
                     Spacer(modifier = Modifier.padding(vertical = 8.dp))
                     Row(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                     ) {
                         CircularAddButton(
-                            size = favoriteSize,
-                            onClick = onAddFavoriteButton
+                            size = contactsSize,
+                            onClick = onAddFavoriteButton,
+                            text = stringResource(R.string.add)
                         )
                         Spacer(modifier = Modifier.padding(horizontal = 2.dp))
                         LazyRow {
-                            items(items = favorites) {
-                                FavoriteTile(size = favoriteSize)
+                            items(items = contacts) {
+                                RoundedImageWithText(size = it.size, title = it.title, painter = it.painter)
                                 Spacer(modifier = Modifier.padding(horizontal = 2.dp))
                             }
                         }
+                        Spacer(modifier = Modifier.padding(vertical = 2.dp))
+
                     }
 
                 }
@@ -1391,11 +1571,16 @@ fun HomeScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiveInfo) {
                         textButton = R.string.see_moore,
                         onClick = { navWrapper.navigate(Screen.TRANSACTIONS) }
                     )
-
                     MovementTileList(movements = movements)
                 }
-
             }
+        }
+        if (showFavoriteModal){
+            FavoriteDialog(
+                onDismissRequest = { showFavoriteModal = false },
+                height = (screenHeight * 0.6).dp,
+                favorites = favorites
+            )
         }
     }
     if (showCvu) {

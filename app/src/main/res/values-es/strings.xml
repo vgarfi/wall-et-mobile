@@ -10,9 +10,12 @@
 
     <string name="favorites">Favoritos</string>
 
+    <string name="add">Agregar</string>
+
+    <string name="favorite">Favorito</string>
+
     <string name="cvu_info">Tu CVU es único e identifica tu cuenta Wall-et.</string>
     <string name="cvu_presenter">Tu CVU:</string>
-
 
     <string name="transfer_text">Transferencia</string>
     <string name="charge_text">Cobrar</string>
