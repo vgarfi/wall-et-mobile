@@ -81,7 +81,7 @@ fun CvuDialog(onDismissRequest: () -> Unit,
                         ) {
                             Icon(
                                 imageVector = FontAwesomeIcons.Regular.Copy,
-                                contentDescription = "Copy CVU",
+                                contentDescription = "copy-cvu",
                                 tint = MaterialTheme.colorScheme.onSurface,
                                 modifier = Modifier.padding(6.dp)
                             )

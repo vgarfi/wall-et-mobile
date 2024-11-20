@@ -25,7 +25,6 @@ import com.example.wall_etmobile.R
 import com.example.wall_etmobile.ui.theme.MainWhite
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
-import androidx.navigation.NavController
 import com.example.wall_etmobile.design_kit.home.CvuDialog
 import com.example.wall_etmobile.design_kit.home.HomeHeader
 import com.example.wall_etmobile.design_kit.home.MountVisor

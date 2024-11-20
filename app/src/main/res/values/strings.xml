@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Wall-et</string>
-    <string name="home_information">Your information</string>
+    <string name="home_information">Information</string>
     <string name="home_mount_text">Available money</string>
 
     <string name="cvu_presenter">Your CVU:</string>
@@ -9,6 +9,19 @@
     <string name="transfer_text">Transference</string>
     <string name="charge_text">Charge</string>
     <string name="income_text">Income</string>
+
+    <string name="search_label">Search</string>
+    <string name="filter">Filter</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="select_date">Select Date</string>
+
+    <string name="your">Your</string>
+    <string name="movements">Movements</string>
+
+    <string name="transactions">Transactions</string>
 
     <string name="greeting">Hello</string>
 </resources>

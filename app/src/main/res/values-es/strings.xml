@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Wall-et</string>
-    <string name="home_information">Tu informacion</string>
+    <string name="home_information">Informacion</string>
     <string name="home_mount_text">Dinero disponible</string>
 
     <string name="cvu_info">Tu CVU es único e identifica tu cuenta Wall-et.</string>
@@ -11,6 +11,19 @@
     <string name="transfer_text">Transferencia</string>
     <string name="charge_text">Cobrar</string>
     <string name="income_text">Ingresar</string>
+
+    <string name="search_label">Buscar</string>
+    <string name="filter">Filtro</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="select_date">Selecionar Fecha</string>
+
+    <string name="your">Tus</string>
+    <string name="movements">Movimientos</string>
+
+    <string name="transactions">Movimientos</string>
 
     <string name="greeting">Hola</string>
 </resources>
