@@ -23,5 +23,5 @@ enum class Screen(val route: String, val label: String, val icon: ImageVector, v
     CHARGE("charge", label = "Cobrar", icon = Icons.Outlined.MoreVert, tiny = false),
     INCOME("income", label = "Ingresar", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
     TRANSACTIONDETAILS("transaction-details", label = "Detalles de la transaccion", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
-    TRANSFERTO("transferTo?target={target}&page={page}&to={to}", label = "Transferir a usuario", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
+    TRANSFERTO("transferTo?target={target}&page={page}&contactName={contactName}&contactDetail={contactDetail}", label = "Transferir a ...", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
 }

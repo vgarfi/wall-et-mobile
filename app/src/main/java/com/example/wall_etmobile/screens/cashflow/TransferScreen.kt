@@ -119,7 +119,7 @@ fun TransferScreenContent(
                     title = "A usuario de",
                     subtitle = "Wall-et",
                     onClick = {
-                        navigateToScreen("transferTo", mapOf("to" to "user","page" to "0"))
+                        navigateToScreen("transferTo", mapOf("target" to "user","page" to "0"))
                     }
                 )
                 Spacer(modifier = Modifier.width(adaptiveSpacing))
@@ -128,7 +128,7 @@ fun TransferScreenContent(
                     title = "A cuenta",
                     subtitle = "bancaria",
                     onClick = {
-                        navigateToScreen("transferTo", mapOf("to" to "account","page" to "0"))
+                        navigateToScreen("transferTo", mapOf("target" to "account","page" to "0"))
                     }
                 )
             }
@@ -147,7 +147,7 @@ fun TransferScreenContent(
             FrequentUserRow(
                 user = user,
                 onClick = {
-                    navigateToScreen("transferTo", mapOf("to" to "user","target" to user.contact,"page" to "1"))
+                    navigateToScreen("transferTo", mapOf("target" to "user","contactName" to user.name,"contactDetail" to user.contact,"page" to "1"))
                 }
             )
         }

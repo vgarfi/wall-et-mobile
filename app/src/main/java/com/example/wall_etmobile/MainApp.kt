@@ -1,5 +1,6 @@
 package com.example.wall_etmobile
 
+import TransferToScreen
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.size
@@ -38,7 +39,6 @@ import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.MainWhite
 import com.example.wall_etmobile.ui.theme.WalletMobileTheme
 import com.example.wall_etmobile.navigation.Screen
-import com.example.wall_etmobile.screens.cashflow.TransferToScreen
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Qrcode
@@ -50,7 +50,7 @@ fun onButtonClick(screen: Screen, currentDestination: String? = null, navigatorW
 }
 
 fun navigateToScreen(navController: NavController, route: String, args: Map<String, String?>) {
-    // Construct the route dynamically based on the arguments
+
     val routeWithArgs = buildString {
         append(route)
         if (args.isNotEmpty()) {
@@ -184,13 +184,16 @@ fun MainApp() {
                     backStackEntry ->
                     val target = backStackEntry.arguments?.getString("target")
                     val page = backStackEntry.arguments?.getString("page")
-                    val to = backStackEntry.arguments?.getString("to")
+                    val contactName = backStackEntry.arguments?.getString("contactName")
+                    val contactDetail = backStackEntry.arguments?.getString("contactDetail")
+
                     TransferToScreen(
                         target = target,
                         navController = navController,
                         navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
                         page = page?.toInt(),
-                        to = to
+                        contactName = contactName,
+                        contactDetail = contactDetail
                         )
                 }
 
