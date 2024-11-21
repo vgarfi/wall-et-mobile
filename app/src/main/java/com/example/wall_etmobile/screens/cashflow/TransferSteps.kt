@@ -13,7 +13,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.design_kit.shared.ActionButton
-
 fun TransferTo(
     topPadding: Int,
     onClick: () -> Unit = {},
@@ -23,27 +22,36 @@ fun TransferTo(
 ): @Composable () -> Unit {
     return {
         Column (
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Bottom
         ) {
-            if (header.isNotEmpty()) {
+
+                if (header.isNotEmpty()) {
                     Text(text = header, fontWeight = FontWeight.Bold)
-            }
-            LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
-            item {
-                CustomTextField(
-                    hint = hint,
-                    label = "",
-                    isPassword = false,
-                    controller = onValueChange,
-                )
-            }
-            item {
+                }
+            Column(horizontalAlignment = Alignment.CenterHorizontally)
+            {
+                LazyColumn(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    item {
+                        CustomTextField(
+                            hint = hint,
+                            label = "",
+                            isPassword = false,
+                            controller = onValueChange,
+                        )
+                    }
+                }
                 ActionButton(
                     title = "Continuar",
-                    onClick = onClick,
-                    elevation = true
+                onClick = onClick,
+                elevation = true,
+                modifier = Modifier.align(Alignment.End)
                 )
             }
-            }
+
         }
     }
 }
@@ -57,7 +65,8 @@ fun TransferAmount(
 ): @Composable () -> Unit {
     return {
         Column(
-
+            verticalArrangement = Arrangement.Bottom,
+                    modifier = Modifier.fillMaxSize(),
         ) {
 
                 ContactTransferTile(
@@ -68,7 +77,9 @@ fun TransferAmount(
 
 
             Text(text = "Mensaje (opcional)", fontWeight = FontWeight.Bold)
-              LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+              LazyColumn(horizontalAlignment = Alignment.CenterHorizontally,
+                  modifier = Modifier.weight(1f)) {
             item {
                 CustomTextField(
                     hint = "",
@@ -77,14 +88,13 @@ fun TransferAmount(
                     controller = onValueChange,
                 )
             }
-            item {
-                ActionButton(
-                    title = "Continuar",
-                    onClick = onClick,
-                    elevation = true
-                )
             }
-            }
+            ActionButton(
+                title = "Continuar",
+                onClick = onClick,
+                elevation = true
+            )
+        }
         }
     }
 }
@@ -113,51 +123,53 @@ fun TransferPayment(
 ): @Composable () -> Unit {
     return {
         Column(
-
+            verticalArrangement = Arrangement.Bottom,
+            modifier = Modifier.fillMaxSize(),
         ) {
 
-                ContactTransferTile(
-                    icon = R.drawable.logo,
-                    contactName = contactName,
-                    contactDetails = contactDetails,
-                )
             LazyColumn(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ){
-            item {
-                Text(text = "Vas a transferirle", fontWeight = FontWeight.Bold)
-            }
-            item {
-                CustomTextField(
-                    hint = "",
-                    label = "",
-                    isPassword = false,
-                    controller = onValueChange,
-                )
-            }
-            item {
-                Text(text = "Mensaje : $message", fontWeight = FontWeight.Light)
-            }
-            item {
-                Column(modifier = Modifier.heightIn(max = 240.dp)) {
-                PaymentSelector(
-                    cardsInfo = cardsInfo,
-                    selectedObject = selectedObject,
-                    PaymentBySelfBalance = PaymentBySelfBalance
-                ) {
-                    Text(text = "Medio de pago", fontWeight = FontWeight.Bold)
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                item {
+                    ContactTransferTile(
+                        icon = R.drawable.logo,
+                        contactName = contactName,
+                        contactDetails = contactDetails,
+                    )
                 }
+                item {
+                    Text(text = "Vas a transferirle", fontWeight = FontWeight.Bold)
+                }
+                item {
+                    CustomTextField(
+                        hint = "",
+                        label = "",
+                        isPassword = false,
+                        controller = onValueChange,
+                    )
+                }
+                item {
+                    Text(text = "Mensaje : $message", fontWeight = FontWeight.Light)
+                }
+                item {
+                    Column(modifier = Modifier.heightIn(max = 240.dp)) {
+                        PaymentSelector(
+                            cardsInfo = cardsInfo,
+                            selectedObject = selectedObject,
+                            PaymentBySelfBalance = PaymentBySelfBalance
+                        ) {
+                            Text(text = "Medio de pago", fontWeight = FontWeight.Bold)
+                        }
+                    }
                 }
             }
-            item {
-                ActionButton(
-                    title = buttonText,
-                    onClick = onClick,
-                    elevation = true,
-                    enabled = buttonEnabled
-                )
-            }
-            }
+            ActionButton(
+                title = buttonText,
+                onClick = onClick,
+                elevation = true,
+                enabled = buttonEnabled,
+            )
         }
     }
 }
