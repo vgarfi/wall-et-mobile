@@ -38,7 +38,6 @@ import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.MainWhite
 import com.example.wall_etmobile.ui.theme.WalletMobileTheme
 import com.example.wall_etmobile.navigation.Screen
-import com.example.wall_etmobile.screens.cashflow.TransferAmountScreen
 import com.example.wall_etmobile.screens.cashflow.TransferToScreen
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
