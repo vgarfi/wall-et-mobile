@@ -80,7 +80,7 @@ fun ExtendedBigIconButton (
                     text = title,
                     style = MaterialTheme.typography.bodyLarge.copy(
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
+                        fontSize = 15.5.sp,
                         textAlign = TextAlign.Center
                     )
                 )
@@ -88,7 +88,7 @@ fun ExtendedBigIconButton (
                 Text(
                     text = subtitle,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         textAlign = TextAlign.Center
                     )
                 )
