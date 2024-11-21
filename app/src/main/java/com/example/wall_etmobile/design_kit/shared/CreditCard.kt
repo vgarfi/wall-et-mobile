@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -93,4 +95,63 @@ fun FormatCardNumber(cardNumber: String) {
     }
 
     Text(text = formattedNumber, color = MainWhite)
+}
+
+@Composable
+fun getCardIcon(cardNumber: String): @Composable (() -> Unit) {
+    return when {
+        cardNumber.startsWith("4") -> {
+            {
+                Icon(
+                    painter = painterResource(id = com.example.wall_etmobile.R.drawable.visa),
+                    contentDescription = "Visa",
+                    modifier = Modifier.size(30.dp)
+                )
+            }
+        }
+        else -> {
+            {
+                Icon(
+                    painter = painterResource(id = com.example.wall_etmobile.R.drawable.mastercard),
+                    contentDescription = "MasterCard",
+                    modifier = Modifier.size(30.dp)
+                )
+            }
+        }
+//        cardNumber.startsWith("3") && (cardNumber[1] == '4' || cardNumber[1] == '7') -> {
+//            {
+//                Icon(
+//                    painter = painterResource(id = com.example.wall_etmobile.R.drawable.amex),
+//                    contentDescription = "American Express",
+//                    modifier = Modifier.size(30.dp)
+//                )
+//            }
+//        }
+    }
+}
+
+fun isValidCardNumber(cardNumber: String): Boolean {
+    return cardNumber.length == 16 && cardNumber.all { it.isDigit() }
+}
+
+fun getBankFromCard(cardNumber: String): String {
+    if (cardNumber.length < 6) return ""
+
+    val bin = cardNumber.substring(0, 6)
+
+    val bankMap = mapOf(
+        "450000" to "BNA",
+        "450001" to "Santander",
+        "450002" to "Galicia",
+        "450003" to "Banco Provincia",
+        "450004" to "BBVA",
+        "450006" to "ICBC",
+        "450007" to "Macro",
+        "601100" to "Discover",
+        "622126" to "UnionPay",
+        "520000" to "HSBC",
+        "411111" to "AMEX",
+    )
+
+    return bankMap[bin] ?: "HSBC"
 }

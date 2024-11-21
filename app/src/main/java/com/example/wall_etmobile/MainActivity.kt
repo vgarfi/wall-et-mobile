@@ -11,8 +11,8 @@ import com.example.wall_etmobile.ui.theme.WalletMobileTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        enableEdgeToEdge()
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         window.statusBarColor = MainPurple.toArgb()
         setContent {

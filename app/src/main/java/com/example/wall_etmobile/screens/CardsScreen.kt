@@ -1,4 +1,5 @@
 package com.example.wall_etmobile.screens
+import AddNewCreditCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +26,10 @@ import com.example.wall_etmobile.design_kit.shared.CreditCard
 
 @Composable
 fun CardsScreen() {
+    var showDialog by remember { mutableStateOf(false) }
+    val onAddCard: (String, String, String) -> Unit = { cardNumber, expirationDate, bankName ->
+        println("Tarjeta añadida: $cardNumber, $expirationDate, $bankName")
+    }
     BaseScaffold(tinyText = "tus", bigText = "Tarjetas") {
         Row (
             verticalAlignment = Alignment.CenterVertically,
@@ -29,7 +38,9 @@ fun CardsScreen() {
                 .padding(horizontal = 10.dp)
                 .fillMaxWidth()
         ){
-            BigIconButton(icon = R.drawable.add_card_icon, boldText = "Agregá", normalText ="una tarjeta", onClick = {})
+            BigIconButton(icon = R.drawable.add_card_icon, boldText = "Agregá", normalText ="una tarjeta", onClick = {
+                showDialog = true
+            })
             BigIconButton(icon = R.drawable.scan_card, boldText = "Escaneá", normalText ="una tarjeta", onClick = {} )
         }
         Column (
@@ -70,8 +81,13 @@ fun CardsScreen() {
                 cardImage = R.drawable.blue_card
             )
             Box(modifier = Modifier.height(100.dp))
-
         }
+
+        AddNewCreditCard(
+            showDialog = showDialog,
+            onDismiss = { showDialog = false },
+            onAddCard = onAddCard
+        )
     }
 }
 
