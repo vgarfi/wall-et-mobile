@@ -66,7 +66,6 @@ fun TransferScreen(
     CashFlowBaseScaffold(bigText = "Transferir", navController = navController) {
         Column(
             modifier = Modifier
-
                 .padding(top = topPadding.dp)
         ) {
             TransferScreenContent(
