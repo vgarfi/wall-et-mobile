@@ -22,5 +22,9 @@ enum class Screen(val route: String, val label: String, val icon: ImageVector, v
     TRANSFER("transfer", label = "Transferir", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
     CHARGE("charge", label = "Cobrar", icon = Icons.Outlined.MoreVert, tiny = false),
     INCOME("income", label = "Ingresar", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
-    TRANSACTIONDETAILS("transaction-details", label = "Detalles de la transaccion", icon = Icons.Outlined.KeyboardArrowDown, tiny = false)
+    TRANSACTIONDETAILS("transaction-details", label = "Detalles de la transaccion", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
+    TRANSFERUSER("transfer-user?target={target}", label = "Transferir a usuario", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
+    TRANSFERBANKACCOUNT("transfer-bank-account", label = "Transferir a cuenta bancaria", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
+    TRANSFERTO("transferTo?target={target}", label = "Transferir a usuario", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
+    TRANSFERAMOUNT("transferAmount?target={target}", label = "Transferir a usuario", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
 }
