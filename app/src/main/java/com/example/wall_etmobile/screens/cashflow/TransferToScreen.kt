@@ -31,7 +31,6 @@ fun TransferToScreen(
     contactName: String?,
     contactDetail: String?
 ) {
-    // Centralized states
     var userId = remember { mutableStateOf("") }
     var message = remember { mutableStateOf("") }
     var selectedObject = remember { mutableStateOf<CreditCardInfo?>(null) }
@@ -120,7 +119,7 @@ fun calculateTopPadding(): Int {
         WindowHeightSizeClass.COMPACT -> 40
         WindowHeightSizeClass.MEDIUM -> 60
         WindowHeightSizeClass.EXPANDED -> 160
-        else -> 0
+        else -> 1
     }
 }
 

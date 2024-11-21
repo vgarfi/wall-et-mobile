@@ -46,20 +46,20 @@ fun TransferScreen(
         WindowWidthSizeClass.MEDIUM -> 16.dp
         WindowWidthSizeClass.EXPANDED -> 32.dp
 
-        else -> { 0.dp}
+        else -> { 1.dp}
     }
     val adaptiveSpacing : Dp = when (windowSizeClass.windowHeightSizeClass) {
         WindowHeightSizeClass.COMPACT ->{ 120.dp}
         WindowHeightSizeClass.MEDIUM ->{ 24.dp }
         WindowHeightSizeClass.EXPANDED ->{ 32.dp }
-        else -> {0.dp}
+        else -> {1.dp}
     }
 
     when (windowSizeClass.windowHeightSizeClass) {
         WindowHeightSizeClass.COMPACT ->{topPadding= 40}
         WindowHeightSizeClass.MEDIUM ->{topPadding= 40}
         WindowHeightSizeClass.EXPANDED ->{topPadding= 160 }
-        else -> {0.dp}
+        else -> {1.dp}
     }
 
 
@@ -88,7 +88,6 @@ fun TransferScreenContent(
     var adaptiveHeight by remember { mutableDoubleStateOf(200.0) }
     var adaptiveWidth by remember { mutableDoubleStateOf(400.0) }
 
-    // Adjusting adaptive height/width based on window size
     when (windowSizeClass.windowWidthSizeClass) {
         WindowWidthSizeClass.COMPACT -> adaptiveWidth = adaptiveWidth
         WindowWidthSizeClass.MEDIUM -> adaptiveWidth *= 1.5
@@ -100,12 +99,11 @@ fun TransferScreenContent(
         WindowHeightSizeClass.EXPANDED -> adaptiveHeight *= 2
     }
 
-
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(adaptivePadding),
-        verticalArrangement = Arrangement.spacedBy(adaptiveSpacing) // Adds spacing between items
+        verticalArrangement = Arrangement.spacedBy(adaptiveSpacing)
     ) {
 
         item {
@@ -207,15 +205,19 @@ fun TransferOptionCard(
     var adaptiveHeight by remember { mutableDoubleStateOf(120.0) }
     var adaptiveWidth by remember { mutableDoubleStateOf(140.0) }
     when (windowSizeClass.windowWidthSizeClass) {
-        WindowWidthSizeClass.COMPACT -> adaptiveWidth = adaptiveWidth
-        WindowWidthSizeClass.MEDIUM -> adaptiveWidth *= 2.3
-        WindowWidthSizeClass.EXPANDED -> adaptiveWidth *= 4
+        WindowWidthSizeClass.COMPACT -> adaptiveWidth *= 1
+        WindowWidthSizeClass.MEDIUM -> adaptiveWidth *= 1.5
+        WindowWidthSizeClass.EXPANDED -> adaptiveWidth *= 2
     }
     when (windowSizeClass.windowHeightSizeClass) {
-        WindowHeightSizeClass.COMPACT -> adaptiveHeight = (adaptiveHeight)
-        WindowHeightSizeClass.MEDIUM -> adaptiveHeight = adaptiveWidth
-        WindowHeightSizeClass.EXPANDED -> adaptiveHeight *= 2.5
+        WindowHeightSizeClass.COMPACT -> adaptiveHeight *= 1
+        WindowHeightSizeClass.MEDIUM -> adaptiveHeight *= 1.1
+        WindowHeightSizeClass.EXPANDED -> adaptiveHeight *= 1.2
     }
+
+    adaptiveWidth = adaptiveWidth.coerceIn(150.0, 400.0)
+    adaptiveHeight = adaptiveHeight.coerceIn(150.0, 400.0)
+
     Box(modifier = modifier
         .height(adaptiveHeight.dp)
         .width(adaptiveWidth.dp)
@@ -259,7 +261,6 @@ fun TransferOptionCard(
         }
     }
 }
-
 
 
 @Preview(showBackground = true, widthDp = 360, heightDp = 640)

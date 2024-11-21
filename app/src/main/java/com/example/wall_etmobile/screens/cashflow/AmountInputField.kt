@@ -1,8 +1,6 @@
 package com.example.wall_etmobile.screens.cashflow
-
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -20,7 +18,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.ui.theme.MainBlack
 import com.example.wall_etmobile.ui.theme.MainPurple
-import com.example.wall_etmobile.ui.theme.MainRed
 
 @Composable
 fun AmountInputField(
@@ -37,10 +34,10 @@ fun AmountInputField(
             }
         },
         textStyle = TextStyle(
-            fontSize = 48.sp,
-            color = MainBlack,
+            fontSize = 54.sp,
+            color = MainPurple,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         ),
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Number
@@ -48,8 +45,8 @@ fun AmountInputField(
         singleLine = true,
         prefix = {
             if (text.isNotEmpty()) Text(text = "$", style = TextStyle(
-                fontSize = 48.sp,
-                color = MainBlack,
+                fontSize = 54.sp,
+                color = MainPurple,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             ),)
