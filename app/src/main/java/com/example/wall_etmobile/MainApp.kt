@@ -39,6 +39,7 @@ import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.MainWhite
 import com.example.wall_etmobile.ui.theme.WalletMobileTheme
 import com.example.wall_etmobile.navigation.Screen
+import com.example.wall_etmobile.screens.cashflow.EnterFromScreen
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Qrcode
@@ -170,8 +171,27 @@ fun MainApp() {
                 composable(Screen.CHARGE.route) {
                     ChargeScreen(navController = navController)
                 }
-                composable(Screen.INCOME.route) {
-                    EnterScreen(navController = navController)
+                composable(Screen.ENTER.route) {
+                    EnterScreen(
+                        navController = navController,
+                        navigateToScreen = { route, args -> navigateToScreen(navController, route, args) }
+                        )
+                }
+                composable(
+                    Screen.ENTERFROM.route,
+                    arguments = listOf(navArgument("source") { type = NavType.StringType; nullable = true },
+                        navArgument("page") { type = NavType.StringType; nullable = true })
+                ) {
+                        backStackEntry ->
+                    val source = backStackEntry.arguments?.getString("source")
+                    val page = backStackEntry.arguments?.getString("page")
+
+                    EnterFromScreen(
+                        source = source,
+                        navController = navController,
+                        navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
+                        page = page?.toInt(),
+                    )
                 }
                 composable(Screen.TRANSACTIONDETAILS.route) {
                     TransactionDetailsScreen(navController = navController)
