@@ -91,7 +91,7 @@ fun TransferToScreen(
             buttonEnabled = true,
             onClick = {
                 currentStep = 0
-                navigateToScreen("home", mapOf("userId" to userId.value))
+                navigateToScreen("transaction-details", emptyMap())
             }
         )
     )

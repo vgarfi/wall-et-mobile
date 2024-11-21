@@ -169,7 +169,7 @@ fun MainApp() {
                     )
                 }
                 composable(Screen.CHARGE.route) {
-                    ChargeScreen(navController = navController)
+                    ChargeScreen(navController = navController, navigateToScreen = { route, args -> navigateToScreen(navController, route, args) })
                 }
                 composable(Screen.ENTER.route) {
                     EnterScreen(
@@ -194,7 +194,7 @@ fun MainApp() {
                     )
                 }
                 composable(Screen.TRANSACTIONDETAILS.route) {
-                    TransactionDetailsScreen(navController = navController)
+                    TransactionDetailsScreen(navController = navController, navigateToScreen = { route, args -> navigateToScreen(navController, route, args) })
                 }
                 composable(
                     Screen.TRANSFERTO.route,

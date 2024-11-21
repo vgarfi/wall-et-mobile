@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
@@ -29,7 +30,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ChargeScreen(
-    navController: NavController
+    navController: NavController,
+    navigateToScreen: (String, Map<String, String?>) -> Unit = { _, _ -> },
 ) {
     var amount by remember { mutableStateOf("") }
     var message = remember { mutableStateOf("") }
@@ -55,31 +57,40 @@ fun ChargeScreen(
             totalSteps = totalSteps,
             modifier = Modifier.padding(top = calculateTopPadding().dp)
         ) {
-            Column (
+            LazyColumn (
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxHeight()
             ){
+                item {
                 HorizontalPager(
                     modifier = Modifier.padding(top = (calculateTopPadding() * 0.1).dp),
                     state = pagerState,
                     userScrollEnabled = false
                 ) { pageIndex -> pages[pageIndex].invoke()
                 }
+                }
+                item {
                 ActionButton(
-                    title = if (currentStep == 0) "Continuar" else "Compartir link de pago" ,
+                    title = if (currentStep == 0) "Continuar" else "Volver al inicio" ,
                     onClick = {
-                        coroutineScope.launch {
-                            if (pagerState.currentPage < pagerState.pageCount - 1) {
-                                currentStep++
-                                pagerState.animateScrollToPage(currentStep)
+                        if (currentStep == 0) {
+                            coroutineScope.launch {
+                                if (pagerState.currentPage < pagerState.pageCount - 1) {
+                                    currentStep++
+                                    pagerState.animateScrollToPage(currentStep)
+                                }
                             }
+                        }
+                        else{
+                            navigateToScreen("home", emptyMap())
                         }
                     },
                     elevation = true,
                     enabled = amount.isNotEmpty(),
                     modifier = Modifier.fillMaxWidth()
                 )
+                }
             }
 
         }

@@ -38,48 +38,48 @@ fun ChargeAmount(
     messageController: MutableState<String>,
 
     ) : @Composable () -> Unit {
-        return { 
-    Column(
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(top = 80.dp)
-    ) {
-        var amount by remember { mutableStateOf("") }
-        Text(text = "Quiero cobrar", fontSize = 22.sp)
-        Box(modifier = Modifier.height(10.dp))
-        AmountInputField(
-            onValueChange =  { newAmount ->
-                amount = newAmount
-                onValueChange(amount)
-            }
-        )
-        Spacer(modifier = Modifier.height(85.dp))
-        Column (
-            modifier = Modifier.padding(horizontal = 16.dp)
+    return {
+        Column(
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(top = 80.dp)
         ) {
-            Row (
-            ){
-                Text(text = "Mensaje", fontWeight = FontWeight.Bold)
-                Text(text = " (opcional)")
-            }
-            Box(modifier = Modifier.height(5.dp))
-            CustomTextField(
-                hint = "Escribe un mensaje",
-                label = "",
-                isPassword = false,
-                controller = messageController,
+            var amount by remember { mutableStateOf("") }
+            Text(text = "Quiero cobrar", fontSize = 22.sp)
+            Box(modifier = Modifier.height(10.dp))
+            AmountInputField(
+                onValueChange =  { newAmount ->
+                    amount = newAmount
+                    onValueChange(amount)
+                }
             )
+            Spacer(modifier = Modifier.height(85.dp))
+            Column (
+                modifier = Modifier.padding(horizontal = 16.dp)
+            ) {
+                Row (
+                ){
+                    Text(text = "Mensaje", fontWeight = FontWeight.Bold)
+                    Text(text = " (opcional)")
+                }
+                Box(modifier = Modifier.height(5.dp))
+                CustomTextField(
+                    hint = "Escribe un mensaje",
+                    label = "",
+                    isPassword = false,
+                    controller = messageController,
+                )
+            }
         }
     }
-        }
 }
 fun ChargeQR (
     amount: String,
     message: String
 ) : @Composable () -> Unit  {
     return {
-        LazyColumn {
-            item {
+        Column {
+
                 Column(
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -118,7 +118,7 @@ fun ChargeQR (
                     }
                 }
             }
-        }
+
 
     }
 

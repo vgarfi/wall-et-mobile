@@ -215,8 +215,8 @@ fun TransferOptionCard(
         WindowHeightSizeClass.EXPANDED -> adaptiveHeight *= 1.2
     }
 
-    adaptiveWidth = adaptiveWidth.coerceIn(150.0, 400.0)
-    adaptiveHeight = adaptiveHeight.coerceIn(150.0, 400.0)
+    adaptiveWidth = adaptiveWidth.coerceIn(150.0, 150.0)
+    adaptiveHeight = adaptiveHeight.coerceIn(150.0, 150.0)
 
     Box(modifier = modifier
         .height(adaptiveHeight.dp)
