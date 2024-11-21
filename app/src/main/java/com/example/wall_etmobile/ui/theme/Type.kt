@@ -20,14 +20,14 @@ val Typography = Typography(
         fontWeight = FontWeight.ExtraBold,
         fontSize = 50.sp,
         lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        letterSpacing = 0.5.sp
     ),
     titleMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         fontSize = 35.sp,
         lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        letterSpacing = 0.5.sp
     ),
     titleSmall = TextStyle(
         fontFamily = FontFamily.Default,

@@ -14,6 +14,9 @@
 
     <string name="favorite">Favorito</string>
 
+    <string name="select_movent_indication">Seleccione un movimiento para ver mas detalles</string>
+
+
     <string name="cvu_info">Tu CVU es único e identifica tu cuenta Wall-et.</string>
     <string name="cvu_presenter">Tu CVU:</string>
 

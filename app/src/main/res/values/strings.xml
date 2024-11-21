@@ -34,4 +34,6 @@
     <string name="add">Add</string>
 
     <string name="favorite">Favorite</string>
+
+    <string name="select_movent_indication">Select some transaction to see more details</string>
 </resources>
