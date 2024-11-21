@@ -35,7 +35,7 @@ fun TransferToScreen(
     var userId = remember { mutableStateOf("") }
     var message = remember { mutableStateOf("") }
     var selectedObject = remember { mutableStateOf<CreditCardInfo?>(null) }
-    var amount = remember { mutableIntStateOf(150) }
+    var amount = remember { mutableStateOf("0") }
 
     val totalSteps = 3
     var currentStep by remember { mutableIntStateOf(page ?: 0) }
@@ -76,7 +76,8 @@ fun TransferToScreen(
                         pagerState.animateScrollToPage(currentStep)
                     }
                 }
-            }
+            },
+            onAmountChange = amount
         ),
         TransferPayment(
             topPadding = calculateTopPadding(),
