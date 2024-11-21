@@ -174,7 +174,7 @@ fun MainApp() {
                     EnterScreen(navController = navController)
                 }
                 composable(Screen.TRANSACTIONDETAILS.route) {
-                    TransactionDetailsScreen(navController = navController)
+                    TransactionDetailsScreen(navController = navController, navigateToScreen = { route, args -> navigateToScreen(navController, route, args) })
                 }
                 composable(
                     Screen.TRANSFERTO.route,

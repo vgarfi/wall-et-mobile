@@ -54,12 +54,12 @@ fun ActionButton(
     width: Int = 300,
     modifier: Modifier = Modifier,
     @ColorRes contentColorRes: Int = R.color.white,
-    containerColorRes: Color = MainPurple,
+    @ColorRes containerColorRes: Int = R.color.mainPurple,
     elevation: Boolean = false,
     enabled: Boolean = true,
 ) {
     val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
-    val containerColor = containerColorRes
+    val containerColor =colorResource(id = containerColorRes)
     val contentColor = colorResource(id = contentColorRes)
     var adaptiveHeight by remember { mutableDoubleStateOf(0.0)}
     var adaptiveWidth by remember { mutableDoubleStateOf(0.0)}

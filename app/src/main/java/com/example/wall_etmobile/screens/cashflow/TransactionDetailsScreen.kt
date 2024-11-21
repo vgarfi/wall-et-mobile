@@ -21,10 +21,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.design_kit.shared.ActionButton
 
 @Composable
 fun TransactionDetailsScreen(
-    navController: NavController
+    navController: NavController,
+    navigateToScreen: (String, Map<String, String?>) -> Unit = { _, _ -> },
 ) {
     Box (modifier = Modifier
         .fillMaxWidth()){
@@ -43,13 +45,12 @@ fun TransactionDetailsScreen(
                 .fillMaxSize(),
 
         ) { item {   TransactionDetails() }
-            item {     Button(onClick = {}) {
-                Text(text = "Compartir comprobante")
+            item {
+                ActionButton(title = "Compartir comprobante", enabled = false, onClick = { }, modifier = Modifier.padding(bottom = 12.dp), elevation = false)
             }
-            }
-            item {       Button(onClick = { navController.popBackStack()}) {
-                Text(text = "Volver al inicio")
-            }
+            item {
+                ActionButton(title = "Volver al inicio", onClick = { navigateToScreen("home", emptyMap()) })
+
             }
         }
     }
