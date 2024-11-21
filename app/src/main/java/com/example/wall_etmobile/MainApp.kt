@@ -168,7 +168,7 @@ fun MainApp() {
                     )
                 }
                 composable(Screen.CHARGE.route) {
-                    ChargeScreen(navController = navController)
+                    ChargeScreen(navController = navController, navigateToScreen = { route, args -> navigateToScreen(navController, route, args) })
                 }
                 composable(Screen.INCOME.route) {
                     EnterScreen(navController = navController)

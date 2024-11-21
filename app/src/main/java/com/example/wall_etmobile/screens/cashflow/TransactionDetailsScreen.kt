@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,21 +35,21 @@ fun TransactionDetailsScreen(
             contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter
         )
-        Column (
+        LazyColumn (
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxSize(),
 
-        ) {
-            TransactionDetails()
-            Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = {}) {
+        ) { item {   TransactionDetails() }
+            item {     Button(onClick = {}) {
                 Text(text = "Compartir comprobante")
             }
-            Button(onClick = { navController.popBackStack()}) {
+            }
+            item {       Button(onClick = { navController.popBackStack()}) {
                 Text(text = "Volver al inicio")
+            }
             }
         }
     }
