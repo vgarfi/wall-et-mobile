@@ -179,27 +179,20 @@ fun MainApp() {
                 }
                 composable(
                     Screen.TRANSFERTO.route,
-                    arguments = listOf(navArgument("target") { type = NavType.StringType; nullable = true })
+                    arguments = listOf(navArgument("target") { type = NavType.StringType; nullable = true },
+                        navArgument("page") { type = NavType.StringType; nullable = true })
                 ) {
                     backStackEntry ->
                     val target = backStackEntry.arguments?.getString("target")
+                    val page = backStackEntry.arguments?.getString("page")
+                    val to = backStackEntry.arguments?.getString("to")
                     TransferToScreen(
                         target = target,
                         navController = navController,
-                        navigateToScreen = { route, args -> navigateToScreen(navController, route, args) }
+                        navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
+                        page = page?.toInt(),
+                        to = to
                         )
-                }
-                composable(
-                    Screen.TRANSFERAMOUNT.route,
-                    arguments = listOf(navArgument("target") { type = NavType.StringType; nullable = true })
-                ) {
-                        backStackEntry ->
-                    val target = backStackEntry.arguments?.getString("target")
-                    TransferAmountScreen(
-                        target = target,
-                        navController = navController,
-                        navigateToScreen = { route, args -> navigateToScreen(navController, route, args) }
-                    )
                 }
 
             }
