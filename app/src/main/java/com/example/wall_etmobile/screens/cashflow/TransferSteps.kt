@@ -7,6 +7,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -61,9 +65,11 @@ fun TransferAmount(
     onClick: () -> Unit = {},
     onValueChange: MutableState<String>,
     contactName: String = "Tomas",
-    contactDetails: String = "bordatomas@hotmail.com"
+    contactDetails: String = "bordatomas@hotmail.com",
+    onAmountChange : MutableState<String>
 ): @Composable () -> Unit {
     return {
+
         Column(
             verticalArrangement = Arrangement.Bottom,
                     modifier = Modifier.fillMaxSize(),
@@ -76,18 +82,31 @@ fun TransferAmount(
                 )
 
 
-            Text(text = "Mensaje (opcional)", fontWeight = FontWeight.Bold)
+
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
               LazyColumn(horizontalAlignment = Alignment.CenterHorizontally,
                   modifier = Modifier.weight(1f)) {
-            item {
-                CustomTextField(
-                    hint = "",
-                    label = "",
-                    isPassword = false,
-                    controller = onValueChange,
-                )
-            }
+
+
+                  item {
+                      AmountInputField(onValueChange = {onAmountChange.value= it})
+
+                  }
+                  item{
+                      Column(modifier = Modifier.fillMaxWidth(),
+                          horizontalAlignment = Alignment.Start) {
+                          Text(text = "Mensaje (opcional)", fontWeight = FontWeight.Bold)
+                      }
+                  }
+
+                  item {
+                      CustomTextField(
+                          hint = "Mensaje",
+                          label = "",
+                          isPassword = false,
+                          controller = onValueChange,
+                      )
+                  }
             }
             ActionButton(
                 title = "Continuar",
@@ -118,7 +137,7 @@ fun TransferPayment(
     PaymentBySelfBalance: Boolean = false,
     selectedObject: (CreditCardInfo) -> Unit = {},
     buttonText: String = "Transferir",
-    amount: Int = 0,
+    amount: String = "0",
     buttonEnabled: Boolean = true
 ): @Composable () -> Unit {
     return {
@@ -127,27 +146,22 @@ fun TransferPayment(
             modifier = Modifier.fillMaxSize(),
         ) {
 
+                ContactTransferTile(
+                    icon = R.drawable.logo,
+                    contactName = contactName,
+                    contactDetails = contactDetails,
+                )
+
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.weight(1f)
             ) {
-                item {
-                    ContactTransferTile(
-                        icon = R.drawable.logo,
-                        contactName = contactName,
-                        contactDetails = contactDetails,
-                    )
-                }
+
                 item {
                     Text(text = "Vas a transferirle", fontWeight = FontWeight.Bold)
                 }
                 item {
-                    CustomTextField(
-                        hint = "",
-                        label = "",
-                        isPassword = false,
-                        controller = onValueChange,
-                    )
+                   AmountInputField(readOnly = true, textIn = amount, onValueChange = {})
                 }
                 item {
                     Text(text = "Mensaje : $message", fontWeight = FontWeight.Light)
@@ -164,12 +178,14 @@ fun TransferPayment(
                     }
                 }
             }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
             ActionButton(
                 title = buttonText,
                 onClick = onClick,
                 elevation = true,
                 enabled = buttonEnabled,
             )
+            }
         }
     }
 }

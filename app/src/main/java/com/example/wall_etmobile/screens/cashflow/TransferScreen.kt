@@ -109,7 +109,7 @@ fun TransferScreenContent(
         item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 TransferOptionCard(
                     iconRes = R.drawable.logo,
@@ -119,9 +119,9 @@ fun TransferScreenContent(
                         navigateToScreen("transferTo", mapOf("target" to "user","page" to "0"))
                     }
                 )
-                Spacer(modifier = Modifier.width(adaptiveSpacing))
+
                 TransferOptionCard(
-                    iconRes = R.drawable.logo,
+                    iconRes = R.drawable.bank,
                     title = "A cuenta",
                     subtitle = "bancaria",
                     onClick = {

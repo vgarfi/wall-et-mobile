@@ -21,11 +21,14 @@ import com.example.wall_etmobile.ui.theme.MainPurple
 
 @Composable
 fun AmountInputField(
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    textIn : String = "",
+    readOnly : Boolean = false
 ) {
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(textIn) }
     TextField(
         value = text,
+        readOnly = readOnly,
         onValueChange = { newValue ->
             val sanitizedValue = newValue.filter { it.isDigit() || it == '.'}
             if (sanitizedValue.count { it == '.' } <= 1) {
