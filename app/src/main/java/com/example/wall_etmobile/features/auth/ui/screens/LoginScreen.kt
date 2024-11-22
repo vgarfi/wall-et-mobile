@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ElevatedButton
@@ -22,9 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.features.auth.ui.composables.RememberLoginCheckbox
 import com.example.wall_etmobile.core.theme.MainPurple
@@ -46,13 +50,13 @@ fun LoginScreen(navController: NavController) {
         ) {
             Spacer(modifier = Modifier.size(16.dp))
             CustomTextField(
-                label = "Correo electrónico",
+                label = stringResource(R.string.email),
                 hint = "juan@gmail.com",
                 controller = email,
             )
             Spacer(modifier = Modifier.size(16.dp))
             CustomTextField(
-                label = "Contraseña",
+                label = stringResource(R.string.password),
                 hint = "********",
                 controller = password,
                 isPassword = true,
@@ -71,24 +75,21 @@ fun LoginScreen(navController: NavController) {
                         }
                 ) {
                     Text(
-                        text = "¿Olvidaste tu contraseña?",
+                        text = stringResource(R.string.forgot_password),
                         fontSize = 14.sp,
                         color = MainPurple,
                     )
                 }
             }
             Spacer(modifier = Modifier.size(16.dp))
-            ElevatedButton(
+            ActionButton(
                 onClick = {
                     navController.navigate(Screen.HOME.route)
                 },
-                modifier = Modifier.fillMaxWidth())
-            {
-                Text(
-                    text = "Inicia sesión",
-                    fontSize = 16.sp
-                )
-            }
+                modifier = Modifier.fillMaxWidth().height(48.dp),
+                title = stringResource(R.string.sign_in),
+                elevation = true,
+            )
             Spacer(modifier = Modifier.size(16.dp))
             TextButton(
                 onClick = {
@@ -98,13 +99,13 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text(
-                    text = "¿No tenés cuenta?",
+                    text = stringResource(R.string.don_t_have_an_account),
                     fontSize = 16.sp,
                     color = Color.Black
                 )
                 Spacer(modifier = Modifier.size(4.dp))
                 Text(
-                    text = "Registrate",
+                    text = stringResource(R.string.sign_up),
                     fontSize = 16.sp,
                     color = MainPurple
                 )

@@ -7,7 +7,9 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
+import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
 
@@ -29,11 +31,11 @@ fun TermsCheckbox() {
             )
         )
         Text(
-            text = "Acepto los",
+            text = stringResource(R.string.i_accept_the),
             fontSize = 12.sp,
         )
         Text(
-            text = " términos y condiciones",
+            text = stringResource(R.string.terms_and_conditions),
             fontSize = 12.sp,
             color = MainPurple,
         )

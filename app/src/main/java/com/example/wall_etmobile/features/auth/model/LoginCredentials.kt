@@ -3,7 +3,7 @@ package com.example.wall_etmobile.features.auth.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NetworkCredentials(
+data class LoginCredentials(
     var email: String,
     var password: String
 )

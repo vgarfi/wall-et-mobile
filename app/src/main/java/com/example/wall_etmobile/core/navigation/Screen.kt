@@ -25,7 +25,7 @@ enum class Screen(val route: String, val label: String, val icon: ImageVector, v
     TRANSACTIONDETAILS("transaction-details", label = "Detalles de la transaccion", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
     ENTERFROM("enterFrom?source={source}&page={page}", label = "Ingresar", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
     TRANSFERTO("transferTo?target={target}&page={page}&contactName={contactName}&contactDetail={contactDetail}", label = "Transferir a ...", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
-    WELCOME("welcome", label = "Bienvenido", icon = Icons.Outlined.Person, tiny = false),
+    WELCOME("welcome", label = "Welcome", icon = Icons.Outlined.Person, tiny = false),
     LOGIN("login", label = "Iniciá Sesión", icon = Icons.Outlined.Person, tiny = false),
     REGISTER("register", label = "Registrate", icon = Icons.Outlined.Person, tiny = false),
     FORGOTPASSWORD("forgot-password", label = "Olvidé mi contraseña", icon = Icons.Outlined.Person, tiny = false),
