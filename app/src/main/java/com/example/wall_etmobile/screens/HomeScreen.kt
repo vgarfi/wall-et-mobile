@@ -39,9 +39,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.window.core.layout.WindowWidthSizeClass
-import com.example.wall_etmobile.data.FavoriteTileData
-import com.example.wall_etmobile.data.MovementData
-import com.example.wall_etmobile.data.RoundedImageData
+import com.example.wall_etmobile.ui.data.FavoriteTileData
+import com.example.wall_etmobile.ui.data.MovementData
+import com.example.wall_etmobile.ui.data.RoundedImageData
 import com.example.wall_etmobile.design_kit.home.CvuDialog
 import com.example.wall_etmobile.design_kit.home.FavoriteDialog
 import com.example.wall_etmobile.design_kit.home.HomeHeader

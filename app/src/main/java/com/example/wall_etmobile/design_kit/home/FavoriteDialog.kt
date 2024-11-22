@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.data.FavoriteTileData
+import com.example.wall_etmobile.ui.data.FavoriteTileData
 import com.example.wall_etmobile.design_kit.shared.FavoriteTile
 
 @Composable

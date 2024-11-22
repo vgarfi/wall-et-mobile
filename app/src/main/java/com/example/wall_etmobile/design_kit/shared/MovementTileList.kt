@@ -3,7 +3,7 @@ package com.example.wall_etmobile.design_kit.shared
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import com.example.wall_etmobile.data.MovementData
+import com.example.wall_etmobile.ui.data.MovementData
 
 @Composable
 fun MovementTileList(
