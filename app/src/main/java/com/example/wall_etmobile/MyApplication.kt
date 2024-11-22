@@ -10,7 +10,6 @@ import com.example.wall_etmobile.repository.WalletRepository
 
 
 class MyApplication : Application() {
-
     private val userRemoteDataSource: UserRemoteDataSource
         get() = UserRemoteDataSource(sessionManager, RetrofitClient.getUserApiService(this))
 

@@ -71,6 +71,7 @@ fun MainApp() {
         Screen.FORGOTPASSWORD.route,
         Screen.VERIFYACCOUNT.route,
         Screen.RESTOREPASSWORD.route,
+        Screen.TRANSACTIONDETAILS.route
     )
 
     val topBarRoutes = listOf(
@@ -96,7 +97,7 @@ fun MainApp() {
         val navigatorWrapper = NavigatorWrapper(navController)
 
         with(adaptiveInfo) {
-            if (windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.MEDIUM) {
+            if (windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.MEDIUM || windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.EXPANDED) {
                 NavigationSuiteType.NavigationRail
             } else {
                 NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(adaptiveInfo)
