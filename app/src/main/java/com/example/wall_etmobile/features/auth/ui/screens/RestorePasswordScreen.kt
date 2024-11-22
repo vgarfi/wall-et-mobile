@@ -1,6 +1,6 @@
 package com.example.wall_etmobile.features.auth.ui.screens
 
-import CustomTextField
+import com.example.wall_etmobile.core.designKit.CustomTextField
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

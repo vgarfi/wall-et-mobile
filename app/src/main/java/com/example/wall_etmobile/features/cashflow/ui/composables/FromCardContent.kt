@@ -16,9 +16,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.wall_etmobile.design_kit.shared.ActionButton
-import com.example.wall_etmobile.design_kit.shared.EnterAmount
-import com.example.wall_etmobile.design_kit.shared.EnterPayment
+import com.example.wall_etmobile.core.designKit.ActionButton
+import com.example.wall_etmobile.core.designKit.EnterAmount
+import com.example.wall_etmobile.core.designKit.EnterPayment
 import com.example.wall_etmobile.features.cashflow.ui.screens.calculateTopPadding
 import com.example.wall_etmobile.features.cashflow.ui.screens.getSampleCards
 import kotlinx.coroutines.launch

@@ -33,7 +33,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.core.navigation.NavigationHostWrapper
-import com.example.wall_etmobile.design_kit.shared.BottomAppBarButton
+import com.example.wall_etmobile.core.designKit.BottomAppBarButton
 import com.example.wall_etmobile.core.navigation.NavigatorWrapper
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite

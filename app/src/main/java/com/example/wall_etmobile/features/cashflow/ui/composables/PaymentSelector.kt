@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.design_kit.shared.CreditCard
+import com.example.wall_etmobile.core.designKit.CreditCard
 data class CreditCardInfo(val bankName: String, val cardNumber: Number,val cardHolder: String,val cardExpiration: String,val cardImage: Int)
 
 @Composable

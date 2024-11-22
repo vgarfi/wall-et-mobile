@@ -1,6 +1,6 @@
 package com.example.wall_etmobile.features.profile.ui.screens
 
-import CustomTextField
+import com.example.wall_etmobile.core.designKit.CustomTextField
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.design_kit.shared.BaseScaffold
+import com.example.wall_etmobile.core.designKit.BaseScaffold
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.GrayText
 import com.example.wall_etmobile.core.theme.MainBlack

@@ -17,8 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.design_kit.shared.ActionButton
-import com.example.wall_etmobile.design_kit.shared.CopyCVU
+import com.example.wall_etmobile.core.designKit.ActionButton
+import com.example.wall_etmobile.core.designKit.CopyCVU
 @Composable
 fun WithCVUContent() {
     Column (

@@ -1,6 +1,6 @@
 package com.example.wall_etmobile.features.cashflow.ui.composables
 
-import CustomTextField
+import com.example.wall_etmobile.core.designKit.CustomTextField
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.design_kit.shared.ActionButton
+import com.example.wall_etmobile.core.designKit.ActionButton
 fun TransferTo(
     topPadding: Int,
     onClick: () -> Unit = {},

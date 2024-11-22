@@ -1,5 +1,5 @@
 package com.example.wall_etmobile.features.cards.ui.screens
-import AddNewCreditCard
+import com.example.wall_etmobile.core.designKit.AddNewCreditCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.design_kit.shared.BaseScaffold
-import com.example.wall_etmobile.design_kit.shared.BigIconButton
-import com.example.wall_etmobile.design_kit.shared.CreditCard
+import com.example.wall_etmobile.core.designKit.BaseScaffold
+import com.example.wall_etmobile.core.designKit.BigIconButton
+import com.example.wall_etmobile.core.designKit.CreditCard
 
 @Composable
 fun CardsScreen() {

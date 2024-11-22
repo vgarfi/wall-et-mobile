@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
-import com.example.wall_etmobile.design_kit.shared.ActionButton
+import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.theme.MainPurple
 
 @Composable

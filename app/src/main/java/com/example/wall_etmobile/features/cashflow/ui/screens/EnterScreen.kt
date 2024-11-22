@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.design_kit.shared.ExtendedBigIconButton
+import com.example.wall_etmobile.core.designKit.ExtendedBigIconButton
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 
 @Composable

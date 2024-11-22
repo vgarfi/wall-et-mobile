@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.wall_etmobile.design_kit.shared.ActionButton
+import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowStepIndicator
 import com.example.wall_etmobile.features.cashflow.ui.composables.ChargeAmount

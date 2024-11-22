@@ -3,7 +3,7 @@ package com.example.wall_etmobile.ui.data
 import androidx.annotation.StringRes
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import com.example.wall_etmobile.design_kit.shared.TransactionType
+import com.example.wall_etmobile.core.designKit.TransactionType
 
 data class MovementData(
     val tileHeight: Dp,
