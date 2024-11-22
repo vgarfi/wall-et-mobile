@@ -1,34 +1,31 @@
 package com.example.wall_etmobile.features.cards.repository
 
 import com.example.wall_etmobile.features.cards.datasource.CardRemoteDataSource
-import com.example.wall_etmobile.features.cards.model.Card
+import com.example.wall_etmobile.features.cards.model.CreditCard
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 class CardRepository(
     private val remoteDataSource: CardRemoteDataSource
 ) {
-    // Mutex to make writes to cached values thread-safe.
     private val cardsMutex = Mutex()
-    // Cache of the latest sports got from the network.
-    private var cards: List<Card> = emptyList()
+    private var creditCards: List<CreditCard> = emptyList()
 
-    suspend fun getCards(refresh: Boolean = false): List<Card> {
-        if (refresh || cards.isEmpty()) {
+    suspend fun getCards(refresh: Boolean = false): List<CreditCard> {
+        if (refresh || creditCards.isEmpty()) {
             val result = remoteDataSource.getCards()
-            // Thread-safe write to sports
             cardsMutex.withLock {
-                this.cards = result.map { it.asModel() }
+                this.creditCards = result.map { it.asModel() }
             }
         }
 
-        return cardsMutex.withLock { this.cards }
+        return cardsMutex.withLock { this.creditCards }
     }
 
-    suspend fun addCard(card: Card) : Card {
-        val newCard = remoteDataSource.addCard(card.asNetworkModel()).asModel()
+    suspend fun addCard(creditCard: CreditCard) : CreditCard {
+        val newCard = remoteDataSource.addCard(creditCard.asNetworkModel()).asModel()
         cardsMutex.withLock {
-            this.cards = emptyList()
+            this.creditCards = emptyList()
         }
         return newCard
     }
@@ -36,7 +33,7 @@ class CardRepository(
     suspend fun deleteCard(cardId: Int) {
         remoteDataSource.deleteCard(cardId)
         cardsMutex.withLock {
-            this.cards = emptyList()
+            this.creditCards = emptyList()
         }
     }
 }
