@@ -37,7 +37,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.data.MovementData
+import com.example.wall_etmobile.ui.data.MovementData
 import com.example.wall_etmobile.design_kit.shared.BaseScaffold
 import com.example.wall_etmobile.design_kit.shared.MovementTileList
 import com.example.wall_etmobile.design_kit.shared.TransactionType

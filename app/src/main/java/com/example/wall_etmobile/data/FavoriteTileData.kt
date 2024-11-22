@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.data
+package com.example.wall_etmobile.ui.data
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
