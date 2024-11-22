@@ -38,7 +38,7 @@ class CardViewModel(
         { state, response ->
             state.copy(
                 currentCard = response,
-                cards = null
+//                cards = null
             )
         }
     )
@@ -48,7 +48,7 @@ class CardViewModel(
         { state, _ ->
             state.copy(
                 currentCard = null,
-                cards = null
+//                cards = null
             )
         }
     )
