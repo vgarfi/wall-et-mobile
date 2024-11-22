@@ -46,10 +46,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.navigation.Screen
 import com.example.wall_etmobile.ui.theme.LightBackground
 import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.MainWhite
-import com.pathak.barberapp.navigation.Screen
 
 @Composable
 fun VerifyAccountScreen(navController: NavController) {
@@ -131,7 +131,7 @@ fun VerifyAccountScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(32.dp))
                 ElevatedButton(
                     onClick = {
-                        navController.navigate(Screen.RestorePassword.route)
+                        navController.navigate(Screen.RESTOREPASSWORD.route)
                     },
                     modifier = Modifier
                         .fillMaxWidth()

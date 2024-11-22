@@ -21,9 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.navigation.Screen
 import com.example.wall_etmobile.ui.theme.GrayText
 import com.example.wall_etmobile.ui.theme.MainWhite
-import com.pathak.barberapp.navigation.Screen
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
@@ -59,7 +59,7 @@ fun WelcomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.weight(1f))
             // TODO: Reemplazar por botones correctos
             ElevatedButton(onClick = {
-                navController.navigate(Screen.Login.route)
+                navController.navigate(Screen.LOGIN.route)
             }, modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
                 Text(
                     text = "Iniciar sesión",
@@ -68,7 +68,7 @@ fun WelcomeScreen(navController: NavController) {
             }
             Spacer(modifier = Modifier.size(8.dp))
             ElevatedButton(onClick = {
-                navController.navigate(Screen.Register.route)
+                navController.navigate(Screen.REGISTER.route)
             }, modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
                 Text(
                     text = "Crear cuenta",

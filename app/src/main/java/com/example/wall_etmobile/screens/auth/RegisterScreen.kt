@@ -27,11 +27,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.navigation.Screen
 import com.example.wall_etmobile.screens.auth.composables.RememberLoginCheckbox
 import com.example.wall_etmobile.screens.auth.composables.TermsCheckbox
 import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.MainWhite
-import com.pathak.barberapp.navigation.Screen
 
 @Composable
 fun RegisterScreen(navController: NavController) {
@@ -89,7 +89,7 @@ fun RegisterScreen(navController: NavController) {
             // TODO: cambiar boton al correcto
             TextButton(
                 onClick = {
-                    navController.navigate(Screen.Login.route)
+                    navController.navigate(Screen.LOGIN.route)
                 },
                 contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.align(Alignment.CenterHorizontally)

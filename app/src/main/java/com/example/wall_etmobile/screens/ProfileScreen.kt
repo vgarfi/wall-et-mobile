@@ -38,11 +38,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.design_kit.shared.BaseScaffold
+import com.example.wall_etmobile.navigation.Screen
 import com.example.wall_etmobile.ui.theme.GrayText
 import com.example.wall_etmobile.ui.theme.MainBlack
 import com.example.wall_etmobile.ui.theme.MainGrey
 import com.example.wall_etmobile.ui.theme.MainPurple
-import com.pathak.barberapp.navigation.Screen
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Copy
@@ -147,7 +147,7 @@ fun ProfileScreen(navController: NavController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
-                            navController.navigate(Screen.RestorePassword.route)
+                            navController.navigate(Screen.RESTOREPASSWORD.route)
                         }
                 )
                 Spacer(modifier = Modifier.height(24.dp))
@@ -160,7 +160,7 @@ fun ProfileScreen(navController: NavController) {
                 Spacer(modifier = Modifier.weight(1f))
                 ElevatedButton(
                     onClick = {
-                        navController.navigate(Screen.Login.route) {
+                        navController.navigate(Screen.WELCOME.route) {
                             popUpTo(navController.graph.startDestinationId) {
                                 saveState = true
                             }

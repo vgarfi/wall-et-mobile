@@ -29,10 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.navigation.Screen
 import com.example.wall_etmobile.screens.auth.composables.RememberLoginCheckbox
 import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.MainWhite
-import com.pathak.barberapp.navigation.Screen
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -71,7 +71,7 @@ fun LoginScreen(navController: NavController) {
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .clickable {
-                            navController.navigate(Screen.ForgotPassword.route)
+                            navController.navigate(Screen.FORGOTPASSWORD.route)
                         }
                 ) {
                     Text(
@@ -84,7 +84,7 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.size(16.dp))
             ElevatedButton(
                 onClick = {
-                    navController.navigate(Screen.Home.route)
+                    navController.navigate(Screen.HOME.route)
                 },
                 modifier = Modifier.fillMaxWidth())
             {
@@ -96,7 +96,7 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.size(16.dp))
             TextButton(
                 onClick = {
-                    navController.navigate(Screen.Register.route)
+                    navController.navigate(Screen.REGISTER.route)
                 },
                 contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.align(Alignment.CenterHorizontally)

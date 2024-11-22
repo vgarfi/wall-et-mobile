@@ -25,4 +25,14 @@ enum class Screen(val route: String, val label: String, val icon: ImageVector, v
     TRANSACTIONDETAILS("transaction-details", label = "Detalles de la transaccion", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
     ENTERFROM("enterFrom?source={source}&page={page}", label = "Ingresar", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
     TRANSFERTO("transferTo?target={target}&page={page}&contactName={contactName}&contactDetail={contactDetail}", label = "Transferir a ...", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
+    WELCOME("welcome", label = "Bienvenido", icon = Icons.Outlined.Person, tiny = false),
+    LOGIN("login", label = "Iniciá Sesión", icon = Icons.Outlined.Person, tiny = false),
+    REGISTER("register", label = "Registrate", icon = Icons.Outlined.Person, tiny = false),
+    FORGOTPASSWORD("forgot-password", label = "Olvidé mi contraseña", icon = Icons.Outlined.Person, tiny = false),
+    VERIFYACCOUNT("verify-account", label = "Verificá tu cuenta", icon = Icons.Outlined.Person, tiny = false),
+    RESTOREPASSWORD("restore-password", label = "Recuperá tu contraseña", icon = Icons.Outlined.Person, tiny = false);
+
+    companion object {
+        val allScreens = listOf(HOME, TRANSACTIONS, CARDS, PROFILE, WELCOME, LOGIN, REGISTER, FORGOTPASSWORD, VERIFYACCOUNT, RESTOREPASSWORD)
+    }
 }

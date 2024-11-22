@@ -24,8 +24,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.navigation.Screen
 import com.example.wall_etmobile.ui.theme.MainWhite
-import com.pathak.barberapp.navigation.Screen
 
 @Composable
 fun ForgotPasswordScreen(navController: NavController) {
@@ -65,7 +65,7 @@ fun ForgotPasswordScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(30.dp))
             ElevatedButton(
                 onClick = {
-                    navController.navigate(Screen.VerifyAccount.route)
+                    navController.navigate(Screen.VERIFYACCOUNT.route)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
