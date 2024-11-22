@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.example.wall_etmobile"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.wall_etmobile"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 

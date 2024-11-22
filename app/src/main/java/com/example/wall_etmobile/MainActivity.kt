@@ -12,7 +12,6 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
 //        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        window.statusBarColor = MainPurple.toArgb()
         setContent {
             WalletMobileTheme {
                 MainApp()
