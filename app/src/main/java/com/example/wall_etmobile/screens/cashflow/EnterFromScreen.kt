@@ -23,12 +23,6 @@ fun EnterFromScreen (
     source: String?,
     page: Int?,
 ) {
-    val totalSteps = 3
-    var currentStep by remember { mutableIntStateOf(page ?: 0) }
-
-    val coroutineScope = rememberCoroutineScope()
-    val pagerState = rememberPagerState(pageCount = { totalSteps }, initialPage = currentStep)
-
     val headerText = when (source) {
         "bank" -> "Desde otra cuenta bancaria"
         "card" -> "Con tarjeta de débito"
@@ -37,9 +31,9 @@ fun EnterFromScreen (
 
     CashFlowBaseScaffold(bigText = headerText , navController = navController) {
         Column (
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(horizontal = 16.dp).padding(top = 86.dp)
+            modifier = Modifier.padding(horizontal = 16.dp)
         ) {
             if (source == "card") {
                 FromCardContent()
