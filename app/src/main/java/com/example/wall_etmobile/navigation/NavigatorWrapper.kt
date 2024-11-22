@@ -29,7 +29,7 @@ class NavigatorWrapper(
     }
 
     fun navigateIncome(){
-        navController.navigate(Screen.INCOME.route) {
+        navController.navigate(Screen.ENTER.route) {
             popUpTo(Screen.HOME.route) { inclusive = false }
             launchSingleTop = true
         }

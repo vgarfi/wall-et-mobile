@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.AnnotatedString
@@ -43,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.ui.theme.MainPurple
 
 @Composable
 fun ActionButton(
@@ -52,12 +54,12 @@ fun ActionButton(
     width: Int = 300,
     modifier: Modifier = Modifier,
     @ColorRes contentColorRes: Int = R.color.white,
-    @ColorRes containerColorRes: Int = R.color.purple_500,
+    @ColorRes containerColorRes: Int = R.color.mainPurple,
     elevation: Boolean = false,
     enabled: Boolean = true,
 ) {
     val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
-    val containerColor = colorResource(id = containerColorRes)
+    val containerColor =colorResource(id = containerColorRes)
     val contentColor = colorResource(id = contentColorRes)
     var adaptiveHeight by remember { mutableDoubleStateOf(0.0)}
     var adaptiveWidth by remember { mutableDoubleStateOf(0.0)}

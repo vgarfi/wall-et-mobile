@@ -1,5 +1,6 @@
 package com.example.wall_etmobile
 
+import TransferToScreen
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.size
@@ -16,10 +17,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.design_kit.shared.BottomAppBarButton
 import com.example.wall_etmobile.navigation.NavigatorWrapper
@@ -35,6 +39,7 @@ import com.example.wall_etmobile.ui.theme.MainPurple
 import com.example.wall_etmobile.ui.theme.MainWhite
 import com.example.wall_etmobile.ui.theme.WalletMobileTheme
 import com.example.wall_etmobile.navigation.Screen
+import com.example.wall_etmobile.screens.cashflow.EnterFromScreen
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Qrcode
@@ -45,6 +50,17 @@ fun onButtonClick(screen: Screen, currentDestination: String? = null, navigatorW
     }
 }
 
+fun navigateToScreen(navController: NavController, route: String, args: Map<String, String?>) {
+
+    val routeWithArgs = buildString {
+        append(route)
+        if (args.isNotEmpty()) {
+            append("?")
+            append(args.entries.joinToString("&") { "${it.key}=${it.value}" })
+        }
+    }
+    navController.navigate(routeWithArgs)
+}
 @Composable
 fun MainApp() {
     WalletMobileTheme {
@@ -147,17 +163,60 @@ fun MainApp() {
                     ProfileScreen()
                 }
                 composable(Screen.TRANSFER.route) {
-                    TransferScreen(navController = navController)
+                    TransferScreen(
+                        navController = navController,
+                        navigateToScreen = { route, args -> navigateToScreen(navController, route, args) }
+                    )
                 }
                 composable(Screen.CHARGE.route) {
-                    ChargeScreen(navController = navController)
+                    ChargeScreen(navController = navController, navigateToScreen = { route, args -> navigateToScreen(navController, route, args) })
                 }
-                composable(Screen.INCOME.route) {
-                    EnterScreen(navController = navController)
+                composable(Screen.ENTER.route) {
+                    EnterScreen(
+                        navController = navController,
+                        navigateToScreen = { route, args -> navigateToScreen(navController, route, args) }
+                        )
+                }
+                composable(
+                    Screen.ENTERFROM.route,
+                    arguments = listOf(navArgument("source") { type = NavType.StringType; nullable = true },
+                        navArgument("page") { type = NavType.StringType; nullable = true })
+                ) {
+                        backStackEntry ->
+                    val source = backStackEntry.arguments?.getString("source")
+                    val page = backStackEntry.arguments?.getString("page")
+
+                    EnterFromScreen(
+                        source = source,
+                        navController = navController,
+                        navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
+                        page = page?.toInt(),
+                    )
                 }
                 composable(Screen.TRANSACTIONDETAILS.route) {
-                    TransactionDetailsScreen(navController = navController)
+                    TransactionDetailsScreen(navController = navController, navigateToScreen = { route, args -> navigateToScreen(navController, route, args) })
                 }
+                composable(
+                    Screen.TRANSFERTO.route,
+                    arguments = listOf(navArgument("target") { type = NavType.StringType; nullable = true },
+                        navArgument("page") { type = NavType.StringType; nullable = true })
+                ) {
+                    backStackEntry ->
+                    val target = backStackEntry.arguments?.getString("target")
+                    val page = backStackEntry.arguments?.getString("page")
+                    val contactName = backStackEntry.arguments?.getString("contactName")
+                    val contactDetail = backStackEntry.arguments?.getString("contactDetail")
+
+                    TransferToScreen(
+                        target = target,
+                        navController = navController,
+                        navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
+                        page = page?.toInt(),
+                        contactName = contactName,
+                        contactDetail = contactDetail
+                        )
+                }
+
             }
         }
     }

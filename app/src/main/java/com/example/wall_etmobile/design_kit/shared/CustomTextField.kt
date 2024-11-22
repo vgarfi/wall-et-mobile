@@ -33,7 +33,7 @@ fun CustomTextField(
     TextField(
         value = controller.value,
         onValueChange = { controller.value = it },
-        label = { Text(text = label) },
+        label = {if (label.isNotEmpty()) Text(text = label) },
         placeholder = { Text(text = hint) },
         visualTransformation = if (isPassword && !passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = KeyboardOptions.Default.copy(
