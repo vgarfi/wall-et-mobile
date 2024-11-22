@@ -1,13 +1,11 @@
 package com.example.wall_etmobile.features.cards.ui.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -16,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,7 +31,6 @@ import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainRed
 import com.example.wall_etmobile.core.theme.MainWhite
-import org.w3c.dom.Text
 
 @Composable
 fun AddNewCreditCard(
@@ -213,23 +209,13 @@ fun AddNewCreditCard(
                         item { Text("Su nueva tarjeta", color = MainGrey, fontWeight = FontWeight.W500) }
                         item { Box(modifier = Modifier.height(6.dp)) }
                         item {
-                            if (cardNumber.text.isNotEmpty() && cardNumber.text.all { it.isDigit() }) {
-                                CreditCardComponent(
-                                    bankName = bankName,
-                                    cardNumber = cardNumber.text.toBigInteger(),
-                                    cardHolder = cardHolder.text,
-                                    cardExpiration = expirationDate,
-                                    cardImage = R.drawable.purple_card
-                                )
-                            } else {
-                                CreditCardComponent(
-                                    bankName = bankName,
-                                    cardNumber = 1234000000000000,
-                                    cardHolder = cardHolder.text,
-                                    cardExpiration = expirationDate,
-                                    cardImage = R.drawable.purple_card
-                                )
-                            }
+                            CreditCardComponent(
+                                bankName = bankName,
+                                cardNumber = cardNumber.text,
+                                cardHolder = cardHolder.text,
+                                cardExpiration = expirationDate,
+                                cardImageIndex = if (isValidCardNumber(cardNumber.text)) cardNumber.text.toLong().rem(6).toInt() else 0
+                            )
                         }
                     }
 

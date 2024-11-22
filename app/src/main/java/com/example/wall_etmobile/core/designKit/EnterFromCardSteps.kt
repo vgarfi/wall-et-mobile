@@ -36,7 +36,7 @@ fun EnterPayment(
     cardsInfo: List<CreditCardInfo> = listOf(
         CreditCardInfo(
             bankName = "",
-            cardNumber = 0,
+            cardNumber = "0000000000000000",
             cardHolder = "",
             cardExpiration = "",
             cardImage = 0

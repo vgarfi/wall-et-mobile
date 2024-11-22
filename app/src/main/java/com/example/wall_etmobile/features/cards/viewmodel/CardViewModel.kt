@@ -25,7 +25,6 @@ class CardViewModel(
 
     var uiCardState by mutableStateOf(CardUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
-    
 
     fun getCards() = runOnViewModelScope(
         { cardRepository.getCards(true) },

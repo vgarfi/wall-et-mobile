@@ -21,21 +21,31 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
 fun CreditCardComponent(
     bankName: String,
-    cardNumber: Number,
+    cardNumber: String,
     cardHolder: String,
     cardExpiration: String,
-    cardImage: Int
+    cardImageIndex: Int
 ) {
+    val cardImages = listOf(
+        R.drawable.purple_card,
+        R.drawable.blue_card,
+        R.drawable.red_card,
+        R.drawable.pink_card,
+        R.drawable.green_card,
+        R.drawable.orange_card,
+        R.drawable.yellow_card,
+    )
     Box(modifier = Modifier
         .fillMaxWidth()
         .background(color = MainWhite)) {
         Image(
-            painter = painterResource(id = cardImage),
+            painter = painterResource(id = if(cardImageIndex > cardImages.size-1)  cardImages.elementAt(0) else cardImages.elementAt(cardImageIndex)),
             contentDescription = "card",
             modifier = Modifier.fillMaxWidth(),
             contentScale = ContentScale.FillWidth,

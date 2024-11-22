@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,7 +28,9 @@ import com.example.wall_etmobile.core.designKit.BaseScaffold
 import com.example.wall_etmobile.core.designKit.BigIconButton
 import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cards.ui.composables.CreditCardComponent
+import com.example.wall_etmobile.features.cards.ui.composables.getBankFromCard
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
+import java.util.Date
 
 @Composable
 fun CardsScreen(
@@ -41,11 +45,18 @@ fun CardsScreen(
             cvv = cardCVV,
             expirationDate = cardExpiration,
             holderName = cardHolder,
-            color = cardNumber.hashCode().rem(6)
+            color = cardNumber.toLong().rem(6).toInt()
         )
         viewModel.addCard(newCreditCard)
-        println("Las tarjetas son: " + uiState.cards + " (" + uiState.cards?.size.toString() + ") en total")
+        viewModel.getCards()
     }
+
+    LaunchedEffect(Unit) {
+        if (uiState.cards.isNullOrEmpty()) {
+            viewModel.getCards()
+        }
+    }
+
     BaseScaffold(tinyText = "tus", bigText = "Tarjetas") {
         Row (
             verticalAlignment = Alignment.CenterVertically,
@@ -59,45 +70,29 @@ fun CardsScreen(
             })
             BigIconButton(icon = R.drawable.scan_card, boldText = "Escaneá", normalText ="una tarjeta", onClick = {} )
         }
+        Box(modifier = Modifier.height(10.dp))
+
         Column (
             Modifier
                 .verticalScroll(rememberScrollState())
                 .padding(top = 10.dp)
                 .padding(10.dp)
         ) {
-            CreditCardComponent(
-                bankName = "CBB Bank",
-                cardNumber = 1287987854323079,
-                cardHolder = "Valentin Garfi",
-                cardExpiration = "07/27",
-                cardImage = R.drawable.purple_card
-            )
-            Box(modifier = Modifier.height(20.dp))
-            CreditCardComponent(
-                bankName = "HSBC Bank",
-                cardNumber = 1287987854322345,
-                cardHolder = "Lautaro Paletta",
-                cardExpiration = "05/29",
-                cardImage = R.drawable.green_card
-            )
-            Box(modifier = Modifier.height(20.dp))
-            CreditCardComponent(
-                bankName = "ISBC",
-                cardNumber = 1287987854329090,
-                cardHolder = "Agustín Ronda",
-                cardExpiration = "01/25",
-                cardImage = R.drawable.red_card
-            )
-            Box(modifier = Modifier.height(20.dp))
-            CreditCardComponent(
-                bankName = "Macro",
-                cardNumber = 1287987854321237,
-                cardHolder = "Tomás Borda",
-                cardExpiration = "12/26",
-                cardImage = R.drawable.blue_card
-            )
-            Box(modifier = Modifier.height(100.dp))
+            if (!uiState.cards.isNullOrEmpty()) {
+                uiState.cards.forEach { card ->
+                    CreditCardComponent(
+                        bankName = getBankFromCard(card.number),
+                        cardNumber = card.number,
+                        cardHolder = card.holderName,
+                        cardExpiration = card.expirationDate,
+                        cardImageIndex = card.color
+                    )
+                    Box(modifier = Modifier.height(20.dp))
+                }
+            }
+
         }
+
 
         AddNewCreditCard(
             showDialog = showDialog,

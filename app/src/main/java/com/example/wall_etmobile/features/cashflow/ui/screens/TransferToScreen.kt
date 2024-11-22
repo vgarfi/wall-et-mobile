@@ -130,14 +130,14 @@ fun getSampleCards(): List<CreditCardInfo> {
     return listOf(
         CreditCardInfo(
             bankName = "Galicia",
-            cardNumber = 4509909098989898,
+            cardNumber = "4509909098989898",
             cardHolder = "Tomas Borda",
             cardExpiration = "07/25",
             cardImage = R.drawable.purple_card
         ),
         CreditCardInfo(
             bankName = "Santander",
-            cardNumber = 5234567812345678,
+            cardNumber = "5234567812345678",
             cardHolder = "Lucia Fernandez",
             cardExpiration = "03/26",
             cardImage = R.drawable.red_card
