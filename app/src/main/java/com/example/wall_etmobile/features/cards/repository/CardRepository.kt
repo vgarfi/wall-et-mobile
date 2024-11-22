@@ -1,12 +1,12 @@
-package com.example.wall_etmobile.repository
+package com.example.wall_etmobile.features.cards.repository
 
-import com.example.wall_etmobile.model.Card
-import com.example.wall_etmobile.network.WalletRemoteDataSource
+import com.example.wall_etmobile.features.cards.datasource.CardRemoteDataSource
+import com.example.wall_etmobile.features.cards.model.Card
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-class WalletRepository(
-    private val remoteDataSource: WalletRemoteDataSource
+class CardRepository(
+    private val remoteDataSource: CardRemoteDataSource
 ) {
     // Mutex to make writes to cached values thread-safe.
     private val cardsMutex = Mutex()

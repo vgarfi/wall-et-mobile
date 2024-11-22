@@ -1,8 +1,8 @@
 package com.example.wall_etmobile.features.auth.service
 
-import com.example.wall_etmobile.network.model.NetworkCredentials
-import com.example.wall_etmobile.network.model.NetworkToken
-import com.example.wall_etmobile.network.model.NetworkUser
+import com.example.wall_etmobile.features.auth.model.NetworkCredentials
+import com.example.wall_etmobile.features.auth.model.NetworkToken
+import com.example.wall_etmobile.features.auth.model.NetworkUser
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

@@ -1,12 +1,12 @@
-package com.example.wall_etmobile.network
+package com.example.wall_etmobile.features.cards.datasource
 
 
 import com.example.wall_etmobile.core.datasource.RemoteDataSource
-import com.example.wall_etmobile.network.api.WalletApiService
-import com.example.wall_etmobile.network.model.NetworkCard
+import com.example.wall_etmobile.features.cards.model.NetworkCard
+import com.example.wall_etmobile.features.cards.service.CardApiService
 
-class WalletRemoteDataSource(
-    private val walletApiService: WalletApiService
+class CardRemoteDataSource(
+    private val walletApiService: CardApiService
 ) : RemoteDataSource() {
 
     suspend fun getCards(): List<NetworkCard> {

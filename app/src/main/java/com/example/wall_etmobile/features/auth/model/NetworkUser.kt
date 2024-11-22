@@ -1,6 +1,5 @@
-package com.example.wall_etmobile.network.model
+package com.example.wall_etmobile.features.auth.model
 
-import com.example.wall_etmobile.model.User
 import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -14,10 +13,10 @@ class NetworkUser(
     var email: String,
     var birthDate: String
 ) {
-    fun asModel(): User {
+    fun asModel(): User2 {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault(Locale.Category.FORMAT))
 
-        return User(
+        return User2(
             id = id,
             firstName = firstName,
             lastName = lastName,

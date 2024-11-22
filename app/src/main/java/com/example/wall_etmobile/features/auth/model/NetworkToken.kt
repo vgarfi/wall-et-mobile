@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.network.model
+package com.example.wall_etmobile.features.auth.model
 
 import kotlinx.serialization.Serializable
 

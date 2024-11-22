@@ -1,8 +1,8 @@
-package com.example.wall_etmobile.model
+package com.example.wall_etmobile.features.auth.model
 
 import java.util.Date
 
-data class User(
+data class User2(
     var id: Int?,
     var firstName: String,
     var lastName: String,

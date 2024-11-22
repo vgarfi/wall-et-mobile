@@ -2,7 +2,7 @@ package com.example.wall_etmobile.core.config
 
 import android.content.Context
 import com.example.wall_etmobile.features.auth.service.UserApiService
-import com.example.wall_etmobile.network.api.WalletApiService
+import com.example.wall_etmobile.features.cards.service.CardApiService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -47,7 +47,7 @@ object RetrofitClient {
         return getInstance(context).create(UserApiService::class.java)
     }
 
-    fun getWalletApiService(context: Context): WalletApiService {
-        return getInstance(context).create(WalletApiService::class.java)
+    fun getWalletApiService(context: Context): CardApiService {
+        return getInstance(context).create(CardApiService::class.java)
     }
 }

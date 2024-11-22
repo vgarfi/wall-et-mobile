@@ -1,6 +1,5 @@
-package com.example.wall_etmobile.model
+package com.example.wall_etmobile.features.cards.model
 
-import com.example.wall_etmobile.network.model.NetworkCard
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

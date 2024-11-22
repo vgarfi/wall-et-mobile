@@ -2,19 +2,19 @@ package com.example.wall_etmobile
 
 import android.app.Application
 import com.example.wall_etmobile.features.auth.datasource.UserRemoteDataSource
-import com.example.wall_etmobile.network.WalletRemoteDataSource
 import com.example.wall_etmobile.core.config.RetrofitClient
 import com.example.wall_etmobile.core.config.SessionManager
-import com.example.wall_etmobile.repository.UserRepository
-import com.example.wall_etmobile.repository.WalletRepository
+import com.example.wall_etmobile.features.auth.repository.UserRepository
+import com.example.wall_etmobile.features.cards.datasource.CardRemoteDataSource
+import com.example.wall_etmobile.features.cards.repository.CardRepository
 
 
 class MyApplication : Application() {
     private val userRemoteDataSource: UserRemoteDataSource
         get() = UserRemoteDataSource(sessionManager, RetrofitClient.getUserApiService(this))
 
-    private val walletRemoteDataSource: WalletRemoteDataSource
-        get() = WalletRemoteDataSource(RetrofitClient.getWalletApiService(this))
+    private val cardRemoteDataSource: CardRemoteDataSource
+        get() = CardRemoteDataSource(RetrofitClient.getWalletApiService(this))
 
     val sessionManager: SessionManager
         get() = SessionManager(this)
@@ -22,6 +22,6 @@ class MyApplication : Application() {
     val userRepository: UserRepository
         get() = UserRepository(userRemoteDataSource)
 
-    val walletRepository: WalletRepository
-        get() = WalletRepository(walletRemoteDataSource)
+    val cardRepository: CardRepository
+        get() = CardRepository(cardRemoteDataSource)
 }

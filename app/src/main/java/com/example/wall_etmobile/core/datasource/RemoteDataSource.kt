@@ -1,7 +1,7 @@
 package com.example.wall_etmobile.core.datasource
 
 import android.util.Log
-import com.example.wall_etmobile.network.model.NetworkError
+import com.example.wall_etmobile.core.model.network.NetworkError
 import kotlinx.serialization.json.Json
 import retrofit2.Response
 import java.io.IOException

@@ -1,7 +1,5 @@
-package com.example.wall_etmobile.network.model
+package com.example.wall_etmobile.features.cards.model
 
-import com.example.wall_etmobile.model.Card
-import com.example.wall_etmobile.model.CardType
 import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.Locale

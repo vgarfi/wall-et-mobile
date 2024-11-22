@@ -1,6 +1,6 @@
-package com.example.wall_etmobile.repository
+package com.example.wall_etmobile.features.auth.repository
 
-import com.example.wall_etmobile.model.User
+import com.example.wall_etmobile.features.auth.model.User2
 import com.example.wall_etmobile.features.auth.datasource.UserRemoteDataSource
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -12,7 +12,7 @@ class UserRepository(
     // Mutex to make writes to cached values thread-safe.
     private val currentUserMutex = Mutex()
     // Cache of the current user got from the network.
-    private var currentUser: User? = null
+    private var currentUser: User2? = null
 
     suspend fun login(username: String, password: String) {
         remoteDataSource.login(username, password)
@@ -22,7 +22,7 @@ class UserRepository(
         remoteDataSource.logout()
     }
 
-    suspend fun getCurrentUser(refresh: Boolean) : User? {
+    suspend fun getCurrentUser(refresh: Boolean) : User2? {
         if (refresh || currentUser == null) {
             val result = remoteDataSource.getCurrentUser()
             // Thread-safe write to latestNews

@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.model
+package com.example.wall_etmobile.core.model
 
 data class Error(
     val code: Int?,
