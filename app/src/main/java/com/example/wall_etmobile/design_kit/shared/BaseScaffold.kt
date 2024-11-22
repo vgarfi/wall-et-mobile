@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.ui.theme.MainWhite
+import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
 fun BaseScaffold (

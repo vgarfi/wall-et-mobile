@@ -1,7 +1,7 @@
 package com.example.wall_etmobile.repository
 
 import com.example.wall_etmobile.model.User
-import com.example.wall_etmobile.network.UserRemoteDataSource
+import com.example.wall_etmobile.features.auth.datasource.UserRemoteDataSource
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 

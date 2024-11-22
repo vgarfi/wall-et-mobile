@@ -1,6 +1,5 @@
 package com.example.wall_etmobile.design_kit.home
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,8 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.ui.theme.MainPurple
-import com.example.wall_etmobile.ui.theme.MainWhite
+import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
 fun HomeHeader(onClick: () -> Unit){

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,10 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.wall_etmobile.R
-import com.example.wall_etmobile.screens.cashflow.CashFlowTitleRow
-import com.example.wall_etmobile.ui.theme.MainGrey
-import com.example.wall_etmobile.ui.theme.MainWhite
+import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
 fun CreditCard(

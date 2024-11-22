@@ -16,8 +16,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wall_etmobile.ui.theme.GrayText
-import com.example.wall_etmobile.ui.theme.MainGrey
+import com.example.wall_etmobile.core.theme.GrayText
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Eye

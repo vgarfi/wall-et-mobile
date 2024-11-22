@@ -33,12 +33,12 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.ui.theme.LightPurple
-import com.example.wall_etmobile.ui.theme.MainBlack
-import com.example.wall_etmobile.ui.theme.MainGreen
-import com.example.wall_etmobile.ui.theme.MainPurple
-import com.example.wall_etmobile.ui.theme.MainWhite
-import com.example.wall_etmobile.ui.theme.WalletMobileTheme
+import com.example.wall_etmobile.core.theme.LightPurple
+import com.example.wall_etmobile.core.theme.MainBlack
+import com.example.wall_etmobile.core.theme.MainGreen
+import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.core.theme.MainWhite
+import com.example.wall_etmobile.core.theme.WalletMobileTheme
 
 enum class TransactionType(val color: Color, val sign: Char , val description: String, @DrawableRes val iconId: Int) {
     INCOME(MainGreen, '+', "Income", iconId = R.drawable.enter_icon),

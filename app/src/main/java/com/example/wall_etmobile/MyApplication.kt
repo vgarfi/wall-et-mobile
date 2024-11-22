@@ -1,9 +1,10 @@
 package com.example.wall_etmobile
 
 import android.app.Application
-import com.example.wall_etmobile.network.UserRemoteDataSource
+import com.example.wall_etmobile.features.auth.datasource.UserRemoteDataSource
 import com.example.wall_etmobile.network.WalletRemoteDataSource
-import com.example.wall_etmobile.network.api.RetrofitClient
+import com.example.wall_etmobile.core.config.RetrofitClient
+import com.example.wall_etmobile.core.config.SessionManager
 import com.example.wall_etmobile.repository.UserRepository
 import com.example.wall_etmobile.repository.WalletRepository
 

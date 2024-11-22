@@ -1,7 +1,7 @@
 package com.example.wall_etmobile.network
 
 
-import com.example.wall_etmobile.network.RemoteDataSource
+import com.example.wall_etmobile.core.datasource.RemoteDataSource
 import com.example.wall_etmobile.network.api.WalletApiService
 import com.example.wall_etmobile.network.model.NetworkCard
 

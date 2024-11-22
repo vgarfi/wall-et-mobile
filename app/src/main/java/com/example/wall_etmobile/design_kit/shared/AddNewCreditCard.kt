@@ -1,27 +1,19 @@
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.R
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,11 +24,9 @@ import androidx.compose.ui.window.DialogProperties
 import com.example.wall_etmobile.design_kit.shared.CreditCard
 import com.example.wall_etmobile.design_kit.shared.getBankFromCard
 import com.example.wall_etmobile.design_kit.shared.getCardIcon
-import com.example.wall_etmobile.design_kit.shared.isValidCardNumber
-import com.example.wall_etmobile.ui.theme.MainGreen
-import com.example.wall_etmobile.ui.theme.MainPurple
-import com.example.wall_etmobile.ui.theme.MainRed
-import kotlin.math.exp
+import com.example.wall_etmobile.core.theme.MainGreen
+import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.core.theme.MainRed
 
 @Composable
 fun AddNewCreditCard(

@@ -16,11 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.navigation.NavigatorWrapper
-import com.example.wall_etmobile.ui.theme.MainWhite
-import com.example.wall_etmobile.navigation.Screen
+import com.example.wall_etmobile.core.navigation.NavigatorWrapper
+import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
 fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp){
