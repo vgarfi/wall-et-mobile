@@ -1,5 +1,5 @@
 package com.example.wall_etmobile.features.cards.ui.screens
-import com.example.wall_etmobile.core.designKit.AddNewCreditCard
+import com.example.wall_etmobile.features.cards.ui.composables.AddNewCreditCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,18 +16,35 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.BaseScaffold
 import com.example.wall_etmobile.core.designKit.BigIconButton
-import com.example.wall_etmobile.core.designKit.CreditCard
+import com.example.wall_etmobile.features.cards.model.CreditCard
+import com.example.wall_etmobile.features.cards.ui.composables.CreditCardComponent
+import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 
 @Composable
-fun CardsScreen() {
+fun CardsScreen(
+    viewModel: CardViewModel = viewModel(factory = CardViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+) {
+    val uiState = viewModel.uiCardState
+
     var showDialog by remember { mutableStateOf(false) }
-    val onAddCard: (String, String, String) -> Unit = { cardNumber, expirationDate, bankName ->
-        println("Tarjeta añadida: $cardNumber, $expirationDate, $bankName")
+    val onAddCard: (String, String, String, String) -> Unit = { cardNumber, cardCVV, cardExpiration, cardHolder ->
+        val newCreditCard  = CreditCard(
+            number = cardNumber,
+            cvv = cardCVV,
+            expirationDate = cardExpiration,
+            holderName = cardHolder,
+            color = cardNumber.hashCode().rem(6)
+        )
+        viewModel.addCard(newCreditCard)
+        println("Las tarjetas son: " + uiState.cards + " (" + uiState.cards?.size.toString() + ") en total")
     }
     BaseScaffold(tinyText = "tus", bigText = "Tarjetas") {
         Row (
@@ -48,7 +65,7 @@ fun CardsScreen() {
                 .padding(top = 10.dp)
                 .padding(10.dp)
         ) {
-            CreditCard(
+            CreditCardComponent(
                 bankName = "CBB Bank",
                 cardNumber = 1287987854323079,
                 cardHolder = "Valentin Garfi",
@@ -56,7 +73,7 @@ fun CardsScreen() {
                 cardImage = R.drawable.purple_card
             )
             Box(modifier = Modifier.height(20.dp))
-            CreditCard(
+            CreditCardComponent(
                 bankName = "HSBC Bank",
                 cardNumber = 1287987854322345,
                 cardHolder = "Lautaro Paletta",
@@ -64,7 +81,7 @@ fun CardsScreen() {
                 cardImage = R.drawable.green_card
             )
             Box(modifier = Modifier.height(20.dp))
-            CreditCard(
+            CreditCardComponent(
                 bankName = "ISBC",
                 cardNumber = 1287987854329090,
                 cardHolder = "Agustín Ronda",
@@ -72,7 +89,7 @@ fun CardsScreen() {
                 cardImage = R.drawable.red_card
             )
             Box(modifier = Modifier.height(20.dp))
-            CreditCard(
+            CreditCardComponent(
                 bankName = "Macro",
                 cardNumber = 1287987854321237,
                 cardHolder = "Tomás Borda",

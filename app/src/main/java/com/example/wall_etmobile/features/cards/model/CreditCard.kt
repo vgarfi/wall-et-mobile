@@ -11,12 +11,13 @@ class CreditCard(
     var holderName: String,
     var cvv: String?,
     var createdAt: Date? = null,
-    var updatedAt: Date? = null
+    var updatedAt: Date? = null,
+    var color: Int
 ) {
-    fun asNetworkModel(): NetworkCard {
+    fun asNetworkModel(): NetworkCreditCard {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault(Locale.Category.FORMAT))
 
-        return NetworkCard(
+        return NetworkCreditCard(
             id = id,
             number = number,
             expirationDate = expirationDate,

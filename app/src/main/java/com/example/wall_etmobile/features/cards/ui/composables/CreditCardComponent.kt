@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.core.designKit
+package com.example.wall_etmobile.features.cards.ui.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
-fun CreditCard(
+fun CreditCardComponent(
     bankName: String,
     cardNumber: Number,
     cardHolder: String,

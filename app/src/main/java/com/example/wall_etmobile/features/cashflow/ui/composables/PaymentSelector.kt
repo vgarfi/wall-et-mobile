@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.core.designKit.CreditCard
+import com.example.wall_etmobile.features.cards.ui.composables.CreditCardComponent
 data class CreditCardInfo(val bankName: String, val cardNumber: Number,val cardHolder: String,val cardExpiration: String,val cardImage: Int)
 
 @Composable
@@ -43,7 +43,7 @@ fun PaymentSelector(
                             selectedObject(card)
                         }.height( 2020.dp)
                 ){
-                CreditCard(
+                CreditCardComponent(
                         bankName = card.bankName,
                         cardNumber = card.cardNumber,
                         cardHolder = card.cardHolder,
