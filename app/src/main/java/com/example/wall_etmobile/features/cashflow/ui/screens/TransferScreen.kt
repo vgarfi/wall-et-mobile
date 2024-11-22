@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.features.cashflow.ui.composables
+package com.example.wall_etmobile.features.cashflow.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 
 
 @Composable

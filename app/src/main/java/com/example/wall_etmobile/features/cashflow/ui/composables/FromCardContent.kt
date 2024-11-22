@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.design_kit.shared.ActionButton
 import com.example.wall_etmobile.design_kit.shared.EnterAmount
 import com.example.wall_etmobile.design_kit.shared.EnterPayment
+import com.example.wall_etmobile.features.cashflow.ui.screens.calculateTopPadding
+import com.example.wall_etmobile.features.cashflow.ui.screens.getSampleCards
 import kotlinx.coroutines.launch
 
 @Composable

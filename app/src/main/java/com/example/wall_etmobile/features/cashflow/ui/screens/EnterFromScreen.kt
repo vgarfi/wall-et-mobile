@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.features.cashflow.ui.composables
+package com.example.wall_etmobile.features.cashflow.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +8,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
+import com.example.wall_etmobile.features.cashflow.ui.composables.FromCardContent
+import com.example.wall_etmobile.features.cashflow.ui.composables.WithCVUContent
 
 @Composable
 fun EnterFromScreen (

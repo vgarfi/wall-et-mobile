@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.features.cashflow.ui.composables
+package com.example.wall_etmobile.features.cashflow.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -19,8 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.window.core.layout.WindowHeightSizeClass
 import com.example.wall_etmobile.design_kit.shared.ActionButton
+import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
+import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowStepIndicator
+import com.example.wall_etmobile.features.cashflow.ui.composables.ChargeAmount
+import com.example.wall_etmobile.features.cashflow.ui.composables.ChargeQR
 import kotlinx.coroutines.launch
 
 @Composable

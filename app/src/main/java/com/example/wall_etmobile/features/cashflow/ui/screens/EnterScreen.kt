@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.features.cashflow.ui.composables
+package com.example.wall_etmobile.features.cashflow.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.design_kit.shared.ExtendedBigIconButton
+import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 
 @Composable
 fun EnterScreen(

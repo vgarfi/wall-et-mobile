@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.features.cashflow.ui.composables
+package com.example.wall_etmobile.features.cashflow.ui.screens
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
@@ -16,6 +16,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.window.core.layout.WindowHeightSizeClass
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
+import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowStepIndicator
+import com.example.wall_etmobile.features.cashflow.ui.composables.CreditCardInfo
+import com.example.wall_etmobile.features.cashflow.ui.composables.TransferAmount
+import com.example.wall_etmobile.features.cashflow.ui.composables.TransferPayment
+import com.example.wall_etmobile.features.cashflow.ui.composables.TransferTo
 import kotlinx.coroutines.launch
 
 @Composable

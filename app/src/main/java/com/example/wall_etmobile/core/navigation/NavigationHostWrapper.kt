@@ -1,6 +1,6 @@
 package com.example.wall_etmobile.core.navigation
 
-import com.example.wall_etmobile.features.cashflow.ui.composables.TransferToScreen
+import com.example.wall_etmobile.features.cashflow.ui.screens.TransferToScreen
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
@@ -21,11 +21,11 @@ import com.example.wall_etmobile.features.auth.ui.screens.RegisterScreen
 import com.example.wall_etmobile.features.auth.ui.screens.RestorePasswordScreen
 import com.example.wall_etmobile.features.auth.ui.screens.VerifyAccountScreen
 import com.example.wall_etmobile.features.auth.ui.screens.WelcomeScreen
-import com.example.wall_etmobile.features.cashflow.ui.composables.ChargeScreen
-import com.example.wall_etmobile.features.cashflow.ui.composables.EnterFromScreen
-import com.example.wall_etmobile.features.cashflow.ui.composables.EnterScreen
+import com.example.wall_etmobile.features.cashflow.ui.screens.ChargeScreen
+import com.example.wall_etmobile.features.cashflow.ui.screens.EnterFromScreen
+import com.example.wall_etmobile.features.cashflow.ui.screens.EnterScreen
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDetailsScreen
-import com.example.wall_etmobile.features.cashflow.ui.composables.TransferScreen
+import com.example.wall_etmobile.features.cashflow.ui.screens.TransferScreen
 
 @Composable
 fun NavigationHostWrapper (
