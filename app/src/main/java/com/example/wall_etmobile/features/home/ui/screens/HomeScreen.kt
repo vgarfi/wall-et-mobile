@@ -62,7 +62,7 @@ fun HomeScreen(
     navWrapper: NavigatorWrapper,
     adaptiveInfo: WindowAdaptiveInfo,
     cardsViewModel: CardViewModel = ( LocalContext.current.applicationContext as MyApplication).cardsViewmodel,
-    transactionViewModel: TransactionViewModel = (LocalContext.current.applicationContext as MyApplication).transactionViewModel,
+    transactionViewModel: TransactionViewModel,
     homeViewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)),
     authViewModel: AuthViewModel,
 ) {
@@ -274,8 +274,6 @@ fun HomeScreen(
             }
         )
     )
-
-    transactionViewModel.getTransactions()
 
     val transactionsStyle: List<MovementData> = transactionViewModel.uiState.completedTransactions?.map {
         val type: TransactionTypeStyle
