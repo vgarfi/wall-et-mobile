@@ -166,7 +166,7 @@ fun TransferPayment(
                 item {
                     Column(modifier = Modifier.heightIn(max = 240.dp)) {
                         PaymentSelector(
-                            cards = cardsInfo,
+//                            cards = cardsInfo,
                             selectedObject = selectedObject,
                             PaymentBySelfBalance = PaymentBySelfBalance
                         ) {

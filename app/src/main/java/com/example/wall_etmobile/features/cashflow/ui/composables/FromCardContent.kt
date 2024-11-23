@@ -1,9 +1,7 @@
 package com.example.wall_etmobile.features.cashflow.ui.composables
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,18 +16,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.core.designKit.ActionButton
-import com.example.wall_etmobile.core.designKit.EnterAmount
-import com.example.wall_etmobile.core.designKit.EnterPayment
 import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 import com.example.wall_etmobile.features.cashflow.ui.screens.calculateTopPadding
-import com.example.wall_etmobile.features.cashflow.ui.screens.getSampleCards
 import kotlinx.coroutines.launch
 
 @SuppressLint("SuspiciousIndentation")
@@ -70,7 +64,7 @@ fun FromCardContent(
             ){
                 item {
                     HorizontalPager(
-                        modifier = Modifier.padding(top = (calculateTopPadding()).dp),
+                        modifier = Modifier.padding(top = (calculateTopPadding()*0.7).dp),
                         state = pagerState,
                         userScrollEnabled = false
                     ) { pageIndex -> pages[pageIndex].invoke()

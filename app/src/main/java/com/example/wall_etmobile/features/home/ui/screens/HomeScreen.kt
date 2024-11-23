@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -33,10 +34,13 @@ import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainWhite
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.window.core.layout.WindowWidthSizeClass
+import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.ui.data.FavoriteTileData
 import com.example.wall_etmobile.ui.data.MovementData
 import com.example.wall_etmobile.ui.data.RoundedImageData
@@ -53,9 +57,15 @@ import com.example.wall_etmobile.core.designKit.TitleWithTextButton
 import com.example.wall_etmobile.core.designKit.TransactionType
 import com.example.wall_etmobile.core.navigation.NavigatorWrapper
 import com.example.wall_etmobile.core.navigation.Screen
+import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 
 @Composable
-fun HomeScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiveInfo) {
+fun HomeScreen(
+    navWrapper: NavigatorWrapper,
+    adaptiveInfo: WindowAdaptiveInfo,
+    cardsViewModel: CardViewModel = viewModel(factory = CardViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+
+) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
@@ -64,6 +74,11 @@ fun HomeScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiveInfo) {
     var showCvu by rememberSaveable { mutableStateOf(false) }
     var showMoney by rememberSaveable { mutableStateOf(true) }
     var showFavoriteModal by rememberSaveable { mutableStateOf(false) }
+
+    // TODO hacer esto en un scope mas general (no necesariamente en main)
+    LaunchedEffect(Unit) {
+        cardsViewModel.getCards()
+    }
 
     val clipboardManager = LocalClipboardManager.current
 

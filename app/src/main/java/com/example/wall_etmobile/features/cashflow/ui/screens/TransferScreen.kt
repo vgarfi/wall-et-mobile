@@ -63,7 +63,6 @@ fun TransferScreen(
         else -> {1.dp}
     }
 
-
     CashFlowBaseScaffold(bigText = "Transferir", navController = navController) {
         Column(
             modifier = Modifier
@@ -106,7 +105,6 @@ fun TransferScreenContent(
             .padding(adaptivePadding),
         verticalArrangement = Arrangement.spacedBy(adaptiveSpacing)
     ) {
-
         item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -131,7 +129,6 @@ fun TransferScreenContent(
                 )
             }
         }
-
 
         item {
             Text(
@@ -290,7 +287,6 @@ fun TransferScreenPreviewExpanded() {
         navController = navController, navigateToScreen = { _, _ -> }
     )
 }
-
 
 data class User(
     val name: String,
