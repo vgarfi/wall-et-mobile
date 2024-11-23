@@ -12,6 +12,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
+import com.example.wall_etmobile.features.cards.model.CreditCard
+
 fun TransferTo(
     topPadding: Int,
     onClick: () -> Unit = {},
@@ -120,17 +122,17 @@ fun TransferPayment(
     contactName: String = "Tomas",
     contactDetails: String = "bordatomas@hotmail.com",
     message: String = "Asado",
-    cardsInfo: List<CreditCardInfo> = listOf(
-        CreditCardInfo(
-            bankName = "",
-            cardNumber = "0000000000000000",
-            cardHolder = "",
-            cardExpiration = "",
-            cardImage = 0
+    cardsInfo: List<CreditCard> = listOf(
+        CreditCard(
+            number = "0000000000000000",
+            expirationDate = "",
+            holderName = "",
+            cvv = "",
+            color = 0
         )
     ),
     PaymentBySelfBalance: Boolean = false,
-    selectedObject: (CreditCardInfo) -> Unit = {},
+    selectedObject: (CreditCard) -> Unit = {},
     buttonText: String = "Transferir",
     amount: String = "0",
     buttonEnabled: Boolean = true
@@ -164,7 +166,7 @@ fun TransferPayment(
                 item {
                     Column(modifier = Modifier.heightIn(max = 240.dp)) {
                         PaymentSelector(
-                            cardsInfo = cardsInfo,
+                            cards = cardsInfo,
                             selectedObject = selectedObject,
                             PaymentBySelfBalance = PaymentBySelfBalance
                         ) {

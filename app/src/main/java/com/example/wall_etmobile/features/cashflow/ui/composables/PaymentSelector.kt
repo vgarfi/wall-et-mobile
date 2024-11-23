@@ -12,18 +12,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cards.ui.composables.CreditCardComponent
-data class CreditCardInfo(val bankName: String, val cardNumber: String,val cardHolder: String,val cardExpiration: String,val cardImage: Int)
+import com.example.wall_etmobile.features.cards.ui.composables.getBankFromCard
+import com.example.wall_etmobile.features.cashflow.ui.screens.getSampleCards
 
 @Composable
 fun PaymentSelector(
-    cardsInfo: List<CreditCardInfo>,
-    selectedObject: (CreditCardInfo) -> Unit, // Lambda to handle item selection
-    modifier: Modifier = Modifier, // Modifier for customization
+    cards: List<CreditCard>,
+    selectedObject: (CreditCard) -> Unit,
+    modifier: Modifier = Modifier,
     PaymentBySelfBalance: Boolean = false,
     Header: @Composable () -> Unit
 ) {
-    var selectedMethod by remember { mutableStateOf(cardsInfo.firstOrNull()) }
+    var selectedMethod by remember { mutableStateOf(cards.firstOrNull()) }
     val listState = rememberLazyListState()
 
 
@@ -34,7 +36,7 @@ fun PaymentSelector(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            items(items = cardsInfo) { card ->
+            items(items = cards) { card ->
                 Box(
                     modifier = Modifier
                         .clickable {
@@ -43,11 +45,11 @@ fun PaymentSelector(
                         }.height( 2020.dp)
                 ){
                 CreditCardComponent(
-                        bankName = card.bankName,
-                        cardNumber = card.cardNumber,
-                        cardHolder = card.cardHolder,
-                        cardExpiration = card.cardExpiration,
-                        cardImageIndex = card.cardImage
+                        bankName = getBankFromCard(card.number),
+                        cardNumber = card.number,
+                        cardHolder = card.holderName,
+                        cardExpiration = card.expirationDate,
+                        cardImageIndex = card.color
                     )
                 }
 
@@ -82,46 +84,10 @@ fun PaymentSelector(
 )
 @Composable
 fun PaymentSelectorPreview() {
-    var selectedObject by remember { mutableStateOf<CreditCardInfo?>(null) }
-    val cardsInfo = listOf(
-        CreditCardInfo(
-            bankName = "Galicia",
-            cardNumber = "4509909098989898",
-            cardHolder = "Tomas Borda",
-            cardExpiration = "07/25",
-            cardImage = R.drawable.purple_card
-        ),
-        CreditCardInfo(
-            bankName = "Santander",
-            cardNumber = "5234567812345678",
-            cardHolder = "Lucia Fernandez",
-            cardExpiration = "03/26",
-            cardImage = R.drawable.red_card
-        ),
-        CreditCardInfo(
-            bankName = "BBVA",
-            cardNumber = "4111222233334444",
-            cardHolder = "Marcos Diaz",
-            cardExpiration = "12/24",
-            cardImage = R.drawable.blue_card
-        ),
-        CreditCardInfo(
-            bankName = "HSBC",
-            cardNumber = "6011554445556666",
-            cardHolder = "Ana Lopez",
-            cardExpiration = "09/27",
-            cardImage = R.drawable.green_card
-        ),
-        CreditCardInfo(
-            bankName = "Macro",
-            cardNumber = "378282246310005",
-            cardHolder = "Pablo Rodriguez",
-            cardExpiration = "05/28",
-            cardImage = R.drawable.orange_card
-        )
-    )
+    var selectedObject by remember { mutableStateOf<CreditCard?>(null) }
+    getSampleCards()
     Column (modifier = Modifier.width(400.dp)) {
-        PaymentSelector(cardsInfo = cardsInfo, selectedObject = { selectedObject = it }) {
+        PaymentSelector(cards = getSampleCards(), selectedObject = { selectedObject = it }) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
             ) {
@@ -130,7 +96,7 @@ fun PaymentSelectorPreview() {
         }
         selectedObject?.let {
             Text(
-                text = "Selected card: ${it.bankName} - ${it.cardHolder}",
+                text = "Selected card: ${getBankFromCard(it.number)} - ${it.holderName}",
                 fontWeight = FontWeight.Bold
             )
         }

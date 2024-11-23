@@ -27,7 +27,7 @@ fun EnterFromScreen (
 
     CashFlowBaseScaffold(bigText = headerText , navController = navController) {
         Column (
-            verticalArrangement = Arrangement.SpaceEvenly,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {

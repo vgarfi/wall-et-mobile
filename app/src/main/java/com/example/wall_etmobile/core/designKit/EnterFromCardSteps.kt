@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cashflow.ui.composables.AmountInputField
-import com.example.wall_etmobile.features.cashflow.ui.composables.CreditCardInfo
 import com.example.wall_etmobile.features.cashflow.ui.composables.PaymentSelector
 
 fun EnterAmount(
@@ -33,17 +33,9 @@ fun EnterAmount(
 }
 
 fun EnterPayment(
-    cardsInfo: List<CreditCardInfo> = listOf(
-        CreditCardInfo(
-            bankName = "",
-            cardNumber = "0000000000000000",
-            cardHolder = "",
-            cardExpiration = "",
-            cardImage = 0
-        )
-    ),
+    cards: List<CreditCard>?,
     paymentBySelfBalance: Boolean = false,
-    selectedObject: (CreditCardInfo) -> Unit = {},
+    selectedObject: (CreditCard) -> Unit = {},
     amount: String = "0",
 ): @Composable () -> Unit {
     return {
@@ -66,7 +58,7 @@ fun EnterPayment(
                 item {
                     Column(modifier = Modifier.heightIn(max = 240.dp)) {
                         PaymentSelector(
-                            cardsInfo = cardsInfo,
+                            cards = cards.orEmpty(),
                             selectedObject = selectedObject,
                             PaymentBySelfBalance = paymentBySelfBalance
                         ) {
