@@ -1,5 +1,6 @@
-package com.example.wall_etmobile.features.transactions.model
+package com.example.wall_etmobile.features.transactions.model.response
 
+import com.example.wall_etmobile.features.transactions.model.TransactionCardInfo
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,7 +11,7 @@ class NetworkTransactionCardInfo (
     val fullName: String,
     val type: String
 ) {
-    fun asModel(): TransactionCardInfo{
+    fun asModel(): TransactionCardInfo {
         return TransactionCardInfo(
             id = id,
             number = number,

@@ -61,12 +61,14 @@ import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 import com.example.wall_etmobile.features.home.ui.designKit.CvuBottomSheet
+import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 
 @Composable
 fun HomeScreen(
     navWrapper: NavigatorWrapper,
     adaptiveInfo: WindowAdaptiveInfo,
-    cardsViewModel: CardViewModel = ( LocalContext.current.applicationContext as MyApplication).cardsViewmodel
+    cardsViewModel: CardViewModel = ( LocalContext.current.applicationContext as MyApplication).cardsViewmodel,
+    transactionsViewModel: TransactionViewModel = ( LocalContext.current.applicationContext as MyApplication).transactionViewModel
 ) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp

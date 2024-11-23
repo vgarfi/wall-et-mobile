@@ -8,7 +8,6 @@ import com.example.wall_etmobile.features.auth.datasource.UserRemoteDataSource
 import com.example.wall_etmobile.core.config.RetrofitClient
 import com.example.wall_etmobile.core.config.SessionManager
 import com.example.wall_etmobile.features.auth.repository.UserRepository
-import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.datasource.CardRemoteDataSource
 import com.example.wall_etmobile.features.cards.repository.CardRepository
 import com.example.wall_etmobile.features.transactions.datasource.TransactionRemoteDataSource
@@ -50,8 +49,4 @@ class MyApplication : Application() {
     val cardsViewmodel: CardViewModel
         @Composable
         get() = viewModel(factory = CardViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
-
-    val authViewmodel: AuthViewModel
-        @Composable
-        get() = viewModel(factory = AuthViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
 }
