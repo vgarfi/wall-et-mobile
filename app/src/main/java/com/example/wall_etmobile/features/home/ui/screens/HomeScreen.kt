@@ -63,8 +63,7 @@ import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 fun HomeScreen(
     navWrapper: NavigatorWrapper,
     adaptiveInfo: WindowAdaptiveInfo,
-    cardsViewModel: CardViewModel = viewModel(factory = CardViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
-
+    cardsViewModel: CardViewModel = ( LocalContext.current.applicationContext as MyApplication).cardsViewmodel
 ) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp

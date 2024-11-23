@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wall_etmobile.MyApplication
-import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.DashedCreditCard
 import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cards.ui.composables.AddNewCreditCard

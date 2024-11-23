@@ -66,7 +66,7 @@ import kotlinx.coroutines.delay
 import java.util.Date
 @Composable
 fun CardsScreen(
-    viewModel: CardViewModel = viewModel(factory = CardViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+    viewModel : CardViewModel =( LocalContext.current.applicationContext as MyApplication).cardsViewmodel
 ) {
     val uiState = viewModel.uiCardState
 
