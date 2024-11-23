@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.ui.data
+package com.example.wall_etmobile.core.data
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.unit.Dp
