@@ -16,8 +16,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowStepIndicator
@@ -59,7 +61,7 @@ fun ChargeScreen(
         ),
         ChargeQR(amount = amount, message = message.value)
     )
-    CashFlowBaseScaffold(bigText = "Cobrar", navController = navController, onArrowClick = onclick) {
+    CashFlowBaseScaffold(bigText = stringResource(R.string.charge), navController = navController, onArrowClick = onclick) {
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,
@@ -80,7 +82,7 @@ fun ChargeScreen(
                 }
                 item {
                 ActionButton(
-                    title = if (currentStep == 0) "Continuar" else "Volver al inicio" ,
+                    title = if (currentStep == 0) stringResource(R.string.continue_text) else stringResource(R.string.back_to_home) ,
                     onClick = {
                         if (currentStep == 0) {
                             coroutineScope.launch {

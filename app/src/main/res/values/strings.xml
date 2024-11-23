@@ -107,6 +107,12 @@
     <string name="select_year">Select year</string>
     <string name="example_mail">user@gmail.com</string>
     <string name="enter_cvu">Enter account\'s CVU/CBU</string>
+    <string name="charge">Charge</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="i_want_to_charge">I want to charge</string>
+    <string name="you_are_charging">You will charge</string>
+
+
 
 
 </resources>

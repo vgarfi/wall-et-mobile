@@ -119,4 +119,10 @@
 
     <string name="enter_cvu">Ingrese el CVU/CBU de la cuenta</string>
 
+
+    <string name="charge">Cobrar</string>
+    <string name="back_to_home">Volver al inicio</string>
+    <string name="i_want_to_charge">Quiero cobrar</string>
+    <string name="you_are_charging">Vas a cobrar</string>
+
 </resources>
