@@ -40,7 +40,7 @@ fun NavigationHostWrapper (
     adaptiveInfo: WindowAdaptiveInfo,
     navigatorWrapper: NavigatorWrapper,
 ){
-    val authViewModel: AuthViewModel = (LocalContext.current.applicationContext as MyApplication).authViewmodel
+    val authViewModel: AuthViewModel = (LocalContext.current.applicationContext as MyApplication).authViewModel
 
     NavHost(navController = navController,
         startDestination = Screen.SPLASH.route,
