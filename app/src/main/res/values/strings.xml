@@ -77,5 +77,35 @@
     <string name="enter_from">Enter from...</string>
     <string name="transfer_to">Transfer to...</string>
     <string name="welcome">Welcome</string>
+    <string name="transfer">Transfer</string>
+
+    <string name="to_user">To a Wall-et</string>
+    <string name="wallet">user</string>
+    <string name="bankary">account</string>
+    <string name="to_account">To a bank</string>
+    <string name="recents">Recents</string>
+
+    <string name="message">Message</string>
+    <string name="optional">(optional)</string>
+    <string name="write_a_message">Write a message</string>
+    <string name="continue_text">Continue</string>
+    <string name="you_are_transfering">You are about to transfer</string>
+    <string name="no_message">no message</string>
+
+    <string name="payment_method">Payment method</string>
+    <string name="add_new_card">ADD NEW CARD</string>
+    <string name="card_info">Card info</string>
+    <string name="card_number">Card number</string>
+    <string name="card_holder">Card holder name</string>
+    <string name="your_new_card">Your new card</string>
+    <string name="add_card">Add card</string>
+
+    <string name="error_invalid_date">Error: Invalid date</string>
+
+    <string name="expiration_date">Expiration date</string>
+    <string name="select_month">Select month</string>
+    <string name="select_year">Select year</string>
+
+
 
 </resources>

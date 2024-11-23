@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.window.core.layout.WindowHeightSizeClass
@@ -100,7 +101,7 @@ fun TransferToScreen(
             cardsInfo = getSampleCards(),
             selectedObject = { selectedObject.value = it },
             amount = amount.value,
-            buttonText = "Transferir",
+            buttonText = stringResource(R.string.transfer),
             buttonEnabled = true,
             onClick = {
                 currentStep = 0
@@ -109,7 +110,7 @@ fun TransferToScreen(
         )
     )
 
-    CashFlowBaseScaffold(bigText = "Transferir", navController = navController, onArrowClick = onclick) {
+    CashFlowBaseScaffold(bigText = stringResource(R.string.transfer), navController = navController, onArrowClick = onclick) {
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,

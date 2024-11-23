@@ -83,6 +83,37 @@
     <string name="transfer_to">Transferir a...</string>
 
     <string name="welcome">Bienvenido</string>
+    <string name="transfer">Transferir</string>
+
+    <string name="to_user">A usuario de</string>
+    <string name="to_account">A cuenta</string>
+
+    <string name="wallet">Wall-et</string>
+    <string name="bankary">bancaria</string>
+
+    <string name="recents">Frecuentes</string>
+
+    <string name="message">Mensaje</string>
+    <string name="optional">(opcional)</string>
+    <string name="write_a_message">Write a message</string>
+    <string name="continue_text">Continuar</string>
+    <string name="you_are_transfering">Vas a transferirle</string>
+    <string name="no_message">sin mensaje</string>
+    <string name="payment_method">Medio de pago</string>
+
+
+    <string name="add_new_card">AGREGAR NUEVA TARJETA</string>
+    <string name="card_info">Información de la tarjeta</string>
+    <string name="card_number">Número de tarjeta</string>
+    <string name="card_holder">Nombre del titular</string>
+    <string name="your_new_card">Su nueva tarjeta</string>
+    <string name="add_card">Agregar tarjeta</string>
+
+    <string name="error_invalid_date">Error: Fecha inválida</string>
+    <string name="expiration_date">Fecha de vencimiento</string>
+    <string name="select_month">Selecciona el mes</string>
+    <string name="select_year">Selecciona el año</string>
+
 
 
 

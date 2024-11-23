@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -57,7 +58,7 @@ fun AddNewCreditCard(
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Información de la tarjeta",
+                        text = stringResource(R.string.card_info),
                         fontSize = 24.sp,
                         fontWeight = FontWeight.W800,
                         textAlign = TextAlign.Center,
@@ -96,7 +97,7 @@ fun AddNewCreditCard(
                                         bankName = getBankFromCard(cardNumber.text)
                                     },
                                     label = {
-                                        Text("Numero de tarjeta", maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = 14.sp)
+                                        Text(stringResource(R.string.card_number), maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = 14.sp)
                                     },
                                     isError = cardNumberError,
                                     leadingIcon = {
@@ -111,7 +112,7 @@ fun AddNewCreditCard(
                                         if (!cardNumberError && cardNumber.text.isNotEmpty()) {
                                             Icon(
                                                 imageVector = Icons.Default.CheckCircle,
-                                                contentDescription = "Validación",
+                                                contentDescription = "validation",
                                                 tint = MainGreen,
                                                 modifier = Modifier.size(18.dp)
                                             )
@@ -144,7 +145,7 @@ fun AddNewCreditCard(
                                         if (!cardCVVError && cardCVV.text.isNotEmpty()) {
                                             Icon(
                                                 imageVector = Icons.Default.CheckCircle,
-                                                contentDescription = "Validación",
+                                                contentDescription = "validation",
                                                 tint = MainGreen,
                                                 modifier = Modifier.size(18.dp)
                                             )
@@ -178,13 +179,13 @@ fun AddNewCreditCard(
                                     cardHolderError = cardHolder.text.isEmpty()
                                 },
                                 label = {
-                                    Text("Nombre del titular")
+                                    Text(stringResource(R.string.card_holder))
                                 },
                                 isError = cardHolderError,
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Default.Person,
-                                        contentDescription = "titular"
+                                        contentDescription = "holder"
                                     )
                                 },
                                 colors = OutlinedTextFieldDefaults.colors(
@@ -196,7 +197,7 @@ fun AddNewCreditCard(
                                     if (!cardHolderError && cardHolder.text.isNotEmpty()) {
                                         Icon(
                                             imageVector = Icons.Default.CheckCircle,
-                                            contentDescription = "Validación",
+                                            contentDescription = "validation",
                                             tint = MainGreen,
                                             modifier = Modifier.size(18.dp)
                                         )
@@ -206,7 +207,7 @@ fun AddNewCreditCard(
                             )
                         }
                         item { Box(modifier = Modifier.height(26.dp)) }
-                        item { Text("Su nueva tarjeta", color = MainGrey, fontWeight = FontWeight.W500) }
+                        item { Text(stringResource(R.string.your_new_card), color = MainGrey, fontWeight = FontWeight.W500) }
                         item { Box(modifier = Modifier.height(6.dp)) }
                         item {
                             CreditCardComponent(
@@ -220,7 +221,7 @@ fun AddNewCreditCard(
                     }
 
                     ActionButton(
-                        title = "Agregar tarjeta",
+                        title = stringResource(R.string.add_card),
                         elevation = true,
                         onClick = {
                             onAddCard(

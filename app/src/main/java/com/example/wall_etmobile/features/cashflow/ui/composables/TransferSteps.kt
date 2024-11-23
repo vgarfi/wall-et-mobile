@@ -8,10 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
+import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.cards.model.CreditCard
 
 @Composable
@@ -89,18 +94,27 @@ fun TransferAmount(
 
                   item {
                       AmountInputField(onValueChange = {onAmountChange.value= it})
-
                   }
-                  item{
-                      Column(modifier = Modifier.fillMaxWidth(),
-                          horizontalAlignment = Alignment.Start) {
-                          Text(text = "Mensaje (opcional)", fontWeight = FontWeight.Bold)
+                  item {
+                      Row(
+                          verticalAlignment = Alignment.CenterVertically,
+                          horizontalArrangement = Arrangement.Start,
+                          modifier = Modifier
+                              .padding(horizontal = 5.dp)
+                              .padding(top = 50.dp)
+                      ) {
+                          Text(
+                              text = stringResource(R.string.message),
+                              fontWeight = FontWeight.Bold
+                          )
+                          Text(text = " " + stringResource(R.string.optional))
+                          Spacer(modifier = Modifier.weight(1f))
                       }
                   }
 
                   item {
                       CustomTextField(
-                          hint = "Mensaje",
+                          hint = stringResource(R.string.write_a_message),
                           label = "",
                           isPassword = false,
                           controller = onValueChange,
@@ -108,7 +122,7 @@ fun TransferAmount(
                   }
             }
             ActionButton(
-                title = "Continuar",
+                title = stringResource(R.string.continue_text),
                 onClick = onClick,
                 elevation = true
             )
@@ -136,7 +150,7 @@ fun TransferPayment(
     ),
     PaymentBySelfBalance: Boolean = false,
     selectedObject: (CreditCard) -> Unit = {},
-    buttonText: String = "Transferir",
+    buttonText: String = stringResource(R.string.transfer),
     amount: String = "0",
     buttonEnabled: Boolean = true
 ): @Composable () -> Unit {
@@ -146,11 +160,16 @@ fun TransferPayment(
             modifier = Modifier.fillMaxSize(),
         ) {
 
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
                 ContactTransferTile(
                     icon = R.drawable.logo,
                     contactName = contactName,
                     contactDetails = contactDetails,
                 )
+            }
 
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -158,28 +177,34 @@ fun TransferPayment(
             ) {
 
                 item {
-                    Text(text = "Vas a transferirle", fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(R.string.you_are_transfering), fontWeight = FontWeight.Bold)
                 }
                 item {
-                   AmountInputField(readOnly = true, textIn = amount, onValueChange = {})
+                    Text("$" + amount, style = TextStyle(
+                        fontSize = 54.sp,
+                        color = MainPurple,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                    ),)
                 }
+
                 item {
-                    Text(text = "Mensaje : $message", fontWeight = FontWeight.Light)
+                    Text(text = stringResource(R.string.message) + ": " + if(message.isEmpty()) stringResource(R.string.no_message) else message, fontWeight = FontWeight.Light)
                 }
                 item {
                     Column(modifier = Modifier.heightIn(max = 240.dp)) {
                         PaymentSelector(
-//                            cards = cardsInfo,
                             selectedObject = selectedObject,
                             PaymentBySelfBalance = PaymentBySelfBalance
                         ) {
-                            Text(text = "Medio de pago", fontWeight = FontWeight.Bold)
+                            Text(text = stringResource(R.string.payment_method), fontWeight = FontWeight.Bold)
                         }
                     }
                 }
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
             ActionButton(
+                modifier = Modifier.fillMaxWidth(),
                 title = buttonText,
                 onClick = onClick,
                 elevation = true,
