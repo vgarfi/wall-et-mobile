@@ -19,10 +19,14 @@ import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 
 class MyApplication : Application() {
     private val userRemoteDataSource: UserRemoteDataSource
-        get() = UserRemoteDataSource(sessionManager, RetrofitClient.getUserApiService(this))
+        get() = UserRemoteDataSource(
+            sessionManager,
+            RetrofitClient.getUserApiService(this),
+            RetrofitClient.getUserWalletApiService(this),
+        )
 
     private val cardRemoteDataSource: CardRemoteDataSource
-        get() = CardRemoteDataSource(RetrofitClient.getWalletApiService(this))
+        get() = CardRemoteDataSource(RetrofitClient.getCardApiService(this))
 
     private val transactionRemoteDataSource: TransactionRemoteDataSource
         get() = TransactionRemoteDataSource(RetrofitClient.getTransactionApiService(this))

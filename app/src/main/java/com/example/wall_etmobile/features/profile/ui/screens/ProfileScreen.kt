@@ -8,19 +8,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -30,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -38,6 +40,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.designKit.BaseScaffold
@@ -46,6 +49,8 @@ import com.example.wall_etmobile.core.theme.GrayText
 import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.features.auth.model.User
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Copy
@@ -54,9 +59,14 @@ import kotlinx.coroutines.launch
 import java.util.Locale
 
 @Composable
-fun ProfileScreen(navController: NavController) {
-    val cvu = remember { mutableStateOf("00420728575744892407") }
-    val email = remember { mutableStateOf("valentin.garfi@gmail.com") }
+fun ProfileScreen(
+    navController: NavController,
+    viewModel: AuthViewModel,
+) {
+    val currentUser = viewModel.getUserData()
+
+    val cbu = remember { mutableStateOf(currentUser?.wallet?.cbu ?: "") }
+    val email = remember { mutableStateOf(currentUser?.email ?: "") }
 
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -68,11 +78,10 @@ fun ProfileScreen(navController: NavController) {
         BaseScaffold(tinyText = stringResource(R.string.your), bigText = stringResource(R.string.profile)) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .padding(paddingValues),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Spacer(modifier = Modifier.height(12.dp))
                 Image(
                     painter = painterResource(id = R.drawable.profile_picture),
                     contentDescription = "Profile Picture",
@@ -96,7 +105,7 @@ fun ProfileScreen(navController: NavController) {
                     Spacer(modifier = Modifier.width(8.dp))
                     Column {
                         Text(
-                            text = "Valentín Garfi",
+                            text = currentUser?.firstName + " " + currentUser?.lastName,
                             fontSize = 20.sp,
                             color = MainBlack
                         )
@@ -110,7 +119,7 @@ fun ProfileScreen(navController: NavController) {
                 CustomTextField(
                     label = "CVU",
                     hint = "",
-                    controller = cvu,
+                    controller = cbu,
                     enabled = false,
                     suffix = {
                         Icon(
@@ -120,7 +129,7 @@ fun ProfileScreen(navController: NavController) {
                             modifier = Modifier
                                 .size(16.dp)
                                 .clickable {
-                                    val textToCopy = cvu.value
+                                    val textToCopy = cbu.value
                                     clipboardManager.setText(AnnotatedString(textToCopy))
                                     coroutineScope.launch {
                                         snackbarHostState.showSnackbar("CVU copied to clipboard")
@@ -168,6 +177,7 @@ fun ProfileScreen(navController: NavController) {
                 Spacer(modifier = Modifier.weight(1f))
                 ActionButton(
                     onClick = {
+                        viewModel.logout()
                         navController.navigate(Screen.WELCOME.route) {
                             popUpTo(navController.graph.startDestinationId) {
                                 saveState = true

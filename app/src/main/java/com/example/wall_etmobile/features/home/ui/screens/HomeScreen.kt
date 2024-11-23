@@ -77,7 +77,6 @@ fun HomeScreen(
     var showMoney by rememberSaveable { mutableStateOf(true) }
     var showFavoriteModal by rememberSaveable { mutableStateOf(false) }
 
-    // TODO hacer esto en un scope mas general (no necesariamente en main)
     LaunchedEffect(Unit) {
         cardsViewModel.getCards()
     }

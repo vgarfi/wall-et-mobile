@@ -147,5 +147,8 @@
 
     <string name="need_camera">Para scanear un código QR es necesario acceso a la cámara</string>
     <string name="scan_qr_info">Coloque un QR en el interior del rectángulo para escanearlo</string>
+    <string name="an_error_ocurred_while_trying_to_sign_in_please_check_that_your_email_and_password_are_correct">Ocurrió un error al iniciar sesión, por favor asegúrate de que tu correo y contraseña sean correctos.</string>
+    <string name="an_error_ocurred_while_trying_to_sign_up_please_check_that_the_information_is_correct">Ocurrió un error al crear la cuenta, por favor asegúrate de que los datos ingresados sean correctos.</string>
+    <string name="invalid_code_please_try_again">Código inválido o expirado, por favor intenta de nuevo.</string>
 
 </resources>

@@ -129,4 +129,7 @@
     <string name="scan_qr">Scan QR</string>
     <string name="need_camera">You need to grant camera access for QR scanning</string>
     <string name="scan_qr_info">Place a QR code inside the rectangle to scan it</string>
+    <string name="an_error_ocurred_while_trying_to_sign_in_please_check_that_your_email_and_password_are_correct">An error ocurred while trying to sign in, please check that your email and password are correct.</string>
+    <string name="an_error_ocurred_while_trying_to_sign_up_please_check_that_the_information_is_correct">An error ocurred while trying to sign up, please check that the information is correct.</string>
+    <string name="invalid_code_please_try_again">Invalid or expired code, please try again.</string>
 </resources>

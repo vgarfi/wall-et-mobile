@@ -7,10 +7,12 @@ import com.example.wall_etmobile.features.auth.service.UserApiService
 import com.example.wall_etmobile.features.auth.model.LoginCredentials
 import com.example.wall_etmobile.features.auth.model.User
 import com.example.wall_etmobile.features.auth.model.VerifyCodeBody
+import com.example.wall_etmobile.features.auth.service.UserWalletApiService
 
 class UserRemoteDataSource(
     private val sessionManager: SessionManager,
-    private val userApiService: UserApiService
+    private val userApiService: UserApiService,
+    private val userWalletApiService: UserWalletApiService,
 ) : RemoteDataSource() {
 
     suspend fun login(username: String, password: String) {
@@ -26,7 +28,9 @@ class UserRemoteDataSource(
     }
 
     suspend fun getCurrentUser(): User {
-        return handleApiResponse { userApiService.getCurrentUser() }
+        val userData = handleApiResponse { userApiService.getCurrentUser() }
+        val userWallet = handleApiResponse { userWalletApiService.getUserWallet() }
+        return userData.copy(wallet = userWallet)
     }
 
     suspend fun register(firstName: String, lastName: String, email: String, password: String) {

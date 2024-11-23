@@ -30,12 +30,12 @@ class AuthViewModel(
 
     suspend fun register(firstName: String, lastName: String, email: String, password: String) = runOnViewModelScope(
         { userRepository.register(firstName, lastName, email, password) },
-        { state, response -> state.copy(userRegisterEmail = email) }
+        { state, response -> state.copy(userRegisterEmail = email, userRegisterPassword = password) }
     )
 
     suspend fun verify(code: String) = runOnViewModelScope(
         { userRepository.verify(code) },
-        { state, response -> state }
+        { state, response -> state.copy(hasVerifiedEmail = true) }
     )
 
     suspend fun logout() = runOnViewModelScope(
@@ -48,9 +48,18 @@ class AuthViewModel(
         }
     )
 
-    fun getCurrentUser() = state.user
+    suspend fun getCurrentUser() = runOnViewModelScope(
+        { userRepository.getCurrentUser(state.user == null) },
+        { state, response -> state.copy(user = response) }
+    )
+
+    fun getUserData() = state.user
+    fun getError() = state.error
+    fun isAuthenticated() = state.isAuthenticated
+    fun hasVerifiedEmail() = state.hasVerifiedEmail
 
     fun getUserRegisterEmail() = state.userRegisterEmail
+    fun getUserRegisterPassword() = state.userRegisterPassword
 
     private suspend fun <R> runOnViewModelScope(
         block: suspend () -> R,
@@ -61,6 +70,7 @@ class AuthViewModel(
             block()
         }.onSuccess { response ->
             state = updateState(state, response).copy(isLoading = false)
+            println(state)
         }.onFailure { e ->
             state = state.copy(isLoading = false, error = handleError(e))
             Log.e(TAG, "Coroutine execution failed", e)

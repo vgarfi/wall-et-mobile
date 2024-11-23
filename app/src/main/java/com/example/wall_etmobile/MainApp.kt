@@ -77,7 +77,8 @@ fun MainApp() {
         Screen.ENTER.route,
         Screen.ENTERFROM.route,
         Screen.CHARGE.route,
-        Screen.SCANQR.route
+        Screen.SCANQR.route,
+        Screen.SPLASH.route,
     )
 
     val topBarRoutes = listOf(

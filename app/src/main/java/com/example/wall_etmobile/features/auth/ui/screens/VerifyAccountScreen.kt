@@ -1,5 +1,6 @@
 package com.example.wall_etmobile.features.auth.ui.screens
 
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,6 +20,9 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -27,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,17 +61,24 @@ import com.example.wall_etmobile.core.theme.LightBackground
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
 import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun VerifyAccountScreen(
     navController: NavController,
-    viewModel: AuthViewModel = (LocalContext.current.applicationContext as MyApplication).authViewmodel,
+    viewModel: AuthViewModel
 ) {
+
     val otpValue = remember { mutableStateListOf<String>("", "", "", "") }
     val focusRequesters = remember { List(4) { FocusRequester() } }
     val localFocusManager = LocalFocusManager.current
 
     val code = remember { mutableStateOf("") }
+
+    val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val errorMsg = stringResource(R.string.invalid_code_please_try_again)
 
     fun updateOtpValue(index: Int, value: String) {
         if (index in otpValue.indices && value.length <= 1) {
@@ -82,81 +94,104 @@ fun VerifyAccountScreen(
         }
     }
 
-    return Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = MainWhite)
-    ) {
-        LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally,
+    return Scaffold (
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { innerPadding ->
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(innerPadding)
+                .background(color = MainWhite)
         ) {
-            item {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    Image(
-                        painter = painterResource(id = R.drawable.verify_account),
-                        contentDescription = "Verify Account",
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                item {
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        Image(
+                            painter = painterResource(id = R.drawable.verify_account),
+                            contentDescription = "Verify Account",
+                            modifier = Modifier
+                                .size(350.dp)
+                                .align(Alignment.Center)
+                        )
+                    }
+                    Text(
+                        text = stringResource(R.string.verify_your_account),
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.please_enter_the_4_digit_code_sent_to),
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = viewModel.getUserRegisterEmail() ?: "",
+                        color = MainPurple,
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    CustomTextField(
+                        label = "",
+                        hint = "fb61487f2a2339f2",
+                        controller = code,
+                    )
+                    //                Row(
+                    //                    modifier = Modifier
+                    //                        .fillMaxWidth()
+                    //                        .padding(16.dp),
+                    //                    horizontalArrangement = Arrangement.SpaceEvenly
+                    //                ) {
+                    //                    for (i in 0 until 4) {
+                    //                        OtpTextField(
+                    //                            value = otpValue.getOrNull(i)?.toString() ?: "",
+                    //                            onValueChange = { updateOtpValue(i, it) },
+                    //                            focusRequester = focusRequesters[i],
+                    //                        )
+                    //                    }
+                    //                }
+                    //                Text(
+                    //                    text = stringResource(R.string.resend_code),
+                    //                    color = MainPurple,
+                    //                    fontSize = 14.sp,
+                    //                    textDecoration = TextDecoration.Underline,
+                    //                )
+                    Spacer(modifier = Modifier.height(32.dp))
+                    ActionButton(
+                        onClick = {
+                            viewModel.verify(code.value)
+                            val hasVerifiedEmail = viewModel.hasVerifiedEmail()
+                            if(hasVerifiedEmail) {
+                                val email = viewModel.getUserRegisterEmail()
+                                val password = viewModel.getUserRegisterPassword()
+                                if (email != null && password != null) {
+                                    viewModel.login(email, password)
+                                    if (viewModel.getUserData() != null) {
+                                        navController.navigate(Screen.HOME.route)
+                                    }
+                                } else {
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar(errorMsg)
+                                    }
+                                }
+                            } else {
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar(errorMsg)
+                                }
+                            }
+                        },
                         modifier = Modifier
-                            .size(350.dp)
-                            .align(Alignment.Center)
+                            .fillMaxWidth()
+                            .height(48.dp)
+                            .clip(RoundedCornerShape(8.dp)),
+                        title = stringResource(R.string.confirm),
+                        elevation = true,
                     )
                 }
-                Text(
-                    text = stringResource(R.string.verify_your_account),
-                    textAlign = TextAlign.Center,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = stringResource(R.string.please_enter_the_4_digit_code_sent_to),
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "to your email address",
-                    color = MainPurple,
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                CustomTextField(
-                    label = "",
-                    hint = "fb61487f2a2339f2",
-                    controller = code,
-                )
-//                Row(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(16.dp),
-//                    horizontalArrangement = Arrangement.SpaceEvenly
-//                ) {
-//                    for (i in 0 until 4) {
-//                        OtpTextField(
-//                            value = otpValue.getOrNull(i)?.toString() ?: "",
-//                            onValueChange = { updateOtpValue(i, it) },
-//                            focusRequester = focusRequesters[i],
-//                        )
-//                    }
-//                }
-//                Text(
-//                    text = stringResource(R.string.resend_code),
-//                    color = MainPurple,
-//                    fontSize = 14.sp,
-//                    textDecoration = TextDecoration.Underline,
-//                )
-                Spacer(modifier = Modifier.height(32.dp))
-                ActionButton(
-                    onClick = {
-                        viewModel.verify(code.value)
-                        navController.navigate(Screen.LOGIN.route)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp)
-                        .clip(RoundedCornerShape(8.dp)),
-                    title = stringResource(R.string.confirm),
-                    elevation = true,
-                )
             }
         }
     }
