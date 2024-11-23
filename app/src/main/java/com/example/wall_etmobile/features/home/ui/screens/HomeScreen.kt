@@ -45,7 +45,6 @@ import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.ui.data.FavoriteTileData
 import com.example.wall_etmobile.ui.data.MovementData
 import com.example.wall_etmobile.ui.data.RoundedImageData
-import com.example.wall_etmobile.features.home.ui.designKit.CvuDialog
 import com.example.wall_etmobile.features.home.ui.designKit.FavoriteDialog
 import com.example.wall_etmobile.features.home.ui.designKit.HomeHeader
 import com.example.wall_etmobile.features.home.ui.designKit.MountVisor
@@ -61,6 +60,7 @@ import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
+import com.example.wall_etmobile.features.home.ui.designKit.CvuBottomSheet
 
 @Composable
 fun HomeScreen(
@@ -81,8 +81,6 @@ fun HomeScreen(
     LaunchedEffect(Unit) {
         cardsViewModel.getCards()
     }
-
-    val clipboardManager = LocalClipboardManager.current
 
     val cvu = "12321312312233123"
     val username = "Valentin"
@@ -391,17 +389,18 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(30.dp)
+                    .padding(horizontal = 20.dp, vertical = 45.dp)
             ) {
                 HomeHeader(onClick = { showCvu = !showCvu })
+                Box(modifier = Modifier.height((screenHeight*0.035).dp))
                 MountVisor(
                     mount = 12672.68,
                     onClick = { showMoney = !showMoney },
                     showMoney = showMoney
                 )
-                Spacer(modifier = Modifier.padding(vertical = 16.dp))
+                Box(modifier = Modifier.height((screenHeight*0.025).dp))
                 SectionButtons(navWrapper = navWrapper, height = (screenHeight * 0.1).dp)
-                Spacer(modifier = Modifier.padding(vertical = 16.dp))
+                Box(modifier = Modifier.height((screenHeight*0.035).dp))
                 Column(
                     modifier = Modifier
                         .height((screenHeight * 0.18).dp)
@@ -458,19 +457,11 @@ fun HomeScreen(
         }
     }
     if (showCvu) {
-        Column (
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            CvuDialog(
+        CvuBottomSheet(
                 onDismissRequest = { showCvu = false },
-                onCopyCvu = { clipboardManager.setText(AnnotatedString(cvu)) },
                 cvu = cvu,
                 username = username
             )
-        }
     }
 }
 
