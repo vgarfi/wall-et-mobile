@@ -403,7 +403,6 @@ fun HomeScreen(
                 Box(modifier = Modifier.height((screenHeight*0.035).dp))
                 Column(
                     modifier = Modifier
-                        .height((screenHeight * 0.18).dp)
                         .fillMaxWidth()
                 ) {
                     Text(
@@ -433,7 +432,7 @@ fun HomeScreen(
                     }
 
                 }
-
+                Box(modifier = Modifier.height((screenHeight*0.02).dp))
                 Column(
                     modifier = Modifier
                         .height((screenHeight * 0.6).dp)
