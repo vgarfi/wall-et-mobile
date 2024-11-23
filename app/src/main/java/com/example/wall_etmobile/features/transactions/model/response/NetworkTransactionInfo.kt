@@ -1,6 +1,8 @@
-package com.example.wall_etmobile.features.transactions.model
+package com.example.wall_etmobile.features.transactions.model.response
 
 import com.example.wall_etmobile.features.auth.model.User
+import com.example.wall_etmobile.features.transactions.model.TransactionInfo
+import com.example.wall_etmobile.features.transactions.model.TransactionType
 import kotlinx.serialization.Serializable
 
 @Serializable
