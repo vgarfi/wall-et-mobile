@@ -27,9 +27,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -37,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.designKit.BaseScaffold
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.GrayText
@@ -48,6 +51,7 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Copy
 import compose.icons.fontawesomeicons.solid.Edit
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @Composable
 fun ProfileScreen(navController: NavController) {
@@ -61,9 +65,11 @@ fun ProfileScreen(navController: NavController) {
     Scaffold (
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
-        BaseScaffold(tinyText = "tu", bigText = "Perfil") {
+        BaseScaffold(tinyText = stringResource(R.string.your), bigText = stringResource(R.string.profile)) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(paddingValues),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(paddingValues),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Spacer(modifier = Modifier.height(12.dp))
@@ -84,7 +90,8 @@ fun ProfileScreen(navController: NavController) {
                         painter = painterResource(id = R.drawable.logo),
                         contentDescription = "HCI Wallet Logo",
                         modifier = Modifier
-                            .size(50.dp)
+                            .size(40.dp),
+                        colorFilter = ColorFilter.tint(MainPurple)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Column {
@@ -94,7 +101,7 @@ fun ProfileScreen(navController: NavController) {
                             color = MainBlack
                         )
                         Text(
-                            text = "Miembro desde el 9 de Julio",
+                            text = stringResource(R.string.member_since_july_9th),
                             fontSize = 12.sp,
                             color = GrayText
                         )
@@ -116,7 +123,7 @@ fun ProfileScreen(navController: NavController) {
                                     val textToCopy = cvu.value
                                     clipboardManager.setText(AnnotatedString(textToCopy))
                                     coroutineScope.launch {
-                                        snackbarHostState.showSnackbar("CVU copiado al portapapeles")
+                                        snackbarHostState.showSnackbar("CVU copied to clipboard")
                                     }
                                 }
                         )
@@ -124,7 +131,7 @@ fun ProfileScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 CustomTextField(
-                    label = "Correo electrónico",
+                    label = stringResource(R.string.email),
                     hint = "",
                     controller = email,
                     enabled = false,
@@ -139,7 +146,7 @@ fun ProfileScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Modificar contraseña",
+                    text = stringResource(R.string.change_password),
                     fontSize = 16.sp,
                     color = MainPurple,
                     textAlign = TextAlign.End,
@@ -152,13 +159,14 @@ fun ProfileScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 Text(
-                    text = "Términos y condiciones",
+                    text = stringResource(R.string.terms_and_conditions).trim()
+                        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
                     fontSize = 16.sp,
                     color = GrayText,
                     textDecoration = TextDecoration.Underline,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                ElevatedButton(
+                ActionButton(
                     onClick = {
                         navController.navigate(Screen.WELCOME.route) {
                             popUpTo(navController.graph.startDestinationId) {
@@ -167,14 +175,11 @@ fun ProfileScreen(navController: NavController) {
                         }
                     },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                ) {
-                    Text(
-                        text = "Cerrar sesión",
-                        fontSize = 16.sp
-                    )
-                }
+                        .fillMaxWidth().height(48.dp)
+                        .padding(horizontal = 16.dp),
+                    title = stringResource(R.string.logout),
+                    elevation = true,
+                )
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }

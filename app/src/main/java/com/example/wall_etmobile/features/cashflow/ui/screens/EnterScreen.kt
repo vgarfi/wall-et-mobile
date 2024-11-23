@@ -20,7 +20,7 @@ fun EnterScreen(
     navController: NavController,
     navigateToScreen: (String, Map<String, String?>) -> Unit
 ) {
-    CashFlowBaseScaffold(bigText = "Ingresá dinero", navController = navController) {
+    CashFlowBaseScaffold(bigText = "Ingresá dinero", navController = navController, onArrowClick = {navigateToScreen("home", emptyMap())}) {
         Column (
             modifier = Modifier
                 .padding(all = 12.dp)

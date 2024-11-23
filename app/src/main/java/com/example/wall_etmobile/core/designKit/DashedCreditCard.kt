@@ -19,8 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DashedCreditCard() {
-    Box(modifier = Modifier.size((200 * 1.618).dp, 200.dp)) {
+fun DashedCreditCard(
+    scaleFactor: Float = 1f
+) {
+    Box(modifier = Modifier.size((200 * 1.618 * scaleFactor).dp, (200*scaleFactor).dp)) {
         CustomCard(
             isDashed = true,
             borderWidth = 2.dp,
@@ -35,7 +37,7 @@ fun DashedCreditCard() {
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                Box(modifier = Modifier.size(40.dp).align(Alignment.CenterHorizontally)) {
+                Box(modifier = Modifier.size((40*scaleFactor).dp).align(Alignment.CenterHorizontally)) {
                     CustomCard (
                         contentPadding = 8.dp,
                     ) {

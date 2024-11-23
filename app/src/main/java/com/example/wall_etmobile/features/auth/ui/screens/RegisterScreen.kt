@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ElevatedButton
@@ -19,9 +20,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.features.auth.ui.composables.TermsCheckbox
 import com.example.wall_etmobile.core.theme.MainPurple
@@ -43,44 +47,40 @@ fun RegisterScreen(navController: NavController) {
         ) {
             Spacer(modifier = Modifier.size(24.dp))
             CustomTextField(
-                label = "Correo electrónico",
+                label = stringResource(R.string.email),
                 hint = "juan@gmail.com",
                 controller = email,
             )
             Spacer(modifier = Modifier.size(24.dp))
             CustomTextField(
-                label = "Nombre completo",
+                label = stringResource(R.string.full_name),
                 hint = "Juan Pérez",
                 controller = email,
             )
             Spacer(modifier = Modifier.size(24.dp))
             CustomTextField(
-                label = "Contraseña",
-                hint = "Al menos 8 caracteres",
+                label = stringResource(R.string.password),
+                hint = stringResource(R.string.at_least_8_characters),
                 controller = password,
                 isPassword = true,
             )
             Spacer(modifier = Modifier.size(24.dp))
             CustomTextField(
-                label = "Confirme su contraseña",
-                hint = "Confirme su contraseña",
+                label = stringResource(R.string.confirm_your_password),
+                hint = stringResource(R.string.confirm_your_password),
                 controller = password,
                 isPassword = true,
             )
             Spacer(modifier = Modifier.size(24.dp))
-            ElevatedButton(
+            ActionButton(
                 onClick = {},
-                modifier = Modifier.fillMaxWidth())
-            {
-                Text(
-                    text = "Registrarse",
-                    fontSize = 16.sp
-                )
-            }
+                modifier = Modifier.fillMaxWidth().height(48.dp),
+                title = stringResource(R.string.create_account),
+                elevation = true,
+            )
             Spacer(modifier = Modifier.size(16.dp))
             TermsCheckbox()
             Spacer(modifier = Modifier.weight(1f))
-            // TODO: cambiar boton al correcto
             TextButton(
                 onClick = {
                     navController.navigate(Screen.LOGIN.route)
@@ -89,13 +89,13 @@ fun RegisterScreen(navController: NavController) {
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text(
-                    text = "¿Ya tenés una cuenta?",
+                    text = stringResource(R.string.already_have_an_account),
                     fontSize = 16.sp,
                     color = Color.Black
                 )
                 Spacer(modifier = Modifier.size(4.dp))
                 Text(
-                    text = "Iniciá sesión",
+                    text = stringResource(R.string.sign_in),
                     fontSize = 16.sp,
                     color = MainPurple
                 )

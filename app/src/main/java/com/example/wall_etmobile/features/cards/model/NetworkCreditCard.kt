@@ -3,9 +3,10 @@ package com.example.wall_etmobile.features.cards.model
 import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.Random
 
 @Serializable
-class NetworkCard(
+class NetworkCreditCard(
     var id: Int?,
     var number: String,
     var expirationDate: String,
@@ -15,17 +16,17 @@ class NetworkCard(
     var createdAt: String?,
     var updatedAt: String?
 ) {
-    fun asModel(): Card {
+    fun asModel(): CreditCard {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault(Locale.Category.FORMAT))
-        return Card(
+        return CreditCard(
             id = id,
             number = number,
             expirationDate = expirationDate,
-            fullName = fullName,
+            holderName = fullName,
             cvv = cvv,
-            type = when (type) { "DEBIT" -> CardType.DEBIT else -> CardType.CREDIT },
             createdAt = createdAt?.let { dateFormat.parse(createdAt!!) },
-            updatedAt = updatedAt?.let { dateFormat.parse(updatedAt!!) }
+            updatedAt = updatedAt?.let { dateFormat.parse(updatedAt!!) },
+            color = id?.rem(6) ?: 0
         )
     }
 }

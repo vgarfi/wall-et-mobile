@@ -16,10 +16,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
@@ -27,45 +30,45 @@ fun RestorePasswordScreen(navController: NavController) {
     val newPassword = remember { mutableStateOf("") }
     val newPasswordConfirmation = remember { mutableStateOf("") }
     Box (
-        modifier = Modifier.fillMaxSize().background(color = MainWhite)
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MainWhite)
     ) {
         Column (
-            modifier = Modifier.fillMaxSize().padding(16.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                "Restablecé tu contraseña",
+                stringResource(R.string.restore_your_password),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Asegurate de que tu nueva contraseña sea segura y única.",
+                text = stringResource(R.string.make_sure_your_new_password_is_secure_and_unique),
                 fontSize = 12.sp,
             )
             Spacer(modifier = Modifier.height(20.dp))
             CustomTextField(
-                label = "Nueva contraseña",
-                hint = "Ingresa tu nueva contraseña",
+                label = stringResource(R.string.new_password),
+                hint = stringResource(R.string.enter_your_new_password),
                 controller = newPassword,
             )
             Spacer(modifier = Modifier.height(20.dp))
             CustomTextField(
-                label = "Confirma tu nueva contraseña",
-                hint = "Ingresa tu nueva contraseña",
+                label = stringResource(R.string.confirm_your_new_password),
+                hint = stringResource(R.string.enter_your_new_password),
                 controller = newPasswordConfirmation,
             )
             Spacer(modifier = Modifier.height(30.dp))
-            ElevatedButton(
+            ActionButton(
                 onClick = {},
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = "Restablecer contraseña",
-                    fontSize = 16.sp,
-                    color = Color.Black
-                )
-            }
+                modifier = Modifier.fillMaxWidth().height(48.dp),
+                title = stringResource(R.string.restore_password),
+                elevation = true,
+            )
         }
     }
 }

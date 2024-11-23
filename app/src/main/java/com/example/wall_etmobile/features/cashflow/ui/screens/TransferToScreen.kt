@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.window.core.layout.WindowHeightSizeClass
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowStepIndicator
-import com.example.wall_etmobile.features.cashflow.ui.composables.CreditCardInfo
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransferAmount
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransferPayment
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransferTo
@@ -35,7 +35,7 @@ fun TransferToScreen(
 ) {
     var userId = remember { mutableStateOf("") }
     var message = remember { mutableStateOf("") }
-    var selectedObject = remember { mutableStateOf<CreditCardInfo?>(null) }
+    var selectedObject = remember { mutableStateOf<CreditCard?>(null) }
     var amount = remember { mutableStateOf("0") }
 
     val totalSteps = 3
@@ -50,6 +50,17 @@ fun TransferToScreen(
         else -> listOf("", "")
     }
 
+    val onclick : () -> Unit = {
+        if (currentStep <= 0){
+            navigateToScreen("transfer", emptyMap())
+        }
+        else{
+            currentStep--
+            coroutineScope.launch {
+                pagerState.animateScrollToPage(currentStep)
+            }
+        }
+    }
     val pages = listOf(
         TransferTo(
             topPadding = calculateTopPadding(),
@@ -98,7 +109,7 @@ fun TransferToScreen(
         )
     )
 
-    CashFlowBaseScaffold(bigText = "Transferir", navController = navController) {
+    CashFlowBaseScaffold(bigText = "Transferir", navController = navController, onArrowClick = onclick) {
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,
@@ -126,21 +137,21 @@ fun calculateTopPadding(): Int {
     }
 }
 
-fun getSampleCards(): List<CreditCardInfo> {
+fun getSampleCards(): List<CreditCard> {
     return listOf(
-        CreditCardInfo(
-            bankName = "Galicia",
-            cardNumber = 4509909098989898,
-            cardHolder = "Tomas Borda",
-            cardExpiration = "07/25",
-            cardImage = R.drawable.purple_card
+        CreditCard(
+            number = "4509909098989898",
+            holderName = "Tomas Borda",
+            expirationDate = "07/25",
+            color = 0,
+            cvv = "123"
         ),
-        CreditCardInfo(
-            bankName = "Santander",
-            cardNumber = 5234567812345678,
-            cardHolder = "Lucia Fernandez",
-            cardExpiration = "03/26",
-            cardImage = R.drawable.red_card
-        )
+        CreditCard(
+            number = "4509909098980931",
+            holderName = "Lucia Mateu",
+            expirationDate = "07/29",
+            color = 2,
+            cvv = "143"
+        ),
     )
 }

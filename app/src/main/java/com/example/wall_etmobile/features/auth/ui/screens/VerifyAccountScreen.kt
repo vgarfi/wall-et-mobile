@@ -37,6 +37,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -45,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.LightBackground
 import com.example.wall_etmobile.core.theme.MainPurple
@@ -92,14 +94,14 @@ fun VerifyAccountScreen(navController: NavController) {
                     )
                 }
                 Text(
-                    text = "Verifica tu cuenta",
+                    text = stringResource(R.string.verify_your_account),
                     textAlign = TextAlign.Center,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "Por favor ingresa el código enviado a"
+                    text = stringResource(R.string.please_enter_the_4_digit_code_sent_to),
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
@@ -122,23 +124,23 @@ fun VerifyAccountScreen(navController: NavController) {
                     }
                 }
                 Text(
-                    text = "Reenviar código",
+                    text = stringResource(R.string.resend_code),
                     color = MainPurple,
                     fontSize = 14.sp,
                     textDecoration = TextDecoration.Underline,
                 )
                 Spacer(modifier = Modifier.height(32.dp))
-                ElevatedButton(
+                ActionButton(
                     onClick = {
                         navController.navigate(Screen.RESTOREPASSWORD.route)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                ) {
-                    Text(text = "Confirmar")
-                }
+                        .height(48.dp)
+                        .clip(RoundedCornerShape(8.dp)),
+                    title = stringResource(R.string.confirm),
+                    elevation = true,
+                )
             }
         }
     }
