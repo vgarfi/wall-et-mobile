@@ -24,7 +24,6 @@ import com.example.wall_etmobile.features.auth.ui.screens.LoginScreen
 import com.example.wall_etmobile.features.auth.ui.screens.RegisterScreen
 import com.example.wall_etmobile.features.auth.ui.screens.RestorePasswordScreen
 import com.example.wall_etmobile.features.auth.ui.screens.VerifyAccountScreen
-import com.example.wall_etmobile.features.auth.ui.screens.WelcomeScreen
 import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cashflow.ui.screens.ChargeScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.EnterFromScreen
@@ -78,9 +77,6 @@ fun NavigationHostWrapper (
         }
         composable(Screen.CARDS.route) {
             CardsScreen()
-        }
-        composable(Screen.WELCOME.route) {
-            WelcomeScreen(navController)
         }
         composable(Screen.LOGIN.route) {
             LoginScreen(navController, authViewModel)

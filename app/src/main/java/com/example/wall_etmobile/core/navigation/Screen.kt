@@ -32,7 +32,6 @@ enum class Screen(val route: String, val label: Int, val icon: ImageVector, val 
     TRANSACTIONDETAILS("transaction-details", label = R.string.transaction_details, icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
     ENTERFROM("enterFrom?source={source}&page={page}", label = R.string.enter_from, icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
     TRANSFERTO("transferTo?target={target}&page={page}&contactName={contactName}&contactDetail={contactDetail}", label = R.string.transfer_to, icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
-    WELCOME("welcome", label = R.string.welcome, icon = Icons.Outlined.Person, tiny = false),
     LOGIN("login", label = R.string.sign_in, icon = Icons.Outlined.Person, tiny = false),
     REGISTER("register", label = R.string.sign_up, icon = Icons.Outlined.Person, tiny = false),
     FORGOTPASSWORD("forgot-password", label = R.string.forgot_password, icon = Icons.Outlined.Person, tiny = false),
@@ -42,6 +41,6 @@ enum class Screen(val route: String, val label: Int, val icon: ImageVector, val 
     SPLASH("splash", label = 0, icon = FontAwesomeIcons.Solid.Qrcode, tiny = false);
 
     companion object {
-        val allScreens = listOf(HOME, TRANSACTIONS, CARDS, PROFILE, WELCOME, LOGIN, REGISTER, FORGOTPASSWORD, VERIFYACCOUNT, RESTOREPASSWORD)
+        val allScreens = listOf(HOME, TRANSACTIONS, CARDS, PROFILE, LOGIN, REGISTER, FORGOTPASSWORD, VERIFYACCOUNT, RESTOREPASSWORD, TRANSFER, CHARGE, ENTER, SCANQR, TRANSACTIONDETAILS, TRANSFERTO, ENTERFROM, SPLASH)
     }
 }

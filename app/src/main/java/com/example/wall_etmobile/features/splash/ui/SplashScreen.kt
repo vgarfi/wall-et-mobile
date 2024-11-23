@@ -52,7 +52,7 @@ fun SplashScreen(
                 }
             }
         } else {
-            navController.navigate(Screen.WELCOME.route) {
+            navController.navigate(Screen.LOGIN.route) {
                 popUpTo(Screen.SPLASH.route) {
                     inclusive = true
                 }

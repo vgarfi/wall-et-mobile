@@ -178,10 +178,9 @@ fun ProfileScreen(
                 ActionButton(
                     onClick = {
                         viewModel.logout()
-                        navController.navigate(Screen.WELCOME.route) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
+                        navController.navigate(Screen.LOGIN.route) {
+                            popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
                         }
                     },
                     modifier = Modifier

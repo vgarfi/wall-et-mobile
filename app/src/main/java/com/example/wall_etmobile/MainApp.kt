@@ -65,7 +65,6 @@ fun navigateToScreen(navController: NavController, route: String, args: Map<Stri
 @Composable
 fun MainApp() {
     val nonBottomBarRoutes = listOf(
-        Screen.WELCOME.route,
         Screen.LOGIN.route,
         Screen.REGISTER.route,
         Screen.FORGOTPASSWORD.route,
@@ -126,18 +125,20 @@ fun MainApp() {
                         Row(
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            IconButton(
-                                onClick = {
-                                    navController.popBackStack()
-                                },
-                                modifier = Modifier.size(30.dp)
-                            ) {
-                                Icon(
-                                    imageVector = FontAwesomeIcons.Solid.LongArrowAltLeft,
-                                    contentDescription = "Back",
-                                    tint = MainPurple,
+                            if(currentRouteModel?.route != Screen.LOGIN.route) {
+                                IconButton(
+                                    onClick = {
+                                        navController.popBackStack()
+                                    },
                                     modifier = Modifier.size(30.dp)
-                                )
+                                ) {
+                                    Icon(
+                                        imageVector = FontAwesomeIcons.Solid.LongArrowAltLeft,
+                                        contentDescription = "Back",
+                                        tint = MainPurple,
+                                        modifier = Modifier.size(30.dp)
+                                    )
+                                }
                             }
                             Spacer(modifier = Modifier.weight(1f))
                             Text(
@@ -146,7 +147,9 @@ fun MainApp() {
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(vertical = 2.dp)
                             )
-                            Spacer(modifier = Modifier.size(30.dp))
+                            if(currentRouteModel?.route != Screen.LOGIN.route) {
+                                Spacer(modifier = Modifier.size(30.dp))
+                            }
                             Spacer(modifier = Modifier.weight(1f))
                         }
                     }
