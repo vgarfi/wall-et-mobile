@@ -73,4 +73,17 @@
     <string name="member_since_july_9th">Miembro desde el 9 de Julio</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="logout">Cerrar sesión</string>
+
+    <string name="home">Inicio</string>
+    <string name="cards">Tarjetas</string>
+
+
+    <string name="transaction_details">Detalles de la transacción</string>
+    <string name="enter_from">Ingresar desde...</string>
+    <string name="transfer_to">Transferir a...</string>
+
+    <string name="welcome">Bienvenido</string>
+
+
+
 </resources>
