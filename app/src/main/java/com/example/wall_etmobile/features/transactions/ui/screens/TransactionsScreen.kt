@@ -266,9 +266,9 @@ fun TransactionsScreen(
                 if (pair.first != null && pair.second != null) {
                     viewModel.setFilterDate(pair.first, pair.second)
                     formatedStartDate =
-                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.startDate)
+                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(pair.first)
                     formatedEndDate =
-                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.endDate)
+                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(pair.second)
                 }
                 showDatePicker = false
             },
