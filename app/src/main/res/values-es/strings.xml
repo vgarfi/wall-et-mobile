@@ -157,5 +157,6 @@
     <string name="please_enter_your_full_name">Por favor ingresa tu nombre completo</string>
     <string name="the_password_must_be_at_least_8_characters_long">La contraseña debe tener al menos 8 caracteres</string>
     <string name="code_must_not_be_null">Debes ingresar el código</string>
+    <string name="in_order_to_continue_you_must_accept_the_terms_and_conditions">Para continuar debes aceptar los términos y condiciones</string>
 
 </resources>
