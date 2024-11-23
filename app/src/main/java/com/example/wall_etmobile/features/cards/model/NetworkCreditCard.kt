@@ -3,9 +3,10 @@ package com.example.wall_etmobile.features.cards.model
 import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.Random
 
 @Serializable
-class NetworkCard(
+class NetworkCreditCard(
     var id: Int?,
     var number: String,
     var expirationDate: String,
@@ -24,7 +25,8 @@ class NetworkCard(
             holderName = fullName,
             cvv = cvv,
             createdAt = createdAt?.let { dateFormat.parse(createdAt!!) },
-            updatedAt = updatedAt?.let { dateFormat.parse(updatedAt!!) }
+            updatedAt = updatedAt?.let { dateFormat.parse(updatedAt!!) },
+            color = id?.rem(6) ?: 0
         )
     }
 }

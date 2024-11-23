@@ -52,7 +52,6 @@ fun onButtonClick(screen: Screen, currentDestination: String? = null, navigatorW
 }
 
 fun navigateToScreen(navController: NavController, route: String, args: Map<String, String?>) {
-
     val routeWithArgs = buildString {
         append(route)
         if (args.isNotEmpty()) {
@@ -71,7 +70,12 @@ fun MainApp() {
         Screen.FORGOTPASSWORD.route,
         Screen.VERIFYACCOUNT.route,
         Screen.RESTOREPASSWORD.route,
-        Screen.TRANSACTIONDETAILS.route
+        Screen.TRANSACTIONDETAILS.route,
+        Screen.TRANSFERTO.route,
+        Screen.TRANSFER.route,
+        Screen.ENTER.route,
+        Screen.ENTERFROM.route,
+        Screen.CHARGE.route
     )
 
     val topBarRoutes = listOf(
@@ -107,7 +111,6 @@ fun MainApp() {
         val currentRouteModel = Screen.allScreens.find { it.route == currentRoute }
         if(nonBottomBarRoutes.contains(currentDestination)) {
             Scaffold(
-                contentWindowInsets = WindowInsets.safeDrawing,
                 modifier = Modifier.fillMaxSize(),
                 topBar = {
                     if (topBarRoutes.contains(currentDestination)) Box(
@@ -148,9 +151,7 @@ fun MainApp() {
             ) {
                 innerPadding -> Box(
                 modifier = Modifier.padding(innerPadding).fillMaxSize()
-
                 ) {
-
                 NavigationHostWrapper(navController = navController, adaptiveInfo = adaptiveInfo, navigatorWrapper = navigatorWrapper)
             }
 

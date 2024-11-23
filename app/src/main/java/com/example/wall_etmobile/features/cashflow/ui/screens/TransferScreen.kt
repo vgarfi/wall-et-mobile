@@ -33,6 +33,7 @@ import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -49,6 +50,9 @@ fun TransferScreen(
 
         else -> { 1.dp}
     }
+    val onclick : () -> Unit = {
+            navigateToScreen("home", emptyMap())
+    }
     val adaptiveSpacing : Dp = when (windowSizeClass.windowHeightSizeClass) {
         WindowHeightSizeClass.COMPACT ->{ 120.dp}
         WindowHeightSizeClass.MEDIUM ->{ 24.dp }
@@ -63,8 +67,7 @@ fun TransferScreen(
         else -> {1.dp}
     }
 
-
-    CashFlowBaseScaffold(bigText = "Transferir", navController = navController) {
+    CashFlowBaseScaffold(bigText = "Transferir", navController = navController, onArrowClick = onclick) {
         Column(
             modifier = Modifier
                 .padding(top = topPadding.dp)
@@ -106,7 +109,6 @@ fun TransferScreenContent(
             .padding(adaptivePadding),
         verticalArrangement = Arrangement.spacedBy(adaptiveSpacing)
     ) {
-
         item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -131,7 +133,6 @@ fun TransferScreenContent(
                 )
             }
         }
-
 
         item {
             Text(
@@ -290,7 +291,6 @@ fun TransferScreenPreviewExpanded() {
         navController = navController, navigateToScreen = { _, _ -> }
     )
 }
-
 
 data class User(
     val name: String,

@@ -1,5 +1,6 @@
 package com.example.wall_etmobile.features.cashflow.ui.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -8,53 +9,97 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.wall_etmobile.R
-import com.example.wall_etmobile.core.designKit.CreditCard
-data class CreditCardInfo(val bankName: String, val cardNumber: Number,val cardHolder: String,val cardExpiration: String,val cardImage: Int)
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.wall_etmobile.MyApplication
+import com.example.wall_etmobile.core.designKit.DashedCreditCard
+import com.example.wall_etmobile.features.cards.model.CreditCard
+import com.example.wall_etmobile.features.cards.ui.composables.AddNewCreditCard
+import com.example.wall_etmobile.features.cards.ui.composables.CreditCardComponent
+import com.example.wall_etmobile.features.cards.ui.composables.getBankFromCard
+import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
+import com.example.wall_etmobile.features.cashflow.ui.screens.getSampleCards
 
 @Composable
 fun PaymentSelector(
-    cardsInfo: List<CreditCardInfo>,
-    selectedObject: (CreditCardInfo) -> Unit, // Lambda to handle item selection
-    modifier: Modifier = Modifier, // Modifier for customization
+    selectedObject: (CreditCard) -> Unit,
+    modifier: Modifier = Modifier,
     PaymentBySelfBalance: Boolean = false,
+    viewModel : CardViewModel =( LocalContext.current.applicationContext as MyApplication).cardsViewmodel,
     Header: @Composable () -> Unit
 ) {
-    var selectedMethod by remember { mutableStateOf(cardsInfo.firstOrNull()) }
+    var cards = viewModel.uiCardState.cards.orEmpty()
+    var uiCards = cards
+
+    var selectedMethod by remember { mutableStateOf(cards.firstOrNull()) }
     val listState = rememberLazyListState()
+    var showDialog by remember { mutableStateOf(false) }
 
 
-    Column(modifier = modifier.padding(16.dp)) {
+    LaunchedEffect(Unit) {
+        viewModel.getCards()
+    }
+
+    Column(modifier = modifier.padding(1.dp)) {
         Header()
         LazyRow(
             state = listState,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            items(items = cardsInfo) { card ->
+
+            items(items = uiCards) { card ->
                 Box(
-                    modifier = Modifier
-                        .clickable {
-                            // When a card is clicked, update the selectedMethod and notify the parent composable
-                            selectedMethod = card
-                            selectedObject(card)
-                        }.height( 2020.dp)
-                ){
-                CreditCard(
-                        bankName = card.bankName,
-                        cardNumber = card.cardNumber,
-                        cardHolder = card.cardHolder,
-                        cardExpiration = card.cardExpiration,
-                        cardImage = card.cardImage
+                    modifier = Modifier.clickable {
+                        selectedMethod = card
+                        selectedObject(card)
+                    }
+                ) {
+                    CreditCardComponent(
+                        bankName = getBankFromCard(card.number),
+                        cardNumber = card.number,
+                        cardHolder = card.holderName,
+                        cardExpiration = card.expirationDate,
+                        cardImageIndex = card.color,
+                        scaleFactor = 0.28f
                     )
                 }
+            }
 
+            item {
+                Box(
+                    modifier = Modifier.clickable {
+                        showDialog = true
+                    }
+                ) {
+                    DashedCreditCard(scaleFactor = 0.77f)
+                }
             }
         }
     }
+
+    AddNewCreditCard(
+        showDialog = showDialog,
+        onDismiss = { showDialog = false },
+        onAddCard = { cardNumber, cardCVV, cardExpiration, cardHolder ->
+            val newCreditCard = CreditCard(
+                number = cardNumber,
+                cvv = cardCVV,
+                expirationDate = cardExpiration,
+                holderName = cardHolder,
+                color = cardNumber.toLong().rem(6).toInt()
+            )
+            viewModel.addCard(newCreditCard)
+            viewModel.getCards()
+            uiCards = uiCards.plus(newCreditCard)
+        }
+    )
+
 }
 
 @Preview(
@@ -70,68 +115,34 @@ fun PaymentSelector(
     showSystemUi = true
 )
 @Preview(
-    name = "Small Screen",
-    device = "spec:width=1500dp,height=800dp,dpi=320", // Custom small screen
+    name = "Custom Small Screen",
+    device = "spec:width=1500dp,height=800dp,dpi=320",
     showBackground = true,
     showSystemUi = true
 )
 @Preview(
-    name = "Small Screen landscape",
-    device = "spec:height=1500dp,width=800dp,dpi=320", // Custom small screen
+    name = "Custom Small Screen landscape",
+    device = "spec:height=1500dp,width=800dp,dpi=320",
     showBackground = true,
     showSystemUi = true
 )
 @Composable
 fun PaymentSelectorPreview() {
-    var selectedObject by remember { mutableStateOf<CreditCardInfo?>(null) }
-    val cardsInfo = listOf(
-        CreditCardInfo(
-            bankName = "Galicia",
-            cardNumber = 4509909098989898,
-            cardHolder = "Tomas Borda",
-            cardExpiration = "07/25",
-            cardImage = R.drawable.purple_card
-        ),
-        CreditCardInfo(
-            bankName = "Santander",
-            cardNumber = 5234567812345678,
-            cardHolder = "Lucia Fernandez",
-            cardExpiration = "03/26",
-            cardImage = R.drawable.red_card
-        ),
-        CreditCardInfo(
-            bankName = "BBVA",
-            cardNumber = 4111222233334444,
-            cardHolder = "Marcos Diaz",
-            cardExpiration = "12/24",
-            cardImage = R.drawable.blue_card
-        ),
-        CreditCardInfo(
-            bankName = "HSBC",
-            cardNumber = 6011554445556666,
-            cardHolder = "Ana Lopez",
-            cardExpiration = "09/27",
-            cardImage = R.drawable.green_card
-        ),
-        CreditCardInfo(
-            bankName = "Macro",
-            cardNumber = 378282246310005,
-            cardHolder = "Pablo Rodriguez",
-            cardExpiration = "05/28",
-            cardImage = R.drawable.orange_card
-        )
-    )
-    Column (modifier = Modifier.width(400.dp)) {
-        PaymentSelector(cardsInfo = cardsInfo, selectedObject = { selectedObject = it }) {
+    var selectedObject by remember { mutableStateOf<CreditCard?>(null) }
+    Column(modifier = Modifier.width(400.dp)) {
+        PaymentSelector(
+//            cards = getSampleCards(),
+            selectedObject = { selectedObject = it }
+        ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(text = "Metodo de Pago", fontWeight = FontWeight.Bold)
+                Text(text = "Método de Pago", fontWeight = FontWeight.Bold)
             }
         }
         selectedObject?.let {
             Text(
-                text = "Selected card: ${it.bankName} - ${it.cardHolder}",
+                text = "Selected card: ${getBankFromCard(it.number)} - ${it.holderName}",
                 fontWeight = FontWeight.Bold
             )
         }

@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.core.designKit
+package com.example.wall_etmobile.features.cards.ui.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,24 +18,39 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainWhite
+import kotlinx.serialization.json.Json.Default.configuration
 
 @Composable
-fun CreditCard(
+fun CreditCardComponent(
     bankName: String,
-    cardNumber: Number,
+    cardNumber: String,
     cardHolder: String,
     cardExpiration: String,
-    cardImage: Int
+    cardImageIndex: Int,
+    scaleFactor: Float = 1f
 ) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .background(color = MainWhite)) {
+    val configuration = LocalConfiguration.current
+    val screenHeight = configuration.screenHeightDp
+    val screenWidth = configuration.screenWidthDp
+
+    val cardImages = listOf(
+        R.drawable.purple_card,
+        R.drawable.blue_card,
+        R.drawable.red_card,
+        R.drawable.pink_card,
+        R.drawable.green_card,
+        R.drawable.orange_card,
+        R.drawable.yellow_card,
+    )
+    Box() {
         Image(
-            painter = painterResource(id = cardImage),
+            painter = painterResource(id = if(cardImageIndex > cardImages.size-1)  cardImages.elementAt(0) else cardImages.elementAt(cardImageIndex)),
             contentDescription = "card",
             modifier = Modifier.fillMaxWidth(),
             contentScale = ContentScale.FillWidth,
@@ -45,7 +60,6 @@ fun CreditCard(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
-                .fillMaxSize()
                 .padding(16.dp)
                 .padding(vertical = 5.dp, horizontal = 2.dp)
         ) {
@@ -55,9 +69,9 @@ fun CreditCard(
             ) {
                 Text(text = bankName, color = MainWhite, fontWeight = FontWeight.Bold)
                 Box(modifier = Modifier.height(3.dp))
-                FormatCardNumber(cardNumber = cardNumber.toString())
+                FormatCardNumber(cardNumber = cardNumber)
             }
-            Box(modifier = Modifier.height(80.dp))
+            Box(modifier = Modifier.height((80*scaleFactor).dp))
             Row {
                 Column (
                     verticalArrangement = Arrangement.Top,
@@ -67,7 +81,7 @@ fun CreditCard(
                     Box(modifier = Modifier.height(3.dp))
                     Text(text = cardHolder, color = MainWhite, fontWeight = FontWeight.Bold)
                 }
-                Box(modifier = Modifier.width(50.dp))
+                Box(modifier = Modifier.width((50*scaleFactor).dp))
                 Column (
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.Start

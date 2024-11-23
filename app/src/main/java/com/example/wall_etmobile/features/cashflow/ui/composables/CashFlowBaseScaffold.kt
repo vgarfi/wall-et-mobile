@@ -18,12 +18,13 @@ import androidx.navigation.NavController
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainWhite
 
-
 @Composable
 fun CashFlowBaseScaffold (
     bigText: String,
     navController: NavController,
+    onArrowClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
+
 ) {
     Box(modifier = Modifier.fillMaxSize().background(color = MainWhite)) {
         Image(
@@ -40,8 +41,9 @@ fun CashFlowBaseScaffold (
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            CashFlowTitleRow(bigText = bigText, navController = navController)
+            CashFlowTitleRow(bigText = bigText, navController = navController,onArrowClick)
             content()
         }
     }
+
 }
