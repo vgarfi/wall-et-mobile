@@ -23,22 +23,22 @@ class AuthViewModel(
     var state by mutableStateOf(AuthState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
-    fun login(username: String, password: String) = runOnViewModelScope(
+    suspend fun login(username: String, password: String) = runOnViewModelScope(
         { userRepository.login(username, password) },
         { state, response -> state.copy(isAuthenticated = true, user = response) }
     )
 
-    fun register(firstName: String, lastName: String, email: String, password: String) = runOnViewModelScope(
+    suspend fun register(firstName: String, lastName: String, email: String, password: String) = runOnViewModelScope(
         { userRepository.register(firstName, lastName, email, password) },
-        { state, response -> state }
+        { state, response -> state.copy(userRegisterEmail = email) }
     )
 
-    fun verify(code: String) = runOnViewModelScope(
+    suspend fun verify(code: String) = runOnViewModelScope(
         { userRepository.verify(code) },
         { state, response -> state }
     )
 
-    fun logout() = runOnViewModelScope(
+    suspend fun logout() = runOnViewModelScope(
         { userRepository.logout() },
         { state, _ ->
             state.copy(
@@ -48,15 +48,14 @@ class AuthViewModel(
         }
     )
 
-//    fun getCurrentUser() = runOnViewModelScope(
-//        { userRepository.getCurrentUser(state.user == null) },
-//        { state, response -> state.copy(user = response) }
-//    )
+    fun getCurrentUser() = state.user
 
-    private fun <R> runOnViewModelScope(
+    fun getUserRegisterEmail() = state.userRegisterEmail
+
+    private suspend fun <R> runOnViewModelScope(
         block: suspend () -> R,
         updateState: (AuthState, R) -> AuthState
-    ): Job = viewModelScope.launch {
+    ) {
         state = state.copy(isLoading = true, error = null)
         runCatching {
             block()

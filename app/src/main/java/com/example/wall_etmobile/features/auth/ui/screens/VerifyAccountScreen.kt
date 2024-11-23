@@ -60,7 +60,7 @@ import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 @Composable
 fun VerifyAccountScreen(
     navController: NavController,
-    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+    viewModel: AuthViewModel = (LocalContext.current.applicationContext as MyApplication).authViewmodel,
 ) {
     val otpValue = remember { mutableStateListOf<String>("", "", "", "") }
     val focusRequesters = remember { List(4) { FocusRequester() } }
@@ -115,7 +115,7 @@ fun VerifyAccountScreen(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "valentin.garfi@gmail.com",
+                    text = "to your email address",
                     color = MainPurple,
                 )
                 Spacer(modifier = Modifier.height(20.dp))
@@ -138,17 +138,17 @@ fun VerifyAccountScreen(
 //                        )
 //                    }
 //                }
-                Text(
-                    text = stringResource(R.string.resend_code),
-                    color = MainPurple,
-                    fontSize = 14.sp,
-                    textDecoration = TextDecoration.Underline,
-                )
+//                Text(
+//                    text = stringResource(R.string.resend_code),
+//                    color = MainPurple,
+//                    fontSize = 14.sp,
+//                    textDecoration = TextDecoration.Underline,
+//                )
                 Spacer(modifier = Modifier.height(32.dp))
                 ActionButton(
                     onClick = {
                         viewModel.verify(code.value)
-                        navController.navigate(Screen.VERIFYACCOUNT.route)
+                        navController.navigate(Screen.LOGIN.route)
                     },
                     modifier = Modifier
                         .fillMaxWidth()

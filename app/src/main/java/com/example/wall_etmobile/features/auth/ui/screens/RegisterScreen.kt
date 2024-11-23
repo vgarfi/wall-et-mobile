@@ -34,12 +34,14 @@ import com.example.wall_etmobile.features.auth.ui.composables.TermsCheckbox
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
 import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
+import kotlinx.coroutines.delay
 
 @Composable
 fun RegisterScreen(
     navController: NavController,
-    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+    viewModel: AuthViewModel = (LocalContext.current.applicationContext as MyApplication).authViewmodel
 ) {
+    val uiState = viewModel.state
     val email = remember { mutableStateOf("") }
     val name = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -89,7 +91,10 @@ fun RegisterScreen(
                     val firstName = name.value.split(" ")[0]
                     val lastName = name.value.split(" ")[1]
                     viewModel.register(firstName, lastName, email.value, password.value)
-                    navController.navigate(Screen.VERIFYACCOUNT.route)
+                    val modified = viewModel.getUserRegisterEmail() != null
+                    if(modified) {
+                        navController.navigate(Screen.VERIFYACCOUNT.route)
+                    }
                 },
                 modifier = Modifier.fillMaxWidth().height(48.dp),
                 title = stringResource(R.string.create_account),

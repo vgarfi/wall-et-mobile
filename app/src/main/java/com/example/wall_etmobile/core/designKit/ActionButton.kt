@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,11 +37,13 @@ import androidx.compose.ui.unit.sp
 import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.R
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun ActionButton(
     title: String,
-    onClick: () -> Unit = {},
+    onClick: suspend () -> Unit = {},
     height: Int = 20,
     width: Int = 300,
     modifier: Modifier = Modifier,
@@ -100,6 +103,8 @@ fun ActionButton(
 
     val adjustedFontSize = if (adaptiveWidth > 300) 18.sp else if (adaptiveWidth > 150) 16.sp else 14.sp
 
+    val coroutineScope = rememberCoroutineScope()
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -108,7 +113,11 @@ fun ActionButton(
         Box(modifier = Modifier.height(3.dp))
         if (elevation) {
             ElevatedButton(
-                onClick = onClick,
+                onClick = {
+                    coroutineScope.launch {
+                        onClick()
+                    }
+                },
                 modifier = modifier
                     .widthIn(min = minWidth.dp)
                     .heightIn(min = minHeight.dp)
@@ -130,7 +139,11 @@ fun ActionButton(
         }
         else{
             OutlinedButton(
-                onClick = onClick,
+                onClick = {
+                    coroutineScope.launch {
+                        onClick()
+                    }
+                },
                 modifier = modifier
                     .widthIn(min = minWidth.dp)
                     .heightIn(min = minHeight.dp)

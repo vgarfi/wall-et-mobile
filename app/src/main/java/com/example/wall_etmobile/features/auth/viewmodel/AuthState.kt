@@ -5,6 +5,7 @@ import com.example.wall_etmobile.features.auth.model.User
 
 data class AuthState(
     val isAuthenticated: Boolean = false,
+    val userRegisterEmail: String? = null,
     val isLoading: Boolean = false,
     val user: User? = null,
     val error: Error? = null

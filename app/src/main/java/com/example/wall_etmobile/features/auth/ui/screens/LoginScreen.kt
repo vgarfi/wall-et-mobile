@@ -41,7 +41,7 @@ import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 @Composable
 fun LoginScreen(
     navController: NavController,
-    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+    viewModel: AuthViewModel = (LocalContext.current.applicationContext as MyApplication).authViewmodel
 ) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -92,7 +92,7 @@ fun LoginScreen(
             ActionButton(
                 onClick = {
                     viewModel.login(email.value, password.value)
-                    if(viewModel.state.user != null) {
+                    if(viewModel.getCurrentUser() != null) {
                         navController.navigate(Screen.HOME.route)
                     }
                 },
