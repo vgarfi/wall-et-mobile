@@ -79,6 +79,7 @@ fun VerifyAccountScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     val errorMsg = stringResource(R.string.invalid_code_please_try_again)
+    val notNullCode = stringResource(R.string.code_must_not_be_null)
 
     fun updateOtpValue(index: Int, value: String) {
         if (index in otpValue.indices && value.length <= 1) {
@@ -163,6 +164,13 @@ fun VerifyAccountScreen(
                     Spacer(modifier = Modifier.height(32.dp))
                     ActionButton(
                         onClick = {
+                            if (code.value == "") {
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar(notNullCode)
+                                }
+                                return@ActionButton
+                            }
+
                             viewModel.verify(code.value)
                             val hasVerifiedEmail = viewModel.hasVerifiedEmail()
                             if(hasVerifiedEmail) {

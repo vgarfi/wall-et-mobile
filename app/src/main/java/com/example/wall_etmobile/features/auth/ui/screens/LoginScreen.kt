@@ -57,7 +57,7 @@ fun LoginScreen(
     val password = remember { mutableStateOf("") }
 
     val errorMsg = stringResource(R.string.an_error_ocurred_while_trying_to_sign_in_please_check_that_your_email_and_password_are_correct)
-
+    val emailNotValidMsg = stringResource(R.string.the_email_is_not_valid)
     return Scaffold (
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { innerPadding ->
@@ -108,6 +108,15 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.size(16.dp))
                 ActionButton(
                     onClick = {
+                        // Email regex
+                        val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+                        if (!email.value.matches(emailRegex.toRegex())) {
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(emailNotValidMsg)
+                            }
+                            return@ActionButton
+                        }
+
                         viewModel.login(email.value, password.value)
                         if (viewModel.getUserData() != null) {
                             navController.navigate(Screen.HOME.route)

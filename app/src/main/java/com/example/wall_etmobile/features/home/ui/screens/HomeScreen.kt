@@ -59,6 +59,7 @@ import com.example.wall_etmobile.core.navigation.NavigatorWrapper
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 import com.example.wall_etmobile.features.home.ui.designKit.CvuBottomSheet
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
@@ -68,8 +69,11 @@ fun HomeScreen(
     navWrapper: NavigatorWrapper,
     adaptiveInfo: WindowAdaptiveInfo,
     cardsViewModel: CardViewModel = ( LocalContext.current.applicationContext as MyApplication).cardsViewmodel,
-    transactionsViewModel: TransactionViewModel = ( LocalContext.current.applicationContext as MyApplication).transactionViewModel
+    transactionsViewModel: TransactionViewModel = ( LocalContext.current.applicationContext as MyApplication).transactionViewModel,
+    authViewModel: AuthViewModel,
 ) {
+    val currentUser = authViewModel.getUserData()
+
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
@@ -83,8 +87,8 @@ fun HomeScreen(
         cardsViewModel.getCards()
     }
 
-    val cvu = "12321312312233123"
-    val username = "Valentin"
+    val cvu = currentUser?.wallet?.cbu ?: "--------"
+    val username = currentUser?.firstName ?: "usuario"
 
     var tileHeight = (screenHeight*0.055).dp
     var titleSize = (screenHeight*0.02).sp
@@ -395,7 +399,7 @@ fun HomeScreen(
                 HomeHeader(onClick = { showCvu = !showCvu })
                 Box(modifier = Modifier.height((screenHeight*0.035).dp))
                 MountVisor(
-                    mount = 12672.68,
+                    mount = currentUser?.wallet?.balance ?: -1.0,
                     onClick = { showMoney = !showMoney },
                     showMoney = showMoney
                 )

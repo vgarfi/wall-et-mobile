@@ -53,6 +53,10 @@ fun RegisterScreen(
 
     val errorMsg =
         stringResource(R.string.an_error_ocurred_while_trying_to_sign_up_please_check_that_the_information_is_correct)
+    val emailNotValidMsg = stringResource(R.string.the_email_is_not_valid)
+    val passwordsNotMatchMsg = stringResource(R.string.passwords_do_not_match)
+    val fullNameMsg = stringResource(R.string.please_enter_your_full_name)
+    val shortPasswordMsg = stringResource(R.string.the_password_must_be_at_least_8_characters_long)
 
     val email = remember { mutableStateOf("") }
     val name = remember { mutableStateOf("") }
@@ -101,11 +105,38 @@ fun RegisterScreen(
                 Spacer(modifier = Modifier.size(24.dp))
                 ActionButton(
                     onClick = {
-                        if (password.value != confirmPassword.value) {
+                        // Email regex
+                        val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+                        if (!email.value.matches(emailRegex.toRegex())) {
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(emailNotValidMsg)
+                            }
                             return@ActionButton
                         }
-                        val firstName = name.value.split(" ")[0]
-                        val lastName = name.value.split(" ")[1]
+
+                        if (password.value == "" || password.value != confirmPassword.value) {
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(passwordsNotMatchMsg)
+                            }
+                            return@ActionButton
+                        }
+
+                        if(name.value.trim().split(" ").size < 2){
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(fullNameMsg)
+                            }
+                            return@ActionButton
+                        }
+
+                        if(password.value.length < 8){
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(shortPasswordMsg)
+                            }
+                            return@ActionButton
+                        }
+
+                        val firstName = name.value.trim().split(" ")[0]
+                        val lastName = name.value.trim().split(" ")[1]
                         viewModel.register(firstName, lastName, email.value, password.value)
                         val modified = viewModel.getUserRegisterEmail() != null
                         if (modified) {
