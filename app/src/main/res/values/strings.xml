@@ -112,6 +112,20 @@
     <string name="i_want_to_charge">I want to charge</string>
     <string name="you_are_charging">You will charge</string>
 
+    <string name="enter_money">Enter money</string>
+    <string name="choose_any_option">Choose any option</string>
+    <string name="from_another_bank_account">From another bank account</string>
+    <string name="making_a_transfer">Making a transference</string>
+    <string name="with_debit_card">With a debit card</string>
+    <string name="using_any_card">Using one of your cards</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="you_are_entering">You are entering</string>
+    <string name="enter">Enter</string>
+    <string name="user_your_cvu">Use your CVU</string>
+    <string name="share_cvu">Share CVU</string>
+    <string name="using_svu">Copy the next CVU and make transferences from another bank account</string>
+
+
 
 
 

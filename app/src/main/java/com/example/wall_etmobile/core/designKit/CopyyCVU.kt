@@ -72,7 +72,7 @@ fun CopyCVU(
             ) {
                 Icon(
                     imageVector = FontAwesomeIcons.Solid.Copy,
-                    contentDescription = "Copiar número",
+                    contentDescription = "copy",
                     tint = MainPurple
                 )
             }

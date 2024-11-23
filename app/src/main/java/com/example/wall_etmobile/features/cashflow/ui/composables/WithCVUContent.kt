@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
@@ -26,7 +27,7 @@ fun WithCVUContent() {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxHeight().padding(top = 86.dp)
     ) {
-        Text(text = "Usá tu CVU", fontSize = 22.sp)
+        Text(text = stringResource(R.string.user_your_cvu), fontSize = 22.sp)
         Box(modifier = Modifier.height(20.dp))
         Box (modifier = Modifier
             .height(300.dp)
@@ -37,12 +38,12 @@ fun WithCVUContent() {
                 modifier = Modifier.fillMaxSize()
                 )
         }
-        Text(text = "Copiá el siguiente CVU y realizá transferencias desde cualquier otra cuenta")
+        Text(text = stringResource(R.string.using_svu))
         Box(modifier = Modifier.height(20.dp))
         CopyCVU(number = "0042078575744892407")
         Spacer(modifier = Modifier.weight(1f))
         ActionButton(
-            title = "Compartir CVU",
+            title = stringResource(R.string.share_cvu),
             onClick = {},
             elevation = true,
             modifier = Modifier.fillMaxWidth()

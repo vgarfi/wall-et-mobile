@@ -125,4 +125,21 @@
     <string name="i_want_to_charge">Quiero cobrar</string>
     <string name="you_are_charging">Vas a cobrar</string>
 
+
+    <string name="enter_money">Ingresá dinero</string>
+    <string name="choose_any_option">Seleccioná alguna opción</string>
+    <string name="from_another_bank_account">Desde otra cuenta bancaria</string>
+    <string name="making_a_transfer">Realizando una transferencia</string>
+    <string name="with_debit_card">Con tarjeta de débito</string>
+    <string name="using_any_card">Utilizando alguna de tus tarjetas</string>
+
+
+    <string name="enter_amount">Ingresá el monto</string>
+    <string name="you_are_entering">Vas a ingresarte</string>
+    <string name="enter">Ingresar</string>
+    <string name="user_your_cvu">Ingresar</string>
+
+    <string name="share_cvu">Compartir CVU</string>
+    <string name="using_svu">Copiá el siguiente CVU y realizá transferencias desde cualquier otra cuenta</string>
+
 </resources>

@@ -18,9 +18,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wall_etmobile.MyApplication
+import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
@@ -90,7 +92,7 @@ fun FromCardContent(
                     ActionButton(
                         modifier = Modifier.fillMaxWidth(),
                         elevation = true,
-                        title = if (currentStep == 0) "Continuar" else "Transferir",
+                        title = if (currentStep == 0) stringResource(R.string.continue_text) else stringResource(R.string.enter),
                         onClick = {
                             if (currentStep == 0) {
                                 coroutineScope.launch {

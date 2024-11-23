@@ -15,11 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.cards.model.CreditCard
 
@@ -33,7 +35,7 @@ fun EnterAmount(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(text = "Ingresá el monto")
+            Text(text = stringResource(R.string.enter_amount))
             AmountInputField(onValueChange = {onAmountChange.value = it})
         }
     }
@@ -57,7 +59,7 @@ fun EnterPayment(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize().height((screenHeight*0.45).dp)
         ) {
-            Text(text = "Vas a ingresarte", fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+            Text(text = stringResource(R.string.you_are_entering), fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
             Box(Modifier.height(15.dp))
             Text("$" + amount, style = TextStyle(
                 fontSize = 54.sp,
@@ -66,11 +68,10 @@ fun EnterPayment(
                 textAlign = TextAlign.Center,
             ),)
                 PaymentSelector(
-//                    cards = cards.orEmpty(),
                     selectedObject = selectedObject,
                     PaymentBySelfBalance = paymentBySelfBalance
                 ) {
-                    Text(text = "Medio de pago:", fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(R.string.payment_method), fontWeight = FontWeight.Bold)
                 }
         }
     }
