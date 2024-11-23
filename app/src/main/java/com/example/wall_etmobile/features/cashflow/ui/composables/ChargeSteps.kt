@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainPurple
 
+@Composable
 fun ChargeAmount(
     onValueChange: (String) -> Unit,
     messageController: MutableState<String>,
@@ -69,6 +70,7 @@ fun ChargeAmount(
         }
     }
 }
+@Composable
 fun ChargeQR (
     amount: String,
     message: String

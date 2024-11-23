@@ -39,6 +39,17 @@ fun ChargeScreen(
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { totalSteps }, initialPage = currentStep)
 
+    val onclick : () -> Unit = {
+        if (currentStep <= 0){
+            navigateToScreen("home", emptyMap())
+        }
+        else{
+            currentStep--
+            coroutineScope.launch {
+                pagerState.animateScrollToPage(currentStep)
+            }
+        }
+    }
     val pages = listOf(
         ChargeAmount(
             onValueChange =  { newAmount ->
@@ -48,7 +59,7 @@ fun ChargeScreen(
         ),
         ChargeQR(amount = amount, message = message.value)
     )
-    CashFlowBaseScaffold(bigText = "Cobrar", navController = navController) {
+    CashFlowBaseScaffold(bigText = "Cobrar", navController = navController, onArrowClick = onclick) {
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,

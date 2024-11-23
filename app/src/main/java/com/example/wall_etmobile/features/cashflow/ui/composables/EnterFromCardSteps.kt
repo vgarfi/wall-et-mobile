@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.cards.model.CreditCard
 
+@Composable
 fun EnterAmount(
     onAmountChange : MutableState<String>
 ): @Composable () -> Unit {
@@ -38,6 +39,7 @@ fun EnterAmount(
     }
 }
 
+@Composable
 fun EnterPayment(
     cards: List<CreditCard>?,
     paymentBySelfBalance: Boolean = false,
