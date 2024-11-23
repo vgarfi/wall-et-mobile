@@ -76,7 +76,8 @@ fun MainApp() {
         Screen.TRANSFER.route,
         Screen.ENTER.route,
         Screen.ENTERFROM.route,
-        Screen.CHARGE.route
+        Screen.CHARGE.route,
+        Screen.SCANQR.route
     )
 
     val topBarRoutes = listOf(
@@ -185,7 +186,7 @@ fun MainApp() {
                             FloatingActionButton(
                                 containerColor = MainPurple,
                                 onClick = {
-
+                                    navController.navigate(Screen.SCANQR.route)
                                 },
                                 contentColor = MainWhite,
                                 shape = CircleShape,

@@ -143,7 +143,9 @@
     <string name="using_svu">Copiá el siguiente CVU y realizá transferencias desde cualquier otra cuenta</string>
     <string name="yours">Tus</string>
     <string name="a_new_card">una tarjeta nueva</string>
-    <string name="a_new_card">una tarjeta nueva</string>
     <string name="scan_qr">Escanear QR</string>
+
+    <string name="need_camera">Para scanear un código QR es necesario acceso a la cámara</string>
+    <string name="scan_qr_info">Coloque un QR en el interior del rectángulo para escanearlo</string>
 
 </resources>

@@ -78,4 +78,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.font.awesome)
+    implementation (libs.androidx.activity.compose)
+    implementation (libs.core)
+    implementation (libs.zxing.android.embedded)
 }
