@@ -1,6 +1,5 @@
 package com.example.wall_etmobile.features.cashflow.ui.composables
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +22,9 @@ import com.example.wall_etmobile.core.theme.MainWhite
 fun CashFlowBaseScaffold (
     bigText: String,
     navController: NavController,
+    onArrowClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
+
 ) {
     Box(modifier = Modifier.fillMaxSize().background(color = MainWhite)) {
         Image(
@@ -41,7 +41,7 @@ fun CashFlowBaseScaffold (
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            CashFlowTitleRow(bigText = bigText, navController = navController)
+            CashFlowTitleRow(bigText = bigText, navController = navController,onArrowClick)
             content()
         }
     }

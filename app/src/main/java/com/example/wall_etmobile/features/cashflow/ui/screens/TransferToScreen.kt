@@ -50,6 +50,17 @@ fun TransferToScreen(
         else -> listOf("", "")
     }
 
+    val onclick : () -> Unit = {
+        if (currentStep <= 0){
+            navigateToScreen("transfer", emptyMap())
+        }
+        else{
+            currentStep--
+            coroutineScope.launch {
+                pagerState.animateScrollToPage(currentStep)
+            }
+        }
+    }
     val pages = listOf(
         TransferTo(
             topPadding = calculateTopPadding(),
@@ -98,7 +109,7 @@ fun TransferToScreen(
         )
     )
 
-    CashFlowBaseScaffold(bigText = "Transferir", navController = navController) {
+    CashFlowBaseScaffold(bigText = "Transferir", navController = navController, onArrowClick = onclick) {
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,

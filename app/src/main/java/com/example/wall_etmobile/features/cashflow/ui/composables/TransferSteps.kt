@@ -14,6 +14,7 @@ import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.features.cards.model.CreditCard
 
+@Composable
 fun TransferTo(
     topPadding: Int,
     onClick: () -> Unit = {},
@@ -57,6 +58,7 @@ fun TransferTo(
     }
 }
 
+@Composable
 fun TransferAmount(
     topPadding: Int,
     onClick: () -> Unit = {},
@@ -115,6 +117,7 @@ fun TransferAmount(
     }
 }
 
+@Composable
 fun TransferPayment(
     topPadding: Int,
     onClick: () -> Unit = {},
