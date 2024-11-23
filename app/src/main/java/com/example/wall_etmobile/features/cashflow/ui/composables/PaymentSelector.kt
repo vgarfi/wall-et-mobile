@@ -30,7 +30,7 @@ fun PaymentSelector(
     selectedObject: (CreditCard) -> Unit,
     modifier: Modifier = Modifier,
     PaymentBySelfBalance: Boolean = false,
-    viewModel: CardViewModel = viewModel(factory = CardViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)),
+    viewModel : CardViewModel =( LocalContext.current.applicationContext as MyApplication).cardsViewmodel,
     Header: @Composable () -> Unit
 ) {
     var cards = viewModel.uiCardState.cards.orEmpty()
