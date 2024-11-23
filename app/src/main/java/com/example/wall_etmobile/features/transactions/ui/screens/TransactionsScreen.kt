@@ -60,7 +60,7 @@ import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 fun TransactionsScreen(
     navWrapper: NavigatorWrapper,
     adaptiveInfo: WindowAdaptiveInfo,
-    viewModel: TransactionViewModel = (LocalContext.current.applicationContext as MyApplication).transactionViewModel
+    viewModel: TransactionViewModel
 ) {
     val uiState = viewModel.uiState
 
@@ -87,8 +87,6 @@ fun TransactionsScreen(
     val filterAction = {
         showDatePicker = true
     }
-
-    viewModel.getTransactions()
 
     val transactionsStyle: List<MovementData> = uiState.filteredTransactions?.map {
         val type: TransactionTypeStyle

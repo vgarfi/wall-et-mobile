@@ -32,6 +32,7 @@ import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDet
 import com.example.wall_etmobile.features.cashflow.ui.screens.TransferScreen
 import com.example.wall_etmobile.features.qr_scanner.ui.screens.QrScannerScreen
 import com.example.wall_etmobile.features.splash.ui.SplashScreen
+import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 
 @Composable
 fun NavigationHostWrapper (
@@ -40,6 +41,7 @@ fun NavigationHostWrapper (
     navigatorWrapper: NavigatorWrapper,
 ){
     val authViewModel: AuthViewModel = (LocalContext.current.applicationContext as MyApplication).authViewModel
+    val transactionViewModel: TransactionViewModel = (LocalContext.current.applicationContext as MyApplication).transactionViewModel
 
     NavHost(navController = navController,
         startDestination = Screen.SPLASH.route,
@@ -70,10 +72,10 @@ fun NavigationHostWrapper (
             )
         }
         composable(Screen.HOME.route) {
-            HomeScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo, authViewModel = authViewModel)
+            HomeScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo, authViewModel = authViewModel, transactionViewModel = transactionViewModel)
         }
         composable(Screen.TRANSACTIONS.route) {
-            TransactionsScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo)
+            TransactionsScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo, viewModel = transactionViewModel)
         }
         composable(Screen.CARDS.route) {
             CardsScreen()
