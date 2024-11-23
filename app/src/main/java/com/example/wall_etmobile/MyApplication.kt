@@ -15,9 +15,11 @@ import com.example.wall_etmobile.features.transactions.datasource.TransactionRem
 import com.example.wall_etmobile.features.transactions.repository.TransactionRepository
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
+import com.example.wall_etmobile.features.transactions.ui.TransactionUiState
 
 
 class MyApplication : Application() {
+
     private val userRemoteDataSource: UserRemoteDataSource
         get() = UserRemoteDataSource(
             sessionManager,

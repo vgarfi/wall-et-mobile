@@ -3,7 +3,7 @@ package com.example.wall_etmobile.core.designKit
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import com.example.wall_etmobile.ui.data.MovementData
+import com.example.wall_etmobile.core.data.MovementData
 
 @Composable
 fun MovementTileList(
@@ -15,7 +15,7 @@ fun MovementTileList(
                 tileHeight = it.tileHeight,
                 title = it.title,
                 titleSize = it.titleSize,
-                subTitle = "papa",
+                subTitle = it.subTitle,
                 subTitleSize = it.subTitleSize,
                 mount = it.mount,
                 mountSize = it.mountSize,

@@ -35,6 +35,9 @@
 
     <string name="favorite">Favorite</string>
 
+    <string name="from">from</string>
+    <string name="to">to</string>
+
     <string name="select_movent_indication">Select some transaction to see more details</string>
     <string name="your_new_ally_in">Your new ally in</string>
     <string name="personal_finance">personal finance</string>

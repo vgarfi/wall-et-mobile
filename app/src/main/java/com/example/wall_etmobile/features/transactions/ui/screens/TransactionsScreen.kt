@@ -36,7 +36,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
-import com.example.wall_etmobile.ui.data.MovementData
+import com.example.wall_etmobile.core.data.MovementData
 import com.example.wall_etmobile.core.designKit.BaseScaffold
 import com.example.wall_etmobile.core.designKit.MovementTileList
 import com.example.wall_etmobile.core.designKit.TransactionTypeStyle
@@ -52,7 +52,6 @@ import com.example.wall_etmobile.features.transactions.ui.designKit.FilterIndica
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDetails
 import com.example.wall_etmobile.core.theme.MainWhite
 import java.util.Locale
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 
@@ -89,18 +88,31 @@ fun TransactionsScreen(
         showDatePicker = true
     }
 
+    viewModel.getTransactions()
+
     val transactionsStyle: List<MovementData> = uiState.filteredTransactions?.map {
-        val type = when (it.type.description) {
-            TransactionTypeStyle.CHARGE.description -> TransactionTypeStyle.CHARGE
-            TransactionTypeStyle.TRANSFER.description -> TransactionTypeStyle.TRANSFER
-            else -> TransactionTypeStyle.INCOME
+        val type: TransactionTypeStyle
+        val subTitle: String
+        when (it.type.description) {
+            TransactionTypeStyle.CHARGE.description -> {
+                type = TransactionTypeStyle.CHARGE
+                subTitle = it.updatedAt.toString() + " " + stringResource(R.string.from) + " " + it.payer?.firstName + ", " + it.payer?.lastName
+            }
+            TransactionTypeStyle.TRANSFER.description -> {
+                type = TransactionTypeStyle.TRANSFER
+                subTitle = it.updatedAt.toString() + " " + stringResource(R.string.to) + " " + it.payer?.firstName + ", " + it.payer?.lastName
+            }
+            else -> {
+                type = TransactionTypeStyle.INCOME
+                subTitle = it.updatedAt.toString() + " " + stringResource(R.string.to) + " " + it.payer?.firstName + ", " + it.payer?.lastName
+            }
         }
 
         MovementData(
             tileHeight = movementTileHeight,
             title = stringResource(it.type.description),
             titleSize = movementTitleSize,
-            subTitle = "papa",
+            subTitle = subTitle,
             subTitleSize = movementSubTitleSize,
             mount = it.amount,
             mountSize = movementMountSize,
@@ -162,7 +174,7 @@ fun TransactionsScreen(
                             onClick = filterAction
                         )
                     }
-                    if (uiState.transactions != null) {
+                    if (uiState.completedTransactions != null) {
                         MovementTileList(movements = transactionsStyle)
                     } else {
                         viewModel.getTransactions()
@@ -241,7 +253,7 @@ fun TransactionsScreen(
                     onClick = filterAction
                 )
             }
-            if (uiState.transactions != null) {
+            if (uiState.completedTransactions != null) {
                 MovementTileList(movements = transactionsStyle)
             } else {
                 viewModel.getTransactions()
@@ -254,9 +266,9 @@ fun TransactionsScreen(
                 if (pair.first != null && pair.second != null) {
                     viewModel.setFilterDate(pair.first, pair.second)
                     formatedStartDate =
-                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.startDate)
+                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(pair.first)
                     formatedEndDate =
-                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.endDate)
+                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(pair.second)
                 }
                 showDatePicker = false
             },

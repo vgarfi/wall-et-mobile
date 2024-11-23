@@ -30,8 +30,9 @@ class TransactionViewModel(
     fun getTransactions() = runOnViewModelScope(
         { transactionRepository.getTransactions(true) },
         { state, response -> state.copy(
-            transactions = response,
-            filteredTransactions = getFilteredTransactions(state)
+            allTransactions = response,
+            filteredTransactions = getFilteredTransactions(state),
+            completedTransactions = getCompletedTransactions(state)
         )}
     )
 
@@ -49,14 +50,25 @@ class TransactionViewModel(
         val auxStateStartDate = state.startDate
         val auxStateEndDate = state.endDate
         return if (auxStateEndDate != null && auxStateStartDate != null) {
-            state.transactions?.filter { transaction ->
+            state.completedTransactions?.filter { transaction ->
                 val transactionTimestamp = transaction.createdAt?.let { dateToMillis(it) } ?: 0
                 transactionTimestamp in auxStateStartDate..auxStateEndDate
             }
         } else {
-            state.transactions
+            state.completedTransactions
         }
     }
+
+    private fun fetchCompletedTransactions(state: TransactionUiState){
+         uiState = uiState.copy(completedTransactions = getCompletedTransactions(state))
+    }
+
+    private fun getCompletedTransactions(state: TransactionUiState): List<TransactionInfo>? {
+        return state.allTransactions?.filter { transaction ->
+            !transaction.pending
+        }
+    }
+
 
     private fun <R> runOnViewModelScope(
         block: suspend () -> R,
