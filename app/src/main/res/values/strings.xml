@@ -71,4 +71,11 @@
     <string name="member_since_july_9th">Member since July 9th</string>
     <string name="change_password">Change password</string>
     <string name="logout">Logout</string>
+    <string name="home">Home</string>
+    <string name="cards">Cards</string>
+    <string name="transaction_details">Transaction details</string>
+    <string name="enter_from">Enter from...</string>
+    <string name="transfer_to">Transfer to...</string>
+    <string name="welcome">Welcome</string>
+
 </resources>

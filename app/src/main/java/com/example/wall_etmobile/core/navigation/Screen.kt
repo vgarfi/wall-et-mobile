@@ -6,31 +6,36 @@ import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import com.example.wall_etmobile.R
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.*
 import compose.icons.fontawesomeicons.regular.CreditCard
 import compose.icons.fontawesomeicons.regular.ListAlt
 
-enum class Screen(val route: String, val label: String, val icon: ImageVector, val tiny: Boolean,
+
+enum class Screen(val route: String, val label: Int, val icon: ImageVector, val tiny: Boolean,
                     val launchSingleTop: Boolean = true, val restoreState : Boolean = true, val saveState: Boolean = true) {
-    HOME(route = "home", label = "Inicio", icon = Icons.Outlined.Home, tiny = false),
-    TRANSACTIONS("transactions", label = "Movimientos", icon = FontAwesomeIcons.Regular.ListAlt, tiny = true),
-    CARDS("cards", label = "Tarjetas", icon = FontAwesomeIcons.Regular.CreditCard, tiny = true),
-    PROFILE("profile", label = "Perfil", icon = Icons.Outlined.Person, tiny = false),
+    HOME(route = "home", label = R.string.home, icon = Icons.Outlined.Home, tiny = false),
+    TRANSACTIONS("transactions", label = R.string.transactions, icon = FontAwesomeIcons.Regular.ListAlt, tiny = true),
+    CARDS("cards", label = R.string.cards, icon = FontAwesomeIcons.Regular.CreditCard, tiny = true),
+    PROFILE("profile", label = R.string.profile, icon = Icons.Outlined.Person, tiny = false),
     // CashFlow
-    TRANSFER("transfer", label = "Transferir", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
-    CHARGE("charge", label = "Cobrar", icon = Icons.Outlined.MoreVert, tiny = false),
-    ENTER("enter", label = "Ingresar", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
-    TRANSACTIONDETAILS("transaction-details", label = "Detalles de la transaccion", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
-    ENTERFROM("enterFrom?source={source}&page={page}", label = "Ingresar", icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
-    TRANSFERTO("transferTo?target={target}&page={page}&contactName={contactName}&contactDetail={contactDetail}", label = "Transferir a ...", icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
-    WELCOME("welcome", label = "Welcome", icon = Icons.Outlined.Person, tiny = false),
-    LOGIN("login", label = "Iniciá Sesión", icon = Icons.Outlined.Person, tiny = false),
-    REGISTER("register", label = "Registrate", icon = Icons.Outlined.Person, tiny = false),
-    FORGOTPASSWORD("forgot-password", label = "Olvidé mi contraseña", icon = Icons.Outlined.Person, tiny = false),
-    VERIFYACCOUNT("verify-account", label = "Verificá tu cuenta", icon = Icons.Outlined.Person, tiny = false),
-    RESTOREPASSWORD("restore-password", label = "Recuperá tu contraseña", icon = Icons.Outlined.Person, tiny = false);
+    TRANSFER("transfer", label = R.string.transfer_text, icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
+    CHARGE("charge", label = R.string.charge_text, icon = Icons.Outlined.MoreVert, tiny = false),
+    ENTER("enter", label = R.string.income_text, icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
+    TRANSACTIONDETAILS("transaction-details", label = R.string.transaction_details, icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
+    ENTERFROM("enterFrom?source={source}&page={page}", label = R.string.enter_from, icon = Icons.Outlined.KeyboardArrowDown, tiny = false),
+    TRANSFERTO("transferTo?target={target}&page={page}&contactName={contactName}&contactDetail={contactDetail}", label = R.string.transfer_to, icon = Icons.Outlined.KeyboardArrowUp, tiny = false),
+    WELCOME("welcome", label = R.string.welcome, icon = Icons.Outlined.Person, tiny = false),
+    LOGIN("login", label = R.string.sign_in, icon = Icons.Outlined.Person, tiny = false),
+    REGISTER("register", label = R.string.sign_up, icon = Icons.Outlined.Person, tiny = false),
+    FORGOTPASSWORD("forgot-password", label = R.string.forgot_password, icon = Icons.Outlined.Person, tiny = false),
+    VERIFYACCOUNT("verify-account", label = R.string.verify_your_account, icon = Icons.Outlined.Person, tiny = false),
+    RESTOREPASSWORD("restore-password", label = R.string.restore_password, icon = Icons.Outlined.Person, tiny = false);
 
     companion object {
         val allScreens = listOf(HOME, TRANSACTIONS, CARDS, PROFILE, WELCOME, LOGIN, REGISTER, FORGOTPASSWORD, VERIFYACCOUNT, RESTOREPASSWORD)
