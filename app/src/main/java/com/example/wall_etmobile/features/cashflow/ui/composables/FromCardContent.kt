@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -29,8 +30,11 @@ import kotlinx.coroutines.launch
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun FromCardContent(
+    navigateToScreen: (String, Map<String, String?>) -> Unit = { _, _ -> },
+    onMethodChange : (() -> Unit) -> Unit = {},
     viewModel: CardViewModel = viewModel(factory = CardViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
 ){
+
     val uiState = viewModel.uiCardState
 
     val totalSteps = 2
@@ -52,6 +56,18 @@ fun FromCardContent(
             amount = amount.value,
         )
     )
+    val onclick : () -> Unit = {
+        if (currentStep <= 0){
+            navigateToScreen("enter", emptyMap())
+        }
+        else{
+            currentStep--
+            coroutineScope.launch {
+                pagerState.animateScrollToPage(currentStep)
+            }
+        }
+    }
+
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,
@@ -80,11 +96,13 @@ fun FromCardContent(
                                 coroutineScope.launch {
                                     if (pagerState.currentPage < pagerState.pageCount - 1) {
                                         currentStep++
+                                        onMethodChange(onclick)
                                         pagerState.animateScrollToPage(currentStep)
                                     }
                                 }
                             } else {
                                 currentStep = 0;
+                                onMethodChange(onclick)
 //                        navigateToScreen("transaction-details", emptyMap())
                             }
                         })
