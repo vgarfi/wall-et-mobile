@@ -21,10 +21,14 @@ import com.example.wall_etmobile.features.transactions.ui.TransactionUiState
 class MyApplication : Application() {
 
     private val userRemoteDataSource: UserRemoteDataSource
-        get() = UserRemoteDataSource(sessionManager, RetrofitClient.getUserApiService(this))
+        get() = UserRemoteDataSource(
+            sessionManager,
+            RetrofitClient.getUserApiService(this),
+            RetrofitClient.getUserWalletApiService(this),
+        )
 
     private val cardRemoteDataSource: CardRemoteDataSource
-        get() = CardRemoteDataSource(RetrofitClient.getWalletApiService(this))
+        get() = CardRemoteDataSource(RetrofitClient.getCardApiService(this))
 
     private val transactionRemoteDataSource: TransactionRemoteDataSource
         get() = TransactionRemoteDataSource(RetrofitClient.getTransactionApiService(this))
@@ -48,4 +52,8 @@ class MyApplication : Application() {
     val cardsViewmodel: CardViewModel
         @Composable
         get() = viewModel(factory = CardViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+
+    val authViewModel: AuthViewModel
+        @Composable
+        get() = viewModel(factory = AuthViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
 }

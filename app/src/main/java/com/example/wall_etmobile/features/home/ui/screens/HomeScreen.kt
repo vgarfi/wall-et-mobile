@@ -50,6 +50,8 @@ import com.example.wall_etmobile.core.designKit.TransactionTypeStyle
 import com.example.wall_etmobile.core.navigation.NavigatorWrapper
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.MainBlack
+import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 import com.example.wall_etmobile.features.home.ui.HomeViewModel
 import com.example.wall_etmobile.features.home.ui.designKit.CvuBottomSheet
@@ -61,8 +63,11 @@ fun HomeScreen(
     adaptiveInfo: WindowAdaptiveInfo,
     cardsViewModel: CardViewModel = ( LocalContext.current.applicationContext as MyApplication).cardsViewmodel,
     transactionViewModel: TransactionViewModel = (LocalContext.current.applicationContext as MyApplication).transactionViewModel,
-    homeViewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+    homeViewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)),
+    authViewModel: AuthViewModel,
 ) {
+    val currentUser = authViewModel.getUserData()
+
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
@@ -72,13 +77,12 @@ fun HomeScreen(
 
     val uiTransactionState = transactionViewModel.uiState
 
-    // TODO hacer esto en un scope mas general (no necesariamente en main)
     LaunchedEffect(Unit) {
         cardsViewModel.getCards()
     }
 
-    val cvu = "12321312312233123"
-    val username = "Valentin"
+    val cvu = currentUser?.wallet?.cbu ?: "--------"
+    val username = currentUser?.firstName ?: "usuario"
 
     var movementTileHeight = (screenHeight*0.055).dp
     var movementTitleSize = (screenHeight*0.02).sp
@@ -394,7 +398,7 @@ fun HomeScreen(
                 HomeHeader(onClick = { homeViewModel.toggleShowCvu() })
                 Box(modifier = Modifier.height((screenHeight*0.035).dp))
                 MountVisor(
-                    mount = 12672.68,
+                    mount = currentUser?.wallet?.balance ?: -1.0,
                     onClick = { homeViewModel.toggleShowMoney() },
                     showMoney = uiHomeState.showMoney
                 )

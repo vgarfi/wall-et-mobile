@@ -13,6 +13,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.navigateToScreen
 import com.example.wall_etmobile.features.cards.ui.screens.CardsScreen
 import com.example.wall_etmobile.features.home.ui.screens.HomeScreen
@@ -24,12 +25,14 @@ import com.example.wall_etmobile.features.auth.ui.screens.RegisterScreen
 import com.example.wall_etmobile.features.auth.ui.screens.RestorePasswordScreen
 import com.example.wall_etmobile.features.auth.ui.screens.VerifyAccountScreen
 import com.example.wall_etmobile.features.auth.ui.screens.WelcomeScreen
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cashflow.ui.screens.ChargeScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.EnterFromScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.EnterScreen
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDetailsScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.TransferScreen
 import com.example.wall_etmobile.features.qr_scanner.ui.screens.QrScannerScreen
+import com.example.wall_etmobile.features.splash.ui.SplashScreen
 
 @Composable
 fun NavigationHostWrapper (
@@ -37,8 +40,10 @@ fun NavigationHostWrapper (
     adaptiveInfo: WindowAdaptiveInfo,
     navigatorWrapper: NavigatorWrapper,
 ){
+    val authViewModel: AuthViewModel = (LocalContext.current.applicationContext as MyApplication).authViewModel
+
     NavHost(navController = navController,
-        startDestination = Screen.HOME.route,
+        startDestination = Screen.SPLASH.route,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
     ) {
@@ -66,7 +71,7 @@ fun NavigationHostWrapper (
             )
         }
         composable(Screen.HOME.route) {
-            HomeScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo)
+            HomeScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo, authViewModel = authViewModel)
         }
         composable(Screen.TRANSACTIONS.route) {
             TransactionsScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo)
@@ -74,23 +79,26 @@ fun NavigationHostWrapper (
         composable(Screen.CARDS.route) {
             CardsScreen()
         }
-        composable(Screen.PROFILE.route) {
-            ProfileScreen(navController)
-        }
         composable(Screen.WELCOME.route) {
             WelcomeScreen(navController)
         }
         composable(Screen.LOGIN.route) {
-            LoginScreen(navController)
+            LoginScreen(navController, authViewModel)
         }
         composable(Screen.REGISTER.route) {
-            RegisterScreen(navController)
+            RegisterScreen(navController, authViewModel)
+        }
+        composable(Screen.SPLASH.route) {
+            SplashScreen(navController, authViewModel)
         }
         composable(Screen.FORGOTPASSWORD.route) {
             ForgotPasswordScreen(navController)
         }
         composable(Screen.VERIFYACCOUNT.route) {
-            VerifyAccountScreen(navController)
+            VerifyAccountScreen(navController, authViewModel)
+        }
+        composable(Screen.PROFILE.route) {
+            ProfileScreen(navController, authViewModel)
         }
         composable(Screen.RESTOREPASSWORD.route) {
             RestorePasswordScreen(navController)

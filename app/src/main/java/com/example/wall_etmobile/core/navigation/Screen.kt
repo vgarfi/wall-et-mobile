@@ -38,7 +38,8 @@ enum class Screen(val route: String, val label: Int, val icon: ImageVector, val 
     FORGOTPASSWORD("forgot-password", label = R.string.forgot_password, icon = Icons.Outlined.Person, tiny = false),
     VERIFYACCOUNT("verify-account", label = R.string.verify_your_account, icon = Icons.Outlined.Person, tiny = false),
     RESTOREPASSWORD("restore-password", label = R.string.restore_password, icon = Icons.Outlined.Person, tiny = false),
-    SCANQR("scan-qr", label = R.string.scan_qr, icon = FontAwesomeIcons.Solid.Qrcode, tiny = false);
+    SCANQR("scan-qr", label = R.string.scan_qr, icon = FontAwesomeIcons.Solid.Qrcode, tiny = false),
+    SPLASH("splash", label = 0, icon = FontAwesomeIcons.Solid.Qrcode, tiny = false);
 
     companion object {
         val allScreens = listOf(HOME, TRANSACTIONS, CARDS, PROFILE, WELCOME, LOGIN, REGISTER, FORGOTPASSWORD, VERIFYACCOUNT, RESTOREPASSWORD)
