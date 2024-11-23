@@ -40,10 +40,10 @@ import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
 import com.example.wall_etmobile.core.theme.WalletMobileTheme
 
-enum class TransactionType(val color: Color, val sign: Char , val description: String, @DrawableRes val iconId: Int) {
-    INCOME(MainGreen, '+', "Income", iconId = R.drawable.enter_icon),
-    CHARGE(MainGreen, '+', "Charge", iconId = R.drawable.charge_icon),
-    TRANSFER(Color.Red, '-', "Transfer", iconId = R.drawable.transfer_icon)
+enum class TransactionTypeStyle(val color: Color, val sign: Char, val description: Int, @DrawableRes val iconId: Int) {
+    INCOME(MainGreen, '+', R.string.income_text, iconId = R.drawable.enter_icon),
+    CHARGE(MainGreen, '+', R.string.charge_text, iconId = R.drawable.charge_icon),
+    TRANSFER(Color.Red, '-', R.string.transfer_text, iconId = R.drawable.transfer_icon)
 }
 
 
@@ -51,13 +51,13 @@ enum class TransactionType(val color: Color, val sign: Char , val description: S
 fun MovementTile(
     tileHeight: Dp,
     tileWidth: Dp? = null,
-    @StringRes title: Int,
+    title: String,
     titleSize: TextUnit,
     subTitle: String,
     subTitleSize: TextUnit,
     mount: Double,
     mountSize: TextUnit,
-    transactionType: TransactionType,
+    transactionTypeStyle: TransactionTypeStyle,
     onClick: () -> Unit
 ){
     Card(
@@ -81,7 +81,7 @@ fun MovementTile(
                     .padding(10.dp)
             ) {
                 Icon(
-                    painter = painterResource(id = transactionType.iconId),
+                    painter = painterResource(id = transactionTypeStyle.iconId),
                     contentDescription = "Transaction Icon",
                     modifier = Modifier
                         .fillMaxSize()
@@ -96,7 +96,7 @@ fun MovementTile(
                     .padding(5.dp)
             ) {
                 Text(
-                    text = stringResource(title),
+                    text = title,
                     fontSize = titleSize,
                     fontWeight = FontWeight.Normal,
                     color = MainBlack
@@ -109,9 +109,9 @@ fun MovementTile(
             }
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "${transactionType.sign}${"%.2f".format(mount)}",
+                text = "${transactionTypeStyle.sign}${"%.2f".format(mount)}",
                 fontSize = mountSize,
-                color = transactionType.color,
+                color = transactionTypeStyle.color,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .padding(horizontal = 8.dp)
@@ -126,13 +126,13 @@ fun MovementTileTransferPreview(){
     WalletMobileTheme {
         MovementTile(
             tileHeight = 80.dp,
-            title = R.string.transfer_text,
+            title = stringResource(R.string.transfer_text),
             titleSize = 25.sp,
             subTitle = "19:12 a Tomas",
             subTitleSize = 12.sp,
             mount = 60.00,
             mountSize = 30.sp,
-            transactionType = TransactionType.TRANSFER,
+            transactionTypeStyle = TransactionTypeStyle.TRANSFER,
             onClick = {}
         )
     }
@@ -144,13 +144,13 @@ fun MovementTileChargePreview(){
     WalletMobileTheme {
         MovementTile(
             tileHeight = 80.dp,
-            title = R.string.charge_text,
+            title = stringResource(R.string.charge_text),
             titleSize = 25.sp,
             subTitle = "19:12 a Tomas",
             subTitleSize = 12.sp,
             mount = 60.00,
             mountSize = 30.sp,
-            transactionType = TransactionType.CHARGE,
+            transactionTypeStyle = TransactionTypeStyle.CHARGE,
             onClick = {}
         )
     }
@@ -162,13 +162,13 @@ fun MovementTileIncomePreview(){
     WalletMobileTheme {
         MovementTile(
             tileHeight = 80.dp,
-            title = R.string.income_text,
+            title = stringResource(R.string.income_text),
             titleSize = 25.sp,
             subTitle = "19:12 a Tomas",
             subTitleSize = 12.sp,
             mount = 60.00,
             mountSize = 30.sp,
-            transactionType = TransactionType.INCOME,
+            transactionTypeStyle = TransactionTypeStyle.INCOME,
             onClick = {}
         )
     }

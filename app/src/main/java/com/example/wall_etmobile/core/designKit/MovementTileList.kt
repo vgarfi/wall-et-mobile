@@ -15,11 +15,11 @@ fun MovementTileList(
                 tileHeight = it.tileHeight,
                 title = it.title,
                 titleSize = it.titleSize,
-                subTitle = it.subTitle,
+                subTitle = "papa",
                 subTitleSize = it.subTitleSize,
                 mount = it.mount,
                 mountSize = it.mountSize,
-                transactionType = it.transactionType,
+                transactionTypeStyle = it.transactionTypeStyle,
                 onClick = it.onClick
             )
         }

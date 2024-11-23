@@ -32,13 +32,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.ui.data.MovementData
 import com.example.wall_etmobile.core.designKit.BaseScaffold
 import com.example.wall_etmobile.core.designKit.MovementTileList
-import com.example.wall_etmobile.core.designKit.TransactionType
+import com.example.wall_etmobile.core.designKit.TransactionTypeStyle
 import com.example.wall_etmobile.core.navigation.NavigatorWrapper
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -51,1205 +52,72 @@ import com.example.wall_etmobile.features.transactions.ui.designKit.FilterIndica
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDetails
 import com.example.wall_etmobile.core.theme.MainWhite
 import java.util.Locale
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.wall_etmobile.MyApplication
+import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 
 
 @Composable
-fun TransactionsScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiveInfo) {
+fun TransactionsScreen(
+    navWrapper: NavigatorWrapper,
+    adaptiveInfo: WindowAdaptiveInfo,
+    viewModel: TransactionViewModel = (LocalContext.current.applicationContext as MyApplication).transactionViewModel
+) {
+    val uiState = viewModel.uiState
+
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
     val isRotated =
         configuration.orientation == Configuration.ORIENTATION_LANDSCAPE  // si es verdadero esta rotada
 
-    var tileHeight = (screenHeight * 0.065).dp
-    var titleSize = (screenHeight * 0.025).sp
-    var subTitleSize = (screenHeight * 0.015).sp
-    var mountSize = (screenHeight * 0.03).sp
-    var onMovementClick = { navWrapper.navigateToDetailsFromMovements() }
+    var movementTileHeight by remember { mutableStateOf((screenHeight * 0.065).dp) }
+    var movementTitleSize by remember { mutableStateOf((screenHeight * 0.025).sp) }
+    var movementSubTitleSize by remember { mutableStateOf((screenHeight * 0.015).sp) }
+    var movementMountSize by remember { mutableStateOf((screenHeight * 0.03).sp) }
+    var onMovementClick by remember { mutableStateOf({ navWrapper.navigateToDetailsFromMovements() }) }
 
     val searchText = remember { mutableStateOf("") }
 
-    var showDatePicker by remember { mutableStateOf(false) }
+    var showDatePicker by rememberSaveable { mutableStateOf(false) }
 
-    var startDate by remember { mutableStateOf<Long?>(null) }
-    var endDate by remember { mutableStateOf<Long?>(null) }
-
-    var formatedStartDate by remember { mutableStateOf<String?>(null) }
-    var formatedEndDate by remember { mutableStateOf<String?>(null) }
+    var formatedStartDate by rememberSaveable { mutableStateOf<String?>(null) }
+    var formatedEndDate by rememberSaveable { mutableStateOf<String?>(null) }
 
 
     val filterAction = {
         showDatePicker = true
     }
 
-    var movements = listOf(
+    val transactionsStyle: List<MovementData> = uiState.filteredTransactions?.map {
+        val type = when (it.type.description) {
+            TransactionTypeStyle.CHARGE.description -> TransactionTypeStyle.CHARGE
+            TransactionTypeStyle.TRANSFER.description -> TransactionTypeStyle.TRANSFER
+            else -> TransactionTypeStyle.INCOME
+        }
+
         MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
-            onClick = onMovementClick
-        ), MovementData(
-            tileHeight = tileHeight,
-            title = R.string.charge_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.CHARGE,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.transfer_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 60.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.TRANSFER,
-            onClick = onMovementClick
-        ),
-        MovementData(
-            tileHeight = tileHeight,
-            title = R.string.income_text,
-            titleSize = titleSize,
-            subTitle = "19:12 a Tomas",
-            subTitleSize = subTitleSize,
-            mount = 111.00,
-            mountSize = mountSize,
-            transactionType = TransactionType.INCOME,
+            tileHeight = movementTileHeight,
+            title = stringResource(it.type.description),
+            titleSize = movementTitleSize,
+            subTitle = "papa",
+            subTitleSize = movementSubTitleSize,
+            mount = it.amount,
+            mountSize = movementMountSize,
+            transactionTypeStyle = type,
             onClick = onMovementClick
         )
-    )
+    } ?: emptyList()
+
 
     if (isRotated || adaptiveInfo.windowSizeClass.windowWidthSizeClass != WindowWidthSizeClass.COMPACT) {
         var showDetails by rememberSaveable { mutableStateOf(false) }
 
-        tileHeight = (screenHeight * 0.15).dp
-        titleSize = (screenHeight * 0.05).sp
-        subTitleSize = (screenHeight * 0.04).sp
-        mountSize = (screenHeight * 0.04).sp
+        movementTileHeight = (screenHeight * 0.15).dp
+        movementTitleSize = (screenHeight * 0.05).sp
+        movementSubTitleSize = (screenHeight * 0.04).sp
+        movementMountSize = (screenHeight * 0.04).sp
         onMovementClick = { showDetails = true }
-
-        movements = listOf(
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            ), MovementData(
-                tileHeight = tileHeight,
-                title = R.string.charge_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.CHARGE,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.transfer_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 60.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.TRANSFER,
-                onClick = onMovementClick
-            ),
-            MovementData(
-                tileHeight = tileHeight,
-                title = R.string.income_text,
-                titleSize = titleSize,
-                subTitle = "19:12 a Tomas",
-                subTitleSize = subTitleSize,
-                mount = 111.00,
-                mountSize = mountSize,
-                transactionType = TransactionType.INCOME,
-                onClick = onMovementClick
-            )
-        )
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -1264,13 +132,12 @@ fun TransactionsScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiv
                     bigText = stringResource(R.string.transactions)
                 ) {
                     Column {
-                        if (startDate != null && endDate != null && formatedStartDate != null && formatedEndDate != null) {
+                        if (uiState.startDate != null && uiState.endDate != null && formatedStartDate != null && formatedEndDate != null) {
                             FilterIndicator(
                                 formatedStartDate = formatedStartDate!!,
                                 formatedEndDate = formatedEndDate!!,
                                 onClick = {
-                                    startDate = null
-                                    endDate = null
+                                    viewModel.setFilterDate(null, null)
                                     formatedStartDate = null
                                     formatedEndDate = null
                                 }
@@ -1292,12 +159,14 @@ fun TransactionsScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiv
 
                         FilterButton(
                             width = (screenWidth * 0.5 * 0.4).dp,
-                            onClick = {
-                                showDatePicker = true
-                            }
+                            onClick = filterAction
                         )
                     }
-                    MovementTileList(movements = movements)
+                    if (uiState.transactions != null) {
+                        MovementTileList(movements = transactionsStyle)
+                    } else {
+                        viewModel.getTransactions()
+                    }
                 }
             }
             Box(
@@ -1344,13 +213,12 @@ fun TransactionsScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiv
             tinyText = "",
             bigText = stringResource(R.string.transactions)
         ) {
-            if (startDate != null && endDate != null && formatedStartDate != null && formatedEndDate != null) {
+            if (uiState.startDate != null && uiState.endDate != null && formatedStartDate != null && formatedEndDate != null) {
                 FilterIndicator(
                     formatedStartDate = formatedStartDate!!,
                     formatedEndDate = formatedEndDate!!,
                     onClick = {
-                        startDate = null
-                        endDate = null
+                        viewModel.setFilterDate(null, null)
                         formatedStartDate = null
                         formatedEndDate = null
                     }
@@ -1370,30 +238,30 @@ fun TransactionsScreen(navWrapper: NavigatorWrapper, adaptiveInfo: WindowAdaptiv
 
                 FilterButton(
                     width = (screenWidth * 0.4).dp,
-                    onClick = {
-                        showDatePicker = true
-                    }
+                    onClick = filterAction
                 )
             }
-
-            MovementTileList(movements = movements)
+            if (uiState.transactions != null) {
+                MovementTileList(movements = transactionsStyle)
+            } else {
+                viewModel.getTransactions()
+            }
         }
-        if (showDatePicker) {
-            DateRangePickerModal(
-                onDateRangeSelected = { pair: Pair<Long?, Long?> ->
-                    if (pair.first != null && pair.second != null) {
-                        startDate = pair.first
-                        endDate = pair.second
-                        formatedStartDate =
-                            SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(startDate)
-                        formatedEndDate =
-                            SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(endDate)
-                    }
-                    showDatePicker = false
-                },
-                onDismiss = { showDatePicker = false },
-                height = (screenHeight * 0.8).dp
-            )
-        }
+    }
+    if (showDatePicker) {
+        DateRangePickerModal(
+            onDateRangeSelected = { pair: Pair<Long?, Long?> ->
+                if (pair.first != null && pair.second != null) {
+                    viewModel.setFilterDate(pair.first, pair.second)
+                    formatedStartDate =
+                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.startDate)
+                    formatedEndDate =
+                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.endDate)
+                }
+                showDatePicker = false
+            },
+            onDismiss = { showDatePicker = false },
+            height = (screenHeight * 0.8).dp
+        )
     }
 }
