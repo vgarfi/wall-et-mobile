@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.VerticalDivider
@@ -30,19 +31,18 @@ fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp){
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier
                 .fillMaxHeight()
                 .padding(horizontal = 25.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
             SectionButton(
-                title = R.string.transfer_text,
+                title = R.string.transfer,
                 icon = R.drawable.transfer_icon,
                 onClick = {
                     navWrapper.navigateTransfer()
                 },
-
                 )
             Spacer(modifier = Modifier.weight(weight = 1f))
             VerticalDivider(

@@ -8,6 +8,7 @@ import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.WalletMobileTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
 //        enableEdgeToEdge()
 //        WindowCompat.setDecorFitsSystemWindows(window, false)

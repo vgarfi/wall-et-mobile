@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -67,7 +68,7 @@ fun TransferScreen(
         else -> {1.dp}
     }
 
-    CashFlowBaseScaffold(bigText = "Transferir", navController = navController, onArrowClick = onclick) {
+    CashFlowBaseScaffold(bigText = stringResource(R.string.transfer), navController = navController, onArrowClick = onclick) {
         Column(
             modifier = Modifier
                 .padding(top = topPadding.dp)
@@ -116,8 +117,8 @@ fun TransferScreenContent(
             ) {
                 TransferOptionCard(
                     iconRes = R.drawable.logo,
-                    title = "A usuario de",
-                    subtitle = "Wall-et",
+                    title = stringResource(R.string.to_user),
+                    subtitle = stringResource(R.string.wallet),
                     onClick = {
                         navigateToScreen("transferTo", mapOf("target" to "user","page" to "0"))
                     }
@@ -125,8 +126,8 @@ fun TransferScreenContent(
 
                 TransferOptionCard(
                     iconRes = R.drawable.bank,
-                    title = "A cuenta",
-                    subtitle = "bancaria",
+                    title = stringResource(R.string.to_account),
+                    subtitle = stringResource(R.string.bankary),
                     onClick = {
                         navigateToScreen("transferTo", mapOf("target" to "account","page" to "0"))
                     }
@@ -136,7 +137,7 @@ fun TransferScreenContent(
 
         item {
             Text(
-                text = "Frecuentes",
+                text = stringResource(R.string.recents),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = adaptivePadding)

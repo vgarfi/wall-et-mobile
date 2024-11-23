@@ -3,6 +3,7 @@ package com.example.wall_etmobile.core.config
 import android.content.Context
 import com.example.wall_etmobile.features.auth.service.UserApiService
 import com.example.wall_etmobile.features.cards.service.CardApiService
+import com.example.wall_etmobile.features.transactions.service.TransactionApiService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -34,8 +35,10 @@ object RetrofitClient {
             .addInterceptor(httpLoggingInterceptor)
             .build()
 
-        val json = Json { ignoreUnknownKeys = true }
-
+        val json = Json {
+            ignoreUnknownKeys = true
+            coerceInputValues = true
+        }
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
@@ -49,5 +52,9 @@ object RetrofitClient {
 
     fun getWalletApiService(context: Context): CardApiService {
         return getInstance(context).create(CardApiService::class.java)
+    }
+
+    fun getTransactionApiService(context: Context): TransactionApiService {
+        return getInstance(context).create(TransactionApiService::class.java)
     }
 }

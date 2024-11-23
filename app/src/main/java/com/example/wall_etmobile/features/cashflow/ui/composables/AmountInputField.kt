@@ -22,12 +22,10 @@ import com.example.wall_etmobile.core.theme.MainPurple
 fun AmountInputField(
     onValueChange: (String) -> Unit,
     textIn : String = "",
-    readOnly : Boolean = false
 ) {
     var text by remember { mutableStateOf(textIn) }
     TextField(
         value = text,
-        readOnly = readOnly,
         onValueChange = { newValue ->
             val sanitizedValue = newValue.filter { it.isDigit() || it == '.'}
             if (sanitizedValue.count { it == '.' } <= 1) {

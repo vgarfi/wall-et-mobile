@@ -1,10 +1,13 @@
 package com.example.wall_etmobile.core.navigation
 
+import android.content.Intent
+import android.net.Uri
 import com.example.wall_etmobile.features.cashflow.ui.screens.TransferToScreen
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -26,6 +29,7 @@ import com.example.wall_etmobile.features.cashflow.ui.screens.EnterFromScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.EnterScreen
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDetailsScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.TransferScreen
+import com.example.wall_etmobile.features.qr_scanner.ui.screens.QrScannerScreen
 
 @Composable
 fun NavigationHostWrapper (
@@ -38,6 +42,29 @@ fun NavigationHostWrapper (
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
     ) {
+        composable(Screen.SCANQR.route) {
+            val context = LocalContext.current
+            QrScannerScreen(
+                onQrCodeScanned = { result ->
+                    if (result.startsWith("http://") || result.startsWith("https://")) {
+                        val intent = Intent(Intent.ACTION_VIEW).apply {
+                            data = Uri.parse(result)
+                        }
+                        context.startActivity(intent)
+                    } else {
+                        println("Código QR no contiene una URL válida")
+                    }
+                    navController.popBackStack()
+                    println("Resultado QR: $result")
+                },
+                onError = { error ->
+                    println("Error: $error")
+                },
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
         composable(Screen.HOME.route) {
             HomeScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo)
         }

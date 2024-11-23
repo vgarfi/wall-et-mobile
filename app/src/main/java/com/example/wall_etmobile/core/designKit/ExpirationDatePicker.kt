@@ -15,10 +15,12 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.text.input.TextFieldValue
+import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainGreen
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainRed
@@ -49,7 +51,13 @@ fun ExpirationDatePicker(
     var expirationDate by remember { mutableStateOf("") }
     var bankName by remember { mutableStateOf(TextFieldValue("")) }
 
-    Box(modifier = Modifier.clickable {  })
+    Box(modifier = Modifier.clickable {
+        if (selectedMonth.isEmpty()) {
+            expandedMonth = true
+        } else if (selectedYear.isEmpty()) {
+            expandedYear = true
+        }
+    })
     OutlinedTextField(
         value = dateText,
         onValueChange = {
@@ -60,13 +68,13 @@ fun ExpirationDatePicker(
             }
         },
         label = {
-            Text(if (isError) "Error: Fecha inválida" else "Fecha de expiración")
+            Text(if (isError) stringResource(R.string.error_invalid_date) else stringResource(R.string.expiration_date))
         },
         isError = isError,
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.DateRange,
-                contentDescription = "Seleccionar fecha",
+                contentDescription = stringResource(R.string.select_date),
                 modifier = Modifier.size(24.dp)
             )
         },
@@ -79,7 +87,7 @@ fun ExpirationDatePicker(
             if (!cardNumberError && cardNumber.text.isNotEmpty()) {
                 Icon(
                     imageVector = Icons.Default.CheckCircle,
-                    contentDescription = "Validación",
+                    contentDescription = "validation",
                     tint = MainGreen,
                     modifier = Modifier.size(18.dp)
                 )
@@ -109,14 +117,13 @@ fun ExpirationDatePicker(
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    Text(text = "Selecciona el mes", fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(R.string.select_month), fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(8.dp))
                     months.forEach { month ->
                         TextButton(
                             onClick = {
                                 selectedMonth = month
                                 expandedMonth = false
-                                // Activar la selección de año después de elegir el mes
                                 expandedYear = true
                             }
                         ) {
@@ -142,7 +149,7 @@ fun ExpirationDatePicker(
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    Text(text = "Selecciona el año", fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(R.string.select_year), fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(8.dp))
                     years.forEach { year ->
                         TextButton(
@@ -162,7 +169,7 @@ fun ExpirationDatePicker(
 
     if (isError) {
         Text(
-            text = "Debe seleccionar un mes y un año válido.",
+            text = stringResource(R.string.error_invalid_date),
             color = MainRed,
             modifier = Modifier.padding(start = 16.dp, top = 4.dp)
         )

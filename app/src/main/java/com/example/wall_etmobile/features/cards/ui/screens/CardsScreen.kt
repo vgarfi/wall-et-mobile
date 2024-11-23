@@ -44,6 +44,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -87,35 +88,20 @@ fun CardsScreen(
             viewModel.getCards()
     }
 
-    BaseScaffold(tinyText = "Tus", bigText = "Tarjetas") {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .padding(horizontal = 10.dp)
-                    .fillMaxWidth()
-            ) {
-                BigIconButton(
-                    icon = R.drawable.add_card_icon,
-                    boldText = "Agregá",
-                    normalText = "una tarjeta",
-                    onClick = { showDialog = true }
-                )
-                BigIconButton(
-                    icon = R.drawable.scan_card,
-                    boldText = "Escaneá",
-                    normalText = "una tarjeta",
-                    onClick = {}
-                )
-            }
-
+    BaseScaffold(tinyText = stringResource(R.string.yours), bigText = stringResource(R.string.cards)) {
+        Column(modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp)) {
+            BigIconButton(
+                icon = R.drawable.add_card_icon,
+                boldText = stringResource(R.string.add),
+                normalText = stringResource(R.string.a_new_card),
+                onClick = { showDialog = true },
+            )
             Box(modifier = Modifier.height(10.dp))
 
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 10.dp, vertical = 10.dp)
+                    .padding(vertical = 10.dp)
             ) {
                 items(
                     items = uiState.cards.orEmpty(),

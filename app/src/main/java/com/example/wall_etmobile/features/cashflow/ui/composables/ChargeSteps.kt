@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,7 +43,7 @@ fun ChargeAmount(
             modifier = Modifier.padding(top = 80.dp)
         ) {
             var amount by remember { mutableStateOf("") }
-            Text(text = "Quiero cobrar", fontSize = 22.sp)
+            Text(text = stringResource(R.string.i_want_to_charge), fontSize = 22.sp)
             Box(modifier = Modifier.height(10.dp))
             AmountInputField(
                 onValueChange =  { newAmount ->
@@ -56,12 +57,12 @@ fun ChargeAmount(
             ) {
                 Row (
                 ){
-                    Text(text = "Mensaje", fontWeight = FontWeight.Bold)
-                    Text(text = " (opcional)")
+                    Text(text = stringResource(R.string.message), fontWeight = FontWeight.Bold)
+                    Text(text = " " + stringResource(R.string.optional))
                 }
                 Box(modifier = Modifier.height(5.dp))
                 CustomTextField(
-                    hint = "Escribe un mensaje",
+                    hint = stringResource(R.string.write_a_message),
                     label = "",
                     isPassword = false,
                     controller = messageController,
@@ -85,7 +86,7 @@ fun ChargeQR (
                         .padding(top = 15.dp)
                         .fillMaxWidth()
                 ) {
-                    Text(text = "Vas a cobrar", fontSize = 22.sp)
+                    Text(text = stringResource(R.string.you_are_charging), fontSize = 22.sp)
                     Box(modifier = Modifier.height(10.dp))
                     Text(text = "$"+amount, style = TextStyle(
                         fontSize = 40.sp,
@@ -109,8 +110,8 @@ fun ChargeQR (
                         Box(modifier = Modifier.height(25.dp))
                         Row (
                         ){
-                            Text(text = "Mensaje: ", fontWeight = FontWeight.Bold)
-                            Text(text = if (message.isNotEmpty()) message else "(sin mensaje)")
+                            Text(text = stringResource(R.string.message), fontWeight = FontWeight.Bold)
+                            Text(text = if (message.isNotEmpty()) message else ": " + stringResource(R.string.no_message))
                         }
 
                     }

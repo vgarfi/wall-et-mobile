@@ -25,6 +25,7 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -75,7 +76,8 @@ fun MainApp() {
         Screen.TRANSFER.route,
         Screen.ENTER.route,
         Screen.ENTERFROM.route,
-        Screen.CHARGE.route
+        Screen.CHARGE.route,
+        Screen.SCANQR.route
     )
 
     val topBarRoutes = listOf(
@@ -138,7 +140,7 @@ fun MainApp() {
                             }
                             Spacer(modifier = Modifier.weight(1f))
                             Text(
-                                text = currentRouteModel?.label ?: "",
+                                text = if(currentRouteModel?.label != null) stringResource(currentRouteModel.label) else "",
                                 color = MainBlack2,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(vertical = 2.dp)
@@ -165,7 +167,7 @@ fun MainApp() {
                             icon = {
                                 BottomAppBarButton(
                                     icon = it.icon,
-                                    label = it.label,
+                                    label = stringResource(it.label),
                                     isSelected = currentDestination == it.route,
                                     isTiny = it.tiny,
                                     onClick = {
@@ -184,7 +186,7 @@ fun MainApp() {
                             FloatingActionButton(
                                 containerColor = MainPurple,
                                 onClick = {
-
+                                    navController.navigate(Screen.SCANQR.route)
                                 },
                                 contentColor = MainWhite,
                                 shape = CircleShape,
@@ -206,7 +208,7 @@ fun MainApp() {
                             icon = {
                                 BottomAppBarButton(
                                     icon = it.icon,
-                                    label = it.label,
+                                    label = stringResource(it.label),
                                     isSelected = currentDestination == it.route,
                                     isTiny = it.tiny,
                                     onClick = {

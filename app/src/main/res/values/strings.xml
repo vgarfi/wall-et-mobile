@@ -71,4 +71,62 @@
     <string name="member_since_july_9th">Member since July 9th</string>
     <string name="change_password">Change password</string>
     <string name="logout">Logout</string>
+    <string name="home">Home</string>
+    <string name="cards">Cards</string>
+    <string name="transaction_details">Transaction details</string>
+    <string name="enter_from">Enter from...</string>
+    <string name="transfer_to">Transfer to...</string>
+    <string name="welcome">Welcome</string>
+    <string name="transfer">Transfer</string>
+
+    <string name="to_user">To a Wall-et</string>
+    <string name="wallet">user</string>
+    <string name="bankary">account</string>
+    <string name="to_account">To a bank</string>
+    <string name="recents">Recents</string>
+
+    <string name="message">Message</string>
+    <string name="optional">(optional)</string>
+    <string name="write_a_message">Write a message</string>
+    <string name="continue_text">Continue</string>
+    <string name="you_are_transfering">You are about to transfer</string>
+    <string name="no_message">no message</string>
+
+    <string name="payment_method">Payment method</string>
+    <string name="add_new_card">ADD NEW CARD</string>
+    <string name="card_info">Card info</string>
+    <string name="card_number">Card number</string>
+    <string name="card_holder">Card holder name</string>
+    <string name="your_new_card">Your new card</string>
+    <string name="add_card">Add card</string>
+
+    <string name="error_invalid_date">Error: Invalid date</string>
+
+    <string name="expiration_date">Expiration date</string>
+    <string name="select_month">Select month</string>
+    <string name="select_year">Select year</string>
+    <string name="example_mail">user@gmail.com</string>
+    <string name="enter_cvu">Enter account\'s CVU/CBU</string>
+    <string name="charge">Charge</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="i_want_to_charge">I want to charge</string>
+    <string name="you_are_charging">You will charge</string>
+
+    <string name="enter_money">Enter money</string>
+    <string name="choose_any_option">Choose any option</string>
+    <string name="from_another_bank_account">From another bank account</string>
+    <string name="making_a_transfer">Making a transference</string>
+    <string name="with_debit_card">With a debit card</string>
+    <string name="using_any_card">Using one of your cards</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="you_are_entering">You are entering</string>
+    <string name="enter">Enter</string>
+    <string name="user_your_cvu">Use your CVU</string>
+    <string name="share_cvu">Share CVU</string>
+    <string name="using_svu">Copy the next CVU and make transferences from another bank account</string>
+    <string name="yours">Your</string>
+    <string name="a_new_card">a new card</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="need_camera">You need to grant camera access for QR scanning</string>
+    <string name="scan_qr_info">Place a QR code inside the rectangle to scan it</string>
 </resources>

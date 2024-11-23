@@ -9,8 +9,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.wall_etmobile.R
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 import com.example.wall_etmobile.features.cashflow.ui.composables.FromCardContent
 import com.example.wall_etmobile.features.cashflow.ui.composables.WithCVUContent
@@ -24,9 +26,9 @@ fun EnterFromScreen (
     page: Int?,
 ) {
     val headerText = when (source) {
-        "bank" -> "Desde otra cuenta bancaria"
-        "card" -> "Con tarjeta de débito"
-        else -> "Desde otra cuenta"
+        "bank" -> stringResource(R.string.from_another_bank_account)
+        "card" -> stringResource(R.string.using_any_card)
+        else -> stringResource(R.string.from_another_bank_account)
     }
     var onclick  = remember { mutableStateOf({navigateToScreen("enter", emptyMap())}) }
     if (source == "bank"){

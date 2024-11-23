@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -45,7 +46,9 @@ fun BigIconButton (
             )
             .clip(RoundedCornerShape(16.dp))
             .background(Color(0xFFF5F3FE))
-            .padding(horizontal = 25.dp, vertical = 20.dp)
+            .padding(horizontal = 25.dp, vertical = 22.dp)
+            .fillMaxWidth(),
+            contentAlignment = Alignment.Center
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
