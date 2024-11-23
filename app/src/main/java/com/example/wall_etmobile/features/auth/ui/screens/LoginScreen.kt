@@ -109,7 +109,7 @@ fun LoginScreen(
                 ActionButton(
                     onClick = {
                         viewModel.login(email.value, password.value)
-                        if (viewModel.getCurrentUser() != null) {
+                        if (viewModel.getUserData() != null) {
                             navController.navigate(Screen.HOME.route)
                             return@ActionButton
                         }
