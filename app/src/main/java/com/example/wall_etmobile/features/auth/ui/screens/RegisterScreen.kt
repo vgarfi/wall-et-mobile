@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -57,11 +59,16 @@ fun RegisterScreen(
     val passwordsNotMatchMsg = stringResource(R.string.passwords_do_not_match)
     val fullNameMsg = stringResource(R.string.please_enter_your_full_name)
     val shortPasswordMsg = stringResource(R.string.the_password_must_be_at_least_8_characters_long)
+    val termsMsg =
+        stringResource(R.string.in_order_to_continue_you_must_accept_the_terms_and_conditions)
 
     val email = remember { mutableStateOf("") }
     val name = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val confirmPassword = remember { mutableStateOf("") }
+
+    val acceptedTerms = remember { mutableStateOf(false) }
+
     return Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { innerPadding ->
@@ -70,6 +77,7 @@ fun RegisterScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
                 .background(color = MainWhite)
+                .verticalScroll(rememberScrollState())
         ) {
             Column(
                 modifier = Modifier
@@ -105,6 +113,13 @@ fun RegisterScreen(
                 Spacer(modifier = Modifier.size(24.dp))
                 ActionButton(
                     onClick = {
+                        if (!acceptedTerms.value) {
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(termsMsg)
+                            }
+                            return@ActionButton
+                        }
+
                         // Email regex
                         val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
                         if (!email.value.matches(emailRegex.toRegex())) {
@@ -154,7 +169,11 @@ fun RegisterScreen(
                     elevation = true,
                 )
                 Spacer(modifier = Modifier.size(16.dp))
-                TermsCheckbox()
+                TermsCheckbox(
+                    onTap = {
+                        value -> acceptedTerms.value = value
+                    }
+                )
                 Spacer(modifier = Modifier.weight(1f))
                 TextButton(
                     onClick = {

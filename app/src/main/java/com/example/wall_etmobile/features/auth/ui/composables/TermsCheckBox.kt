@@ -14,7 +14,9 @@ import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
-fun TermsCheckbox() {
+fun TermsCheckbox(
+    onTap: (Boolean) -> Unit
+) {
     var isChecked by remember { mutableStateOf(false) }
 
     Row (
@@ -23,7 +25,10 @@ fun TermsCheckbox() {
     ) {
         Checkbox(
             checked = isChecked,
-            onCheckedChange = { isChecked = it },
+            onCheckedChange = { value ->
+                isChecked = value
+                onTap(value)
+            },
             colors = CheckboxDefaults.colors(
                 checkmarkColor = MainWhite,
                 uncheckedColor = MainPurple,
