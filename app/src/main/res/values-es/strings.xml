@@ -141,5 +141,9 @@
 
     <string name="share_cvu">Compartir CVU</string>
     <string name="using_svu">Copiá el siguiente CVU y realizá transferencias desde cualquier otra cuenta</string>
+    <string name="yours">Tus</string>
+    <string name="a_new_card">una tarjeta nueva</string>
+    <string name="a_new_card">una tarjeta nueva</string>
+    <string name="scan_qr">Escanear QR</string>
 
 </resources>

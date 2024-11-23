@@ -10,11 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
 import com.example.wall_etmobile.R
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.*
 import compose.icons.fontawesomeicons.regular.CreditCard
 import compose.icons.fontawesomeicons.regular.ListAlt
+import compose.icons.fontawesomeicons.solid.Qrcode
 
 
 enum class Screen(val route: String, val label: Int, val icon: ImageVector, val tiny: Boolean,
@@ -35,7 +37,8 @@ enum class Screen(val route: String, val label: Int, val icon: ImageVector, val 
     REGISTER("register", label = R.string.sign_up, icon = Icons.Outlined.Person, tiny = false),
     FORGOTPASSWORD("forgot-password", label = R.string.forgot_password, icon = Icons.Outlined.Person, tiny = false),
     VERIFYACCOUNT("verify-account", label = R.string.verify_your_account, icon = Icons.Outlined.Person, tiny = false),
-    RESTOREPASSWORD("restore-password", label = R.string.restore_password, icon = Icons.Outlined.Person, tiny = false);
+    RESTOREPASSWORD("restore-password", label = R.string.restore_password, icon = Icons.Outlined.Person, tiny = false),
+    SCANQR("scan-qr", label = R.string.scan_qr, icon = FontAwesomeIcons.Solid.Qrcode, tiny = false);
 
     companion object {
         val allScreens = listOf(HOME, TRANSACTIONS, CARDS, PROFILE, WELCOME, LOGIN, REGISTER, FORGOTPASSWORD, VERIFYACCOUNT, RESTOREPASSWORD)

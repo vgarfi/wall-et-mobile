@@ -5,6 +5,11 @@
     <!--    Permiso para internet   -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!--    Permiso para cámara     -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+
+
     <!--Para poder interactuar con http
         android:usesCleartextTraffic="true"
     -->

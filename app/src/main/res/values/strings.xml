@@ -124,6 +124,9 @@
     <string name="user_your_cvu">Use your CVU</string>
     <string name="share_cvu">Share CVU</string>
     <string name="using_svu">Copy the next CVU and make transferences from another bank account</string>
+    <string name="yours">Your</string>
+    <string name="a_new_card">a new card</string>
+    <string name="scan_qr">Scan QR</string>
 
 
 

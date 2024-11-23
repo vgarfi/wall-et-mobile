@@ -26,6 +26,7 @@ import com.example.wall_etmobile.features.cashflow.ui.screens.EnterFromScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.EnterScreen
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDetailsScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.TransferScreen
+import com.example.wall_etmobile.features.qr_scanner.ui.screens.QRScannerScreen
 
 @Composable
 fun NavigationHostWrapper (
@@ -38,6 +39,9 @@ fun NavigationHostWrapper (
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
     ) {
+        composable(Screen.SCANQR.route) {
+            QRScannerScreen()
+        }
         composable(Screen.HOME.route) {
             HomeScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo)
         }
