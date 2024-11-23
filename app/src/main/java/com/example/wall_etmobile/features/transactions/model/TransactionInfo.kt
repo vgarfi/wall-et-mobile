@@ -1,7 +1,6 @@
 package com.example.wall_etmobile.features.transactions.model
 
-import com.example.wall_etmobile.features.auth.model.User2
-import com.example.wall_etmobile.features.cards.model.Card
+import com.example.wall_etmobile.features.auth.model.User
 
 data class TransactionInfo(
     var id: Int,
@@ -12,6 +11,6 @@ data class TransactionInfo(
     var pending: Boolean,
     var linkUuid: String?,
     var card: TransactionCardInfo?,
-    var payer: User2?,
-    var receiver: User2?
+    var payer: User?,
+    var receiver: User?
 )

@@ -1,6 +1,9 @@
 package com.example.wall_etmobile.features.auth.model
 
-data class CreateUserBody(
+import java.text.SimpleDateFormat
+import java.util.Locale
+
+class CreateUserBody(
     val firstName: String,
     val lastName: String,
     val email: String,

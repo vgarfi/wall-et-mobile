@@ -1,6 +1,9 @@
 package com.example.wall_etmobile.features.auth.model
 
+import kotlinx.serialization.Serializable
 
+
+@Serializable
 data class User(
     var id: Int?,
     val firstName: String,

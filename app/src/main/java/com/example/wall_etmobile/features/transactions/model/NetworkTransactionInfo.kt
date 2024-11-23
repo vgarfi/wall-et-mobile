@@ -1,6 +1,6 @@
 package com.example.wall_etmobile.features.transactions.model
 
-import com.example.wall_etmobile.features.auth.model.NetworkUser
+import com.example.wall_etmobile.features.auth.model.User
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -22,8 +22,8 @@ class NetworkTransactionInfo (
     var createdAt: String? = null,
     var updatedAt: String? = null,
     var linkUuid: String? = null,
-    var payer: NetworkUser? = null,
-    var receiver: NetworkUser? = null
+    var payer: User? = null,
+    var receiver: User? = null
 ) {
     fun asModel(): TransactionInfo {
         return TransactionInfo(
@@ -37,8 +37,8 @@ class NetworkTransactionInfo (
             createdAt = createdAt,
             updatedAt = updatedAt,
             linkUuid = linkUuid,
-            payer = payer?.asModel(),
-            receiver = receiver?.asModel(),
+            payer = payer,
+            receiver = receiver,
             pending = pending,
             card = card?.asModel()
         )
