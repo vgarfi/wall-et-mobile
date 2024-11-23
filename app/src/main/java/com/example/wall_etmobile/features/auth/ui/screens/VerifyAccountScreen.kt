@@ -35,6 +35,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,19 +45,28 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
+import com.example.wall_etmobile.core.designKit.CustomTextField
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.LightBackground
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 
 @Composable
-fun VerifyAccountScreen(navController: NavController) {
+fun VerifyAccountScreen(
+    navController: NavController,
+    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+) {
     val otpValue = remember { mutableStateListOf<String>("", "", "", "") }
     val focusRequesters = remember { List(4) { FocusRequester() } }
     val localFocusManager = LocalFocusManager.current
+
+    val code = remember { mutableStateOf("") }
 
     fun updateOtpValue(index: Int, value: String) {
         if (index in otpValue.indices && value.length <= 1) {
@@ -109,20 +119,25 @@ fun VerifyAccountScreen(navController: NavController) {
                     color = MainPurple,
                 )
                 Spacer(modifier = Modifier.height(20.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    for (i in 0 until 4) {
-                        OtpTextField(
-                            value = otpValue.getOrNull(i)?.toString() ?: "",
-                            onValueChange = { updateOtpValue(i, it) },
-                            focusRequester = focusRequesters[i],
-                        )
-                    }
-                }
+                CustomTextField(
+                    label = "",
+                    hint = "fb61487f2a2339f2",
+                    controller = code,
+                )
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(16.dp),
+//                    horizontalArrangement = Arrangement.SpaceEvenly
+//                ) {
+//                    for (i in 0 until 4) {
+//                        OtpTextField(
+//                            value = otpValue.getOrNull(i)?.toString() ?: "",
+//                            onValueChange = { updateOtpValue(i, it) },
+//                            focusRequester = focusRequesters[i],
+//                        )
+//                    }
+//                }
                 Text(
                     text = stringResource(R.string.resend_code),
                     color = MainPurple,
@@ -132,7 +147,8 @@ fun VerifyAccountScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(32.dp))
                 ActionButton(
                     onClick = {
-                        navController.navigate(Screen.RESTOREPASSWORD.route)
+                        viewModel.verify(code.value)
+                        navController.navigate(Screen.VERIFYACCOUNT.route)
                     },
                     modifier = Modifier
                         .fillMaxWidth()

@@ -20,21 +20,30 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.features.auth.ui.composables.TermsCheckbox
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 
 @Composable
-fun RegisterScreen(navController: NavController) {
+fun RegisterScreen(
+    navController: NavController,
+    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+) {
     val email = remember { mutableStateOf("") }
+    val name = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+    val confirmPassword = remember { mutableStateOf("") }
     return Box(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +64,7 @@ fun RegisterScreen(navController: NavController) {
             CustomTextField(
                 label = stringResource(R.string.full_name),
                 hint = "Juan Pérez",
-                controller = email,
+                controller = name,
             )
             Spacer(modifier = Modifier.size(24.dp))
             CustomTextField(
@@ -68,12 +77,20 @@ fun RegisterScreen(navController: NavController) {
             CustomTextField(
                 label = stringResource(R.string.confirm_your_password),
                 hint = stringResource(R.string.confirm_your_password),
-                controller = password,
+                controller = confirmPassword,
                 isPassword = true,
             )
             Spacer(modifier = Modifier.size(24.dp))
             ActionButton(
-                onClick = {},
+                onClick = {
+                    if(password.value != confirmPassword.value) {
+                        return@ActionButton
+                    }
+                    val firstName = name.value.split(" ")[0]
+                    val lastName = name.value.split(" ")[1]
+                    viewModel.register(firstName, lastName, email.value, password.value)
+                    navController.navigate(Screen.VERIFYACCOUNT.route)
+                },
                 modifier = Modifier.fillMaxWidth().height(48.dp),
                 title = stringResource(R.string.create_account),
                 elevation = true,

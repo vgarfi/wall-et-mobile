@@ -6,6 +6,7 @@ import com.example.wall_etmobile.features.auth.model.CreateUserBody
 import com.example.wall_etmobile.features.auth.service.UserApiService
 import com.example.wall_etmobile.features.auth.model.LoginCredentials
 import com.example.wall_etmobile.features.auth.model.User
+import com.example.wall_etmobile.features.auth.model.VerifyCodeBody
 
 class UserRemoteDataSource(
     private val sessionManager: SessionManager,
@@ -31,5 +32,10 @@ class UserRemoteDataSource(
     suspend fun register(firstName: String, lastName: String, email: String, password: String) {
         val body = CreateUserBody(firstName, lastName, email, password, "2003-03-04")
         handleApiResponse { userApiService.register(body) }
+    }
+
+    suspend fun verify(code: String) {
+        val body = VerifyCodeBody(code)
+        handleApiResponse { userApiService.verify(body) }
     }
 }

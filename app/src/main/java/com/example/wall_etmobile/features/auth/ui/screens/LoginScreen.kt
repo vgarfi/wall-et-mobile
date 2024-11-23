@@ -23,19 +23,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.features.auth.ui.composables.RememberLoginCheckbox
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(
+    navController: NavController,
+    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     return Box(
@@ -84,7 +91,10 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.size(16.dp))
             ActionButton(
                 onClick = {
-                    navController.navigate(Screen.HOME.route)
+                    viewModel.login(email.value, password.value)
+                    if(viewModel.state.user != null) {
+                        navController.navigate(Screen.HOME.route)
+                    }
                 },
                 modifier = Modifier.fillMaxWidth().height(48.dp),
                 title = stringResource(R.string.sign_in),

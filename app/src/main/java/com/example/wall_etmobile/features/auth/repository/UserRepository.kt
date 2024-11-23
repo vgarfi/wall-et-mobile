@@ -14,8 +14,9 @@ class UserRepository(
     // Cache of the current user got from the network.
     private var currentUser: User? = null
 
-    suspend fun login(username: String, password: String) {
+    suspend fun login(username: String, password: String) : User? {
         remoteDataSource.login(username, password)
+        return getCurrentUser(true)
     }
 
     suspend fun logout() {
@@ -36,5 +37,9 @@ class UserRepository(
 
     suspend fun register(firstName: String, lastName: String, email: String, password: String) {
         remoteDataSource.register(firstName, lastName, email, password)
+    }
+
+    suspend fun verify(code: String) {
+        remoteDataSource.verify(code)
     }
 }

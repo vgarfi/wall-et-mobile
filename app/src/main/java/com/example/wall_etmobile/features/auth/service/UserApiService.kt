@@ -4,6 +4,7 @@ import com.example.wall_etmobile.features.auth.model.CreateUserBody
 import com.example.wall_etmobile.features.auth.model.LoginCredentials
 import com.example.wall_etmobile.features.auth.model.JWTAuthToken
 import com.example.wall_etmobile.features.auth.model.User
+import com.example.wall_etmobile.features.auth.model.VerifyCodeBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -21,4 +22,7 @@ interface UserApiService {
 
     @POST("user")
     suspend fun register(@Body data: CreateUserBody): Response<User>
+
+    @POST("user/verify")
+    suspend fun verify(@Body code: VerifyCodeBody): Response<Unit>
 }
