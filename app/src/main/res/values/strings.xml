@@ -129,9 +129,4 @@
     <string name="scan_qr">Scan QR</string>
     <string name="need_camera">You need to grant camera access for QR scanning</string>
     <string name="scan_qr_info">Place a QR code inside the rectangle to scan it</string>
-
-
-
-
-
 </resources>
