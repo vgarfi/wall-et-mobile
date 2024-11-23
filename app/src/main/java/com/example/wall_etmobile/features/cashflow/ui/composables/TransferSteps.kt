@@ -52,7 +52,7 @@ fun TransferTo(
                     }
                 }
                 ActionButton(
-                    title = "Continuar",
+                    title = stringResource(R.string.continue_text),
                 onClick = onClick,
                 elevation = true,
                 modifier = Modifier.align(Alignment.End)

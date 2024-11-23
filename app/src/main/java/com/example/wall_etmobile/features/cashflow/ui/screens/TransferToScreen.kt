@@ -46,8 +46,8 @@ fun TransferToScreen(
     val pagerState = rememberPagerState(pageCount = { totalSteps }, initialPage = currentStep)
 
     val fixedStrings = when (target) {
-        "user" -> listOf("Correo electronico", "usuario@gmail.com")
-        "account" -> listOf("CBU/CVU", "Ingrese el CBU/CVU de la cuenta")
+        "user" -> listOf(stringResource(R.string.email), stringResource(R.string.example_mail))
+        "account" -> listOf("CBU/CVU", stringResource(R.string.enter_cvu))
         else -> listOf("", "")
     }
 

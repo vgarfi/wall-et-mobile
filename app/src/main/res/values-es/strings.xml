@@ -115,6 +115,8 @@
     <string name="select_year">Selecciona el año</string>
 
 
+    <string name="example_mail">usuario@gmail.com</string>
 
+    <string name="enter_cvu">Ingrese el CVU/CBU de la cuenta</string>
 
 </resources>
