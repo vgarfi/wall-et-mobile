@@ -23,19 +23,17 @@ import com.example.wall_etmobile.core.theme.MainWhite
 import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 
 @Composable
-fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp, operationsViewModel : OperationsViewModel,){
+fun SectionButtons(
+    navWrapper: NavigatorWrapper,
+    operationsViewModel : OperationsViewModel,){
     ElevatedCard(
         colors =  CardDefaults.elevatedCardColors(MainWhite),
-        modifier = Modifier
-            .height(height = height)
-            .fillMaxWidth()
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly,
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .fillMaxHeight()
-                .padding(horizontal = 25.dp)
+                .padding(horizontal = 33.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
             SectionButton(
@@ -48,7 +46,7 @@ fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp, operationsViewModel
                 )
             Spacer(modifier = Modifier.weight(weight = 1f))
             VerticalDivider(
-                modifier = Modifier.padding(vertical = 20.dp),
+                modifier = Modifier.height(70.dp),
                 color = Color(0xFFE8E8E8)
             )
             Spacer(modifier = Modifier.weight(weight = 1f))
@@ -60,7 +58,7 @@ fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp, operationsViewModel
             )
             Spacer(modifier = Modifier.weight(weight = 1f))
             VerticalDivider(
-                modifier = Modifier.padding(vertical = 20.dp),
+                modifier = Modifier.height(70.dp),
                 color = Color(0xFFE8E8E8)
             )
             Spacer(modifier = Modifier.weight(weight = 1f))
