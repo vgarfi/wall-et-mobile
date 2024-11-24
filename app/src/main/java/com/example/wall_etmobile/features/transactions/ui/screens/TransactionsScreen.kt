@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -75,8 +76,6 @@ fun TransactionsScreen(
     var movementMountSize by remember { mutableStateOf((screenHeight * 0.03).sp) }
     var onMovementClick by remember { mutableStateOf<(Int) -> Unit>({}) }
     var clickable by remember { mutableStateOf(false) }
-
-    val searchText = remember { mutableStateOf("") }
 
     var showDatePicker by rememberSaveable { mutableStateOf(false) }
 
@@ -147,7 +146,14 @@ fun TransactionsScreen(
                     tinyText = "",
                     bigText = stringResource(R.string.transactions)
                 ) {
-                    Column {
+                    Row(
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height((screenHeight * 0.08).dp)
+
+                    ) {
                         if (uiState.startDate != null && uiState.endDate != null && formatedStartDate != null && formatedEndDate != null) {
                             FilterIndicator(
                                 formatedStartDate = formatedStartDate!!,
@@ -158,16 +164,9 @@ fun TransactionsScreen(
                                     formatedEndDate = null
                                 }
                             )
+                            Spacer(modifier = Modifier.padding(8.dp))
                         }
-                    }
-                    Row(
-                        horizontalArrangement = Arrangement.End,
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height((screenHeight * 0.08).dp)
 
-                    ) {
                         FilterButton(
                             width = (screenWidth * 0.5 * 0.4).dp,
                             onClick = filterAction
@@ -226,29 +225,25 @@ fun TransactionsScreen(
             tinyText = "",
             bigText = stringResource(R.string.transactions)
         ) {
-            if (uiState.startDate != null && uiState.endDate != null && formatedStartDate != null && formatedEndDate != null) {
-                FilterIndicator(
-                    formatedStartDate = formatedStartDate!!,
-                    formatedEndDate = formatedEndDate!!,
-                    onClick = {
-                        viewModel.setFilterDate(null, null)
-                        formatedStartDate = null
-                        formatedEndDate = null
-                    }
-                )
-            }
             Row(
-                horizontalArrangement = Arrangement.Start,
+                horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height((screenHeight * 0.05).dp)
             ) {
-                SearchBar(
-                    width = (screenWidth * 0.6).dp,
-                    searchText = searchText
-                )
-
+                if (uiState.startDate != null && uiState.endDate != null && formatedStartDate != null && formatedEndDate != null) {
+                    FilterIndicator(
+                        formatedStartDate = formatedStartDate!!,
+                        formatedEndDate = formatedEndDate!!,
+                        onClick = {
+                            viewModel.setFilterDate(null, null)
+                            formatedStartDate = null
+                            formatedEndDate = null
+                        }
+                    )
+                    Spacer(modifier = Modifier.padding(8.dp))
+                }
                 FilterButton(
                     width = (screenWidth * 0.4).dp,
                     onClick = filterAction
