@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 class NetworkPaymentBody (
     val amount: Double?,
-    val description: String,
+    val description: String?,
     val type: String,
     val receiverEmail: String?,
     val cardId: Int?,

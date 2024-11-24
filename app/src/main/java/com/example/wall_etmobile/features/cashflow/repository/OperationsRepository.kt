@@ -26,7 +26,7 @@ class OperationsRepository() {
             operationType == TransactionType.CHARGE -> {
                 NetworkPaymentBody(
                     amount = amount?.toDouble(),
-                    description = description ?: context.getString(R.string.default_message_payment),
+                    description = if (description.isNullOrEmpty()) context.getString(R.string.default_message_payment) else description.toString(),
                     type = PaymentType.LINK.label,
                     cardId = null,
                     receiverEmail = null
@@ -35,18 +35,18 @@ class OperationsRepository() {
             selectedMethodPayment?.number == "0000 0000 0000 0000" -> {
                 NetworkPaymentBody(
                     amount = amount?.toDouble(),
-                    description = description ?: context.getString(R.string.default_message_payment),
+                    description = if (description.isNullOrEmpty()) context.getString(R.string.default_message_payment) else description.toString(),
                     type = PaymentType.BALANCE.label,
-                    receiverEmail = receiverID,
+                    receiverEmail = receiverID ?: "",
                     cardId = null
                 )
             }
             else -> {
                 NetworkPaymentBody(
                     amount = amount?.toDouble(),
-                    description =  description ?: context.getString(R.string.default_message_payment),
+                    description = if (description.isNullOrEmpty()) context.getString(R.string.default_message_payment) else description.toString(),
                     type = PaymentType.CARD.label,
-                    receiverEmail = receiverID,
+                    receiverEmail = receiverID ?: "",
                     cardId = selectedMethodPayment?.id
                 )
             }
