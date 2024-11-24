@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
@@ -35,7 +36,7 @@ fun MountVisor(mount: Double, showMoney: Boolean, onClick: () -> Unit){
     ) {
         Text(
             text = stringResource(R.string.home_mount_text),
-            fontSize = 28.sp,
+            fontSize = 20.sp,
             color = MaterialTheme.colorScheme.onPrimary
         )
         Box(Modifier.height(10.dp))
@@ -47,6 +48,7 @@ fun MountVisor(mount: Double, showMoney: Boolean, onClick: () -> Unit){
                 Text(
                     text = "$ ${"%.2f".format(mount)}",
                     fontSize = 43.sp,
+                    fontWeight = FontWeight.Black,
                     color = MaterialTheme.colorScheme.onPrimary,
                 )
                 IconButton(onClick = { onClick() }) {
@@ -61,6 +63,7 @@ fun MountVisor(mount: Double, showMoney: Boolean, onClick: () -> Unit){
                 Text(
                     text = "$ · · · · · · ·",
                     fontSize = 43.sp,
+                    fontWeight = FontWeight.Black,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
                 IconButton(onClick = { onClick() }) {

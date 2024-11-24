@@ -28,19 +28,12 @@ fun TitleRow(
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp)
+            .padding(20.dp)
     ){
         Spacer(Modifier.weight(1f))
         SectionTitle(tinyText = tinyText, bigText = bigText)
-        Spacer(Modifier.weight(0.8f))
-        Icon(
-            FontAwesomeIcons.Solid.QuestionCircle,
-            contentDescription = "FAQ",
-            modifier = Modifier
-                .size(18.dp)
-                .clickable {},
-            tint = MainWhite
-        )
+        Spacer(Modifier.weight(1f))
+        
     }
 }
 

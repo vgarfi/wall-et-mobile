@@ -175,5 +175,6 @@
     <string name="operationIncomeSuccess">Ingreso exitoso</string>
     <string name="no_transactions">Todavía no tienes ningún movimiento. ¡Realiza el primero!</string>
     <string name="no_cards">No tienes tarjetas vinculadas. ¡Agrega la primera!</string>
+    <string name="self_balance">Dinero en cuenta</string>
 
 </resources>

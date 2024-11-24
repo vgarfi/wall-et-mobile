@@ -157,5 +157,6 @@
     <string name="operationIncomeSuccess">Successful income</string>
     <string name="no_transactions">You don\'t have any transaction yet. Make the first one!</string>
     <string name="no_cards">You don\'t have any card added yet. Add the first one!</string>
+    <string name="self_balance">Account money</string>
 
 </resources>
