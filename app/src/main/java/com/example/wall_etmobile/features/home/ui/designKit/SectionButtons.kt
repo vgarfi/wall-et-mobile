@@ -31,9 +31,9 @@ fun SectionButtons(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly,
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .padding(horizontal = 25.dp)
+                .padding(horizontal = 33.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
             SectionButton(

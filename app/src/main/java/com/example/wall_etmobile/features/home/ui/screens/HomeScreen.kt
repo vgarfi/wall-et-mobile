@@ -240,8 +240,7 @@ fun HomeScreen(
                 SectionButtons(navWrapper = navWrapper ,operationsViewModel)
                 Box(modifier = Modifier.height((screenHeight*0.035).dp))
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.favorites),
