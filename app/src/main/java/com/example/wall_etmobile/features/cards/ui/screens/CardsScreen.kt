@@ -91,7 +91,7 @@ fun CardsScreen(
             viewModel.getCards()
     }
 
-    BaseScaffold(tinyText = stringResource(R.string.yours), bigText = stringResource(R.string.cards)) {
+    BaseScaffold(tinyText = "", bigText = stringResource(R.string.cards)) {
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 10.dp)) {
