@@ -51,7 +51,6 @@ fun TransferTo(
             }
             Spacer(modifier = Modifier.weight(1f))
 
-
             ActionButton(
                 title = stringResource(R.string.continue_text),
                 onClick = onClick,

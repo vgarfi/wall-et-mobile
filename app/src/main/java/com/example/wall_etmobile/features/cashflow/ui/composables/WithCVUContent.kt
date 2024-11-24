@@ -27,6 +27,7 @@ fun WithCVUContent() {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxHeight().padding(top = 86.dp)
     ) {
+        Spacer(modifier = Modifier.weight(0.15f))
         Text(text = stringResource(R.string.user_your_cvu), fontSize = 22.sp)
         Box(modifier = Modifier.height(20.dp))
         Box (modifier = Modifier
@@ -38,10 +39,12 @@ fun WithCVUContent() {
                 modifier = Modifier.fillMaxSize()
                 )
         }
+        Spacer(modifier = Modifier.weight(0.1f))
         Text(text = stringResource(R.string.using_svu))
         Box(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.weight(0.2f))
         CopyCVU(number = "0042078575744892407")
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(0.2f))
         ActionButton(
             title = stringResource(R.string.share_cvu),
             onClick = {},

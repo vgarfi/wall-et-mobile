@@ -2,7 +2,9 @@ package com.example.wall_etmobile.features.cashflow.ui.composables
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -56,17 +58,6 @@ fun FromCardContent(
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { totalSteps }, initialPage = currentStep)
 
-    val pages = listOf(
-
-        EnterAmount(
-            operationsViewModel = operationsViewModel,
-
-        ),
-        EnterPayment(
-            amount = operationsViewModel.uiState.currentAmount ?: "0",
-            operationsViewModel = operationsViewModel
-        )
-    )
     val onclick : () -> Unit = {
         if (currentStep <= 0){
             navigateToScreen("enter", emptyMap())
@@ -88,45 +79,46 @@ fun FromCardContent(
         navigateToScreen("transaction-details", emptyMap())
     }
 
+    val pages = listOf(
+
+        EnterAmount(
+            operationsViewModel = operationsViewModel,
+            onClick =  {
+                coroutineScope.launch {
+                    if (pagerState.currentPage < pagerState.pageCount - 1) {
+                        currentStep++
+                        onMethodChange(onclick)
+                        pagerState.animateScrollToPage(currentStep)
+                    }
+                }
+            }
+        ),
+        EnterPayment(
+            amount = operationsViewModel.uiState.currentAmount ?: "0",
+            operationsViewModel = operationsViewModel,
+            onClick = {
+                operationsViewModel.makePayment(context)
+                currentStep = 0;
+                onMethodChange(onclick)
+            }
+        )
+    )
+
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,
             modifier = Modifier.padding(top = (calculateTopPadding() * 0.55).dp)
         ) {
-            LazyColumn (
+            Column (
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxHeight()
+                modifier = Modifier.fillMaxSize()
             ){
-                item {
-                    HorizontalPager(
-                        modifier = Modifier.padding(top = (calculateTopPadding()*0.7).dp),
-                        state = pagerState,
-                        userScrollEnabled = false
-                    ) { pageIndex -> pages[pageIndex].invoke()
-                    }
-                }
-                item {
-                    ActionButton(
-                        modifier = Modifier.fillMaxWidth(),
-                        elevation = true,
-                        title = if (currentStep == 0) stringResource(R.string.continue_text) else stringResource(R.string.enter),
-                        onClick = {
-                            if (currentStep == 0) {
-                                coroutineScope.launch {
-                                    if (pagerState.currentPage < pagerState.pageCount - 1) {
-                                        currentStep++
-                                        onMethodChange(onclick)
-                                        pagerState.animateScrollToPage(currentStep)
-                                    }
-                                }
-                            } else {
-                                operationsViewModel.makePayment(context)
-                                currentStep = 0;
-                                onMethodChange(onclick)
-//                        navigateToScreen("transaction-details", emptyMap())
-                            }
-                        })
+                HorizontalPager(
+                    modifier = Modifier.padding(top = (calculateTopPadding()*0.7).dp),
+                    state = pagerState,
+                    userScrollEnabled = false
+                ) { pageIndex -> pages[pageIndex].invoke()
                 }
             }
 

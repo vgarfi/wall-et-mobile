@@ -44,7 +44,11 @@ fun PaymentSelector(
     }
 
     Column(modifier = modifier.padding(1.dp)) {
-        Header()
+        Box(
+            Modifier.padding(vertical = 10.dp)
+        ) {
+            Header()
+        }
         LazyRow(
             state = listState,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
