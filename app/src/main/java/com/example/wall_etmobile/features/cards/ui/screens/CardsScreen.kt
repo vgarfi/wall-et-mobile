@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -55,7 +56,9 @@ import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.BaseScaffold
 import com.example.wall_etmobile.core.designKit.BigIconButton
+import com.example.wall_etmobile.core.designKit.CustomCard
 import com.example.wall_etmobile.core.theme.MainBlack
+import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainRed
 import com.example.wall_etmobile.core.theme.MainWhite
@@ -89,7 +92,9 @@ fun CardsScreen(
     }
 
     BaseScaffold(tinyText = stringResource(R.string.yours), bigText = stringResource(R.string.cards)) {
-        Column(modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp)) {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 10.dp)) {
             BigIconButton(
                 icon = R.drawable.add_card_icon,
                 boldText = stringResource(R.string.add),
@@ -103,30 +108,50 @@ fun CardsScreen(
                     .fillMaxSize()
                     .padding(vertical = 10.dp)
             ) {
-                items(
-                    items = uiState.cards.orEmpty(),
-                    key = { card -> card.number }
-                ) { card ->
-                    Box(
-                        modifier = Modifier.padding(bottom = 20.dp)
-                    ) {
-                        SwipeToDeleteContainer(
-                            item = card,
-                            onDelete = { cardToDelete ->
-                                if (cardToDelete.id != null) {
-                                    viewModel.deleteCard(cardToDelete.id!!)
-                                    viewModel.getCards()
-                                }
-                            }
-                        ) { currentCard ->
-                            CreditCardComponent(
-                                bankName = getBankFromCard(currentCard.number),
-                                cardNumber = currentCard.number,
-                                cardHolder = currentCard.holderName,
-                                cardExpiration = currentCard.expirationDate,
-                                cardImageIndex = currentCard.color
+                if (uiState.cards.isNullOrEmpty()) {
+                    item {
+                        CustomCard (
+                            isDashed = true,
+                            modifier = Modifier.fillMaxHeight().padding(vertical = 20.dp),
+                            backgroundColor = MainWhite
+                        ){
+                            Text(
+                                stringResource(R.string.no_cards),
+                                textAlign = TextAlign.Center,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.W400,
+                                color = MainGrey.copy(alpha = 0.7f),
+                                modifier = Modifier.fillMaxSize().padding(vertical = 30.dp)
                             )
-                            Box(Modifier.height(20.dp))
+                        }
+                    }
+                }
+                else {
+                    items(
+                        items = uiState.cards.orEmpty(),
+                        key = { card -> card.number }
+                    ) { card ->
+                        Box(
+                            modifier = Modifier.padding(bottom = 20.dp)
+                        ) {
+                            SwipeToDeleteContainer(
+                                item = card,
+                                onDelete = { cardToDelete ->
+                                    if (cardToDelete.id != null) {
+                                        viewModel.deleteCard(cardToDelete.id!!)
+                                        viewModel.getCards()
+                                    }
+                                }
+                            ) { currentCard ->
+                                CreditCardComponent(
+                                    bankName = getBankFromCard(currentCard.number),
+                                    cardNumber = currentCard.number,
+                                    cardHolder = currentCard.holderName,
+                                    cardExpiration = currentCard.expirationDate,
+                                    cardImageIndex = currentCard.color
+                                )
+                                Box(Modifier.height(20.dp))
+                            }
                         }
                     }
                 }

@@ -399,8 +399,9 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 20.dp, vertical = 45.dp)
+                    .padding(horizontal = 20.dp, vertical = 40.dp)
             ) {
+                Box(modifier = Modifier.height((screenHeight*0.005).dp))
                 HomeHeader(onClick = { homeViewModel.toggleShowCvu() })
                 Box(modifier = Modifier.height((screenHeight*0.035).dp))
                 MountVisor(

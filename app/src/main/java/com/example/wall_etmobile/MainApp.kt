@@ -154,9 +154,8 @@ fun MainApp() {
                         }
                     }
                 },
-            ) {
-                innerPadding -> Box(
-                modifier = Modifier.padding(innerPadding).fillMaxSize()
+            ) { _ -> Box(
+                modifier = Modifier.fillMaxSize()
                 ) {
                 NavigationHostWrapper(navController = navController, adaptiveInfo = adaptiveInfo, navigatorWrapper = navigatorWrapper)
             }
