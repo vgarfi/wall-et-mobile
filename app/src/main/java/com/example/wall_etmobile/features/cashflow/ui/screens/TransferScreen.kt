@@ -35,6 +35,8 @@ import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.RoundedImage
+import com.example.wall_etmobile.core.theme.MainBlack
+import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 import com.example.wall_etmobile.ui.data.RoundedImageData
 import kotlinx.coroutines.launch
@@ -148,7 +150,7 @@ fun TransferScreenContent(
             FrequentUserRow(
                 user = user,
                 onClick = {
-                    navigateToScreen("transferTo", mapOf("target" to "account","contactName" to user.name,"contactDetail" to user.contact,"page" to "1"))
+                    navigateToScreen("transferTo", mapOf("target" to "user","contactName" to user.name,"contactDetail" to user.contact,"page" to "1"))
                 }
             )
         }
@@ -158,13 +160,14 @@ fun TransferScreenContent(
 
 fun getFrequentUsers(): List<User> {
     return listOf(
-        User(name = "Tomas", profilePic = R.drawable.tomas, contact = "34411409831938"),
-        User(name = "Agustin", profilePic = R.drawable.lautaro, contact = "87463409831938"),
-        User(name = "Lautaro", profilePic = R.drawable.agustin, contact = "28953098209859"),
-        User(name = "Valentin", profilePic = R.drawable.valentin, contact = "924892395471")
+        User(name = "Tomas", profilePic = R.drawable.tomas, contact = "tborda@gmail.com"),
+        User(name = "Lautaro", profilePic = R.drawable.lautaro, contact = "lpaletta@gmail.com"),
+        User(name = "Agustin", profilePic = R.drawable.agustin, contact = "aronda@gmail.com"),
+        User(name = "Valentin", profilePic = R.drawable.valentin, contact = "vgarfi@gmail.com"),
+        User(name = "Nicole", profilePic = R.drawable.nicole, contact = "nsalama@gmail.com")
+
     )
 }
-
 @Composable
 fun FrequentUserRow(user: User, onClick: () -> Unit = {}) {
     val configuration = LocalConfiguration.current
@@ -187,8 +190,27 @@ fun FrequentUserRow(user: User, onClick: () -> Unit = {}) {
             text = user.name,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            color = MainBlack
         )
+        Column (
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.Start
+        ){
+            Row (
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ){
+                Icon(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "icono",
+                    modifier = Modifier.size(15.dp),
+                    tint = MainPurple
+                )
+                Box(modifier = Modifier.width(3.dp))
+                Text(text = stringResource(R.string.wallet_account), color = Color.Gray)
+            }
+        }
     }
 }
 

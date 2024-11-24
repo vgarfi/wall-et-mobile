@@ -85,7 +85,6 @@ fun TransferToScreen(
 
     val pages = listOf(
         TransferTo(
-
             hint = fixedStrings[1],
             header = fixedStrings[0],
             onClick = {

@@ -56,6 +56,7 @@ import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
+import com.example.wall_etmobile.features.cashflow.ui.screens.User
 import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 import com.example.wall_etmobile.features.home.ui.HomeViewModel
 import com.example.wall_etmobile.features.home.ui.designKit.CvuBottomSheet
@@ -106,6 +107,7 @@ fun HomeScreen(
         RoundedImageData(painter = painterResource(R.drawable.valentin), title = "Valentín", size = contactsSize),
         RoundedImageData(painter = painterResource(R.drawable.nicole), title = "Nicole", size = contactsSize),
         )
+
 
     val favoriteHeight = (screenHeight*0.055).dp
     val favoriteTileTitleSize = (screenHeight*0.02).sp

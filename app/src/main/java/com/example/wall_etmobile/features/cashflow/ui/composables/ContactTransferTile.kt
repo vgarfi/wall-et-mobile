@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
+import com.example.wall_etmobile.features.cashflow.ui.screens.getFrequentUsers
 import com.example.wall_etmobile.features.profile.ui.screens.getProfileAvatarById
 
 @Composable
@@ -51,9 +52,12 @@ fun ContactTransferTile (
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(id = getProfileAvatarById(contactName.hashCode())),
+                painter = painterResource(id =  getFrequentUsers()
+                    .find { it.contact == contactName }
+                    ?.profilePic ?: getProfileAvatarById(contactName.hashCode())),
                 contentDescription = "icono",
-                modifier = Modifier.padding(7.dp).fillMaxSize()
+
+                modifier = Modifier.padding(7.dp).fillMaxSize().clip(CircleShape)
             )
         }
         Spacer(modifier = Modifier.width(16.dp))
