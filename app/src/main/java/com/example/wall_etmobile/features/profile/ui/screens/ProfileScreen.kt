@@ -1,5 +1,6 @@
 package com.example.wall_etmobile.features.profile.ui.screens
 
+import android.annotation.SuppressLint
 import com.example.wall_etmobile.core.designKit.CustomTextField
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -57,7 +58,10 @@ import compose.icons.fontawesomeicons.solid.Copy
 import compose.icons.fontawesomeicons.solid.Edit
 import kotlinx.coroutines.launch
 import java.util.Locale
+import java.util.Random
+import kotlin.math.abs
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ProfileScreen(
     navController: NavController,
@@ -74,16 +78,15 @@ fun ProfileScreen(
 
     Scaffold (
         snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) { paddingValues ->
+    ) { _ ->
         BaseScaffold(tinyText = "", bigText = stringResource(R.string.profile)) {
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
+                modifier = Modifier.fillMaxSize().padding(14.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.profile_picture),
+                    painter = painterResource(id = getProfileAvatarById(cbu.value.hashCode())),
                     contentDescription = "Profile Picture",
                     modifier = Modifier
                         .size(150.dp)
@@ -116,6 +119,7 @@ fun ProfileScreen(
                         )
                     }
                 }
+                Spacer(modifier = Modifier.weight(0.2f))
                 CustomTextField(
                     label = "CVU",
                     hint = "",
@@ -138,7 +142,7 @@ fun ProfileScreen(
                         )
                     }
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.weight(0.2f))
                 CustomTextField(
                     label = stringResource(R.string.email),
                     hint = "",
@@ -156,7 +160,7 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = stringResource(R.string.change_password),
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     color = MainPurple,
                     textAlign = TextAlign.End,
                     textDecoration = TextDecoration.Underline,
@@ -165,14 +169,6 @@ fun ProfileScreen(
                         .clickable {
                             navController.navigate(Screen.RESTOREPASSWORD.route)
                         }
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                Text(
-                    text = stringResource(R.string.terms_and_conditions).trim()
-                        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
-                    fontSize = 16.sp,
-                    color = GrayText,
-                    textDecoration = TextDecoration.Underline,
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 ActionButton(
@@ -193,4 +189,34 @@ fun ProfileScreen(
             }
         }
     }
+}
+
+
+fun getProfileAvatarById(id: Int?) : Int {
+    val usedIndex = if (id == null) Random().nextInt() else abs(id)
+    val avatars = listOf(
+        R.drawable.avatar1,
+        R.drawable.avatar2,
+        R.drawable.avatar3,
+        R.drawable.avatar4,
+        R.drawable.avatar5,
+        R.drawable.avatar6,
+        R.drawable.avatar7,
+        R.drawable.avatar8,
+        R.drawable.avatar9,
+        R.drawable.avatar10,
+        R.drawable.avatar11,
+        R.drawable.avatar12,
+        R.drawable.avatar13,
+        R.drawable.avatar14,
+        R.drawable.avatar15,
+        R.drawable.avatar16,
+        R.drawable.avatar17,
+        R.drawable.avatar18,
+        R.drawable.avatar19,
+        R.drawable.avatar20,
+        R.drawable.avatar21,
+        R.drawable.avatar22,
+    )
+    return avatars.elementAt(index = (usedIndex.rem(avatars.size)))
 }

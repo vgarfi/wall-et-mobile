@@ -73,7 +73,7 @@ fun CardsScreen(
     viewModel : CardViewModel =( LocalContext.current.applicationContext as MyApplication).cardsViewmodel
 ) {
     val uiState = viewModel.uiCardState
-
+    var refreshKey by remember { mutableStateOf(0) }
     var showDialog by remember { mutableStateOf(false) }
     val onAddCard: (String, String, String, String) -> Unit = { cardNumber, cardCVV, cardExpiration, cardHolder ->
         val newCreditCard = CreditCard(
@@ -85,6 +85,7 @@ fun CardsScreen(
         )
         viewModel.addCard(newCreditCard)
         viewModel.getCards()
+        refreshKey++
     }
 
     LaunchedEffect(Unit) {
@@ -159,7 +160,11 @@ fun CardsScreen(
 
             AddNewCreditCard(
                 showDialog = showDialog,
-                onDismiss = { showDialog = false },
+                onDismiss = {
+                    showDialog = false
+                    viewModel.getCards()
+                    refreshKey++
+                },
                 onAddCard = onAddCard
             )
         }
