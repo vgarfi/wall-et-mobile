@@ -62,8 +62,8 @@ fun TransferToScreen(
     val pagerState = rememberPagerState(pageCount = { totalSteps }, initialPage = currentStep)
 
     val fixedStrings = when (target) {
-        "user" -> listOf(stringResource(R.string.email), stringResource(R.string.example_mail))
-        "account" -> listOf("CBU/CVU", stringResource(R.string.enter_cvu))
+        "user" -> listOf(stringResource(R.string.email), stringResource(R.string.example_mail), stringResource(R.string.wallet_account))
+        "account" -> listOf("CBU/CVU", stringResource(R.string.enter_cvu), stringResource(R.string.bank_account))
         else -> listOf("", "")
     }
 
@@ -109,6 +109,7 @@ fun TransferToScreen(
             },
             operationsViewModel = operationsViewModel,
             logo = if(target == "user") R.drawable.logo else R.drawable.bank,
+            type = fixedStrings[2]
         ),
         TransferPayment(
             buttonText = stringResource(R.string.transfer),
@@ -121,7 +122,8 @@ fun TransferToScreen(
                     navigateToScreen("transaction-details", emptyMap())
                 }
             },
-            operationsViewModel = operationsViewModel
+            operationsViewModel = operationsViewModel,
+            type = fixedStrings[2]
         )
     )
 

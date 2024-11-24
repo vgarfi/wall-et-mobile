@@ -69,6 +69,7 @@ fun TransferTo(
 fun TransferAmount(
     onClick: () -> Unit = {},
     operationsViewModel: OperationsViewModel,
+    type: String,
     @DrawableRes logo : Int = R.drawable.logo
 ) : @Composable () -> Unit {
     return {
@@ -90,8 +91,8 @@ fun TransferAmount(
         Spacer(modifier = Modifier.weight(0.15f))
         ContactTransferTile(
             icon = logo,
-            contactName = "",
-            contactDetails = operationsViewModel.uiState.currentReceiverID ?: "",
+            contactName = operationsViewModel.uiState.currentReceiverID.orEmpty(),
+            contactDetails = type,
         )
         Spacer(modifier = Modifier.weight(0.4f))
 
@@ -142,6 +143,7 @@ fun TransferPayment(
     PaymentBySelfBalance: Boolean = false,
     buttonText: String = stringResource(R.string.transfer),
     operationsViewModel: OperationsViewModel,
+    type: String,
     @DrawableRes logo : Int = R.drawable.logo
 ): @Composable () -> Unit {
     return {
@@ -163,8 +165,8 @@ fun TransferPayment(
                 operationsViewModel.uiState.currentReceiverID?.let {
                     ContactTransferTile(
                         icon = logo,
-                        contactName = "",
-                        contactDetails = it,
+                        contactName = operationsViewModel.uiState.currentReceiverID.orEmpty(),
+                        contactDetails = type,
                     )
                 }
             }

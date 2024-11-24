@@ -183,5 +183,7 @@
     <string name="delete_card">Eliminar tarjeta</string>
     <string name="sure_deleting_card">¿Estás seguro de que quieres eliminar esta tarjeta? Esta acción no se puede deshacer, y deberás volver a ingresar sus datos para tenerla nuevamente en Wall-et</string>
     <string name="delete">Eliminar</string>
+    <string name="wallet_account">Cuenta de Wall-et</string>
+    <string name="bank_account">Cuenta bancaria</string>
 
 </resources>

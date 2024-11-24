@@ -168,7 +168,6 @@ fun TransactionsScreen(
                         }
 
                         FilterButton(
-                            width = (screenWidth * 0.5 * 0.4).dp,
                             onClick = filterAction
                         )
                     }
@@ -245,7 +244,6 @@ fun TransactionsScreen(
                     Spacer(modifier = Modifier.padding(8.dp))
                 }
                 FilterButton(
-                    width = (screenWidth * 0.4).dp,
                     onClick = filterAction
                 )
             }

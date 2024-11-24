@@ -1,6 +1,7 @@
 package com.example.wall_etmobile.features.cashflow.ui.composables
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
+import com.example.wall_etmobile.features.profile.ui.screens.getProfileAvatarById
 
 @Composable
 fun ContactTransferTile (
@@ -47,16 +50,28 @@ fun ContactTransferTile (
                 ),
             contentAlignment = Alignment.Center
         ) {
-            Icon(
-                painter = painterResource(id = icon),
+            Image(
+                painter = painterResource(id = getProfileAvatarById(contactName.hashCode())),
                 contentDescription = "icono",
-                modifier = Modifier.size(37.dp)
+                modifier = Modifier.padding(7.dp).fillMaxSize()
             )
         }
         Spacer(modifier = Modifier.width(16.dp))
         Column {
-            Text(text = contactName, fontWeight = FontWeight.W500)
-            Text(text = contactDetails, color = Color.Gray)
+            Text(text = contactName, fontWeight = FontWeight.W600)
+            Row (
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ){
+                Icon(
+                    painter = painterResource(id = icon),
+                    contentDescription = "icono",
+                    modifier = Modifier.size(15.dp),
+                    tint = MainPurple
+                )
+                Box(modifier = Modifier.width(3.dp))
+                Text(text = contactDetails, color = Color.Gray)
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.wall_etmobile.features.transactions.ui.designKit
 
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -17,13 +18,10 @@ import com.example.wall_etmobile.R
 
 @Composable
 fun FilterButton(
-    width: Dp,
     onClick: () -> Unit
 ){
     ElevatedButton(
-        modifier = Modifier
-            .width(width)
-            .fillMaxHeight(),
+        modifier = Modifier.fillMaxSize(),
         onClick = {
             onClick()
         },
