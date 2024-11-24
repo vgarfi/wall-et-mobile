@@ -1,4 +1,4 @@
-package com.example.wall_etmobile.features.home.ui.designKit
+package com.example.wall_etmobile.features.home.ui.composables
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image

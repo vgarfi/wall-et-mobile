@@ -1,8 +1,6 @@
-package com.example.wall_etmobile.features.home.ui.designKit
+package com.example.wall_etmobile.features.home.ui.composables
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -11,9 +9,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Regular
-import compose.icons.fontawesomeicons.regular.Copy
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.CopyCVU
 import com.example.wall_etmobile.core.theme.MainBlack

@@ -38,16 +38,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.MyApplication
-import com.example.wall_etmobile.ui.data.FavoriteTileData
 import com.example.wall_etmobile.core.data.MovementData
 import com.example.wall_etmobile.core.designKit.CircularAddButton
 import com.example.wall_etmobile.ui.data.RoundedImageData
-import com.example.wall_etmobile.features.home.ui.designKit.FavoriteDialog
-import com.example.wall_etmobile.features.home.ui.designKit.HomeHeader
-import com.example.wall_etmobile.features.home.ui.designKit.MountVisor
-import com.example.wall_etmobile.features.home.ui.designKit.SectionButtons
+import com.example.wall_etmobile.features.home.ui.composables.HomeHeader
+import com.example.wall_etmobile.features.home.ui.composables.MountVisor
+import com.example.wall_etmobile.features.home.ui.composables.SectionButtons
 import com.example.wall_etmobile.core.designKit.MovementTileList
-import com.example.wall_etmobile.core.designKit.RoundedImage
 import com.example.wall_etmobile.core.designKit.RoundedImageWithText
 import com.example.wall_etmobile.core.designKit.TitleWithTextButton
 import com.example.wall_etmobile.core.designKit.TransactionTypeStyle
@@ -56,10 +53,9 @@ import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
-import com.example.wall_etmobile.features.cashflow.ui.screens.User
 import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 import com.example.wall_etmobile.features.home.ui.HomeViewModel
-import com.example.wall_etmobile.features.home.ui.designKit.CvuBottomSheet
+import com.example.wall_etmobile.features.home.ui.composables.CvuBottomSheet
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 
 @Composable
@@ -91,9 +87,9 @@ fun HomeScreen(
     val username = currentUser?.firstName ?: "usuario"
 
     var movementTileHeight by remember { mutableStateOf((screenHeight * 0.065).dp) }
-    var movementTitleSize by remember { mutableStateOf((screenHeight * 0.025).sp) }
+    var movementTitleSize by remember { mutableStateOf((screenHeight * 0.0225).sp) }
     var movementSubTitleSize by remember { mutableStateOf((screenHeight * 0.015).sp) }
-    var movementMountSize by remember { mutableStateOf((screenHeight * 0.03).sp) }
+    var movementMountSize by remember { mutableStateOf((screenHeight * 0.02).sp) }
     val onMovementTileClick = { id: Int ->
 
     }

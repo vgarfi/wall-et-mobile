@@ -150,7 +150,7 @@ fun TransferScreenContent(
             FrequentUserRow(
                 user = user,
                 onClick = {
-                    navigateToScreen("transferTo", mapOf("target" to "account","contactName" to user.name,"contactDetail" to user.contact,"page" to "1"))
+                    navigateToScreen("transferTo", mapOf("target" to "user","contactName" to user.name,"contactDetail" to user.contact,"page" to "1"))
                 }
             )
         }
@@ -160,11 +160,11 @@ fun TransferScreenContent(
 
 fun getFrequentUsers(): List<User> {
     return listOf(
-        User(name = "Tomas Borda", profilePic = R.drawable.tomas, contact = "XG4T9KLM7HQZ2RF8Y"),
-        User(name = "Lautaro Paletta", profilePic = R.drawable.lautaro, contact = "BAF3WVNH5PXY6TC4L"),
-        User(name = "Agustin Ronda", profilePic = R.drawable.agustin, contact = "QJ8RKWHZ1GVL3YT7M"),
-        User(name = "Valentin Garfi", profilePic = R.drawable.valentin, contact = "LR9YVXPT2HCN5FG6W"),
-        User(name = "Nicole Salama", profilePic = R.drawable.nicole, contact = "MJ4ZTWQP7KFY8VN3L")
+        User(name = "Tomas Borda", profilePic = R.drawable.tomas, contact = "tborda@itba.edu.ar.com"),
+        User(name = "Lautaro Paletta", profilePic = R.drawable.lautaro, contact = "lapaletta@gmail.com"),
+        User(name = "Agustin Ronda", profilePic = R.drawable.agustin, contact = ""),
+        User(name = "Valentin Garfi", profilePic = R.drawable.valentin, contact = "dario.lueilwitz@ethereal.email"),
+        User(name = "Nicole Salama", profilePic = R.drawable.nicole, contact = "dario.lueilwitz@ethereal.email")
 
     )
 }
