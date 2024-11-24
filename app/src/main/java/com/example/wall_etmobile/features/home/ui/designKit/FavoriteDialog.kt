@@ -21,6 +21,8 @@ import androidx.compose.ui.window.DialogProperties
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.ui.data.FavoriteTileData
 import com.example.wall_etmobile.core.designKit.FavoriteTile
+import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
 fun FavoriteDialog(
@@ -44,14 +46,14 @@ fun FavoriteDialog(
             Column(
                 modifier = Modifier
                     .height(height = height)
-                    .background(color = MaterialTheme.colorScheme.background)
+                    .background(color = MainWhite)
             ) {
                 Text(
                     text = stringResource(R.string.favorite),
                     fontSize = MaterialTheme.typography.titleSmall.fontSize,
                     fontWeight = MaterialTheme.typography.titleSmall.fontWeight,
                     fontFamily = MaterialTheme.typography.titleSmall.fontFamily,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = MainPurple,
                     modifier = Modifier.padding(16.dp)
                 )
                 LazyColumn() {

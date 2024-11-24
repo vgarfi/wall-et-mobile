@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.core.theme.MainRed
 import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
@@ -45,7 +46,7 @@ fun FilterIndicator(
                 Icon(
                     painter = painterResource(R.drawable.cancel),
                     contentDescription = "quit-filter",
-                    tint = MaterialTheme.colorScheme.error,
+                    tint = MainRed,
                     modifier = Modifier.padding(6.dp)
                 )
             }

@@ -89,7 +89,7 @@ fun CopyCVU(
                 fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
                 fontSize = MaterialTheme.typography.bodySmall.fontSize,
                 fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                color = MaterialTheme.colorScheme.outline,
+                color = MainGrey,
             )
         }
 

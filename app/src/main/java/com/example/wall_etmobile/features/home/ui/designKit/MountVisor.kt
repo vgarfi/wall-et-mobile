@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.theme.MainWhite
 import com.google.zxing.pdf417.decoder.ec.ModulusGF
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
@@ -37,7 +38,7 @@ fun MountVisor(mount: Double, showMoney: Boolean, onClick: () -> Unit){
         Text(
             text = stringResource(R.string.home_mount_text),
             fontSize = 20.sp,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MainWhite
         )
         Box(Modifier.height(10.dp))
         Row (
@@ -49,13 +50,13 @@ fun MountVisor(mount: Double, showMoney: Boolean, onClick: () -> Unit){
                     text = "$ ${"%.2f".format(mount)}",
                     fontSize = 43.sp,
                     fontWeight = FontWeight.Black,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = MainWhite,
                 )
                 IconButton(onClick = { onClick() }) {
                     Icon(
                         imageVector = FontAwesomeIcons.Regular.Eye,
                         contentDescription = "Eye",
-                        tint = MaterialTheme.colorScheme.onPrimary,
+                        tint = MainWhite,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -64,13 +65,13 @@ fun MountVisor(mount: Double, showMoney: Boolean, onClick: () -> Unit){
                     text = "$ · · · · · · ·",
                     fontSize = 43.sp,
                     fontWeight = FontWeight.Black,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    color = MainWhite
                 )
                 IconButton(onClick = { onClick() }) {
                     Icon(
                         imageVector = FontAwesomeIcons.Regular.EyeSlash,
                         contentDescription = "EyeSlash",
-                        tint = MaterialTheme.colorScheme.onPrimary,
+                        tint = MainWhite,
                         modifier = Modifier.size(20.dp)
                     )
                 }

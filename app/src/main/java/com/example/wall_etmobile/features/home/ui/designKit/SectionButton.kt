@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.theme.MainPurple
 
 @Composable
 fun SectionButton (
@@ -39,7 +40,7 @@ fun SectionButton (
             contentDescription = "seccion",
         )
         Box(modifier = Modifier.height(12.dp))
-        Text(text = stringResource(title), fontWeight = FontWeight.W600, fontSize = 16.sp)
+        Text(text = stringResource(title), fontWeight = FontWeight.W600, fontSize = 16.sp, color = MainPurple)
     }
 }
 
