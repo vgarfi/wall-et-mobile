@@ -67,7 +67,7 @@ fun TransactionsScreen(
     val isRotated = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE  // si es verdadero esta rotada
 
     var movementTileHeight by remember { mutableStateOf((screenHeight * 0.065).dp) }
-    var movementTitleSize by remember { mutableStateOf((screenHeight * 0.025).sp) }
+    var movementTitleSize by remember { mutableStateOf((screenHeight * 0.0235).sp) }
     var movementSubTitleSize by remember { mutableStateOf((screenHeight * 0.0135).sp) }
     var movementMountSize by remember { mutableStateOf((screenHeight * 0.0225).sp) }
     var onMovementClick by remember { mutableStateOf<(Int) -> Unit>({}) }
@@ -244,6 +244,7 @@ fun TransactionsScreen(
                     onClick = filterAction
                 )
             }
+            Box(Modifier.height(15.dp))
             if (uiState.completedTransactions != null) {
                 MovementTileList(movements = transactionsStyle)
             } else {
