@@ -103,7 +103,7 @@ fun QrScannerScreen(
             contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter
         )
-        CashFlowTitleRow(bigText = stringResource(R.string.scan_qr), navController = NavController(context = context), onBack)
+        CashFlowTitleRow(bigText = stringResource(R.string.scan_qr), navController = NavController(context = context), arrowAction =  onBack)
 
     }
 }
