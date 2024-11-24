@@ -74,7 +74,7 @@
     <string name="account">cuenta</string>
     <string name="send_recovery_code">Enviar código de recuperación</string>
     <string name="verify_your_account">Verifica tu cuenta</string>
-    <string name="please_enter_the_4_digit_code_sent_to">Por favor ingresa el código de 4 dígitos enviado a</string>
+    <string name="please_enter_the_4_digit_code_sent_to">Por favor ingresa el código enviado a</string>
     <string name="resend_code">Reenviar código</string>
     <string name="confirm">Confirmar</string>
     <string name="restore_your_password">Restablece tu contraseña</string>
