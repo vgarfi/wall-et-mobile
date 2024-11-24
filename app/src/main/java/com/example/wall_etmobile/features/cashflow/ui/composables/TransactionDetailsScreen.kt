@@ -26,7 +26,6 @@ import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 
 @Composable
 fun TransactionDetailsScreen(
-    navController: NavController,
     navigateToScreen: (String, Map<String, String?>) -> Unit = { _, _ -> },
     operationsViewModel : OperationsViewModel,
 ) {
@@ -47,13 +46,13 @@ fun TransactionDetailsScreen(
                 .fillMaxSize(),
         ) {
             Spacer(modifier = Modifier.weight(0.3f))
-            TransactionDetails(operationsViewModel = operationsViewModel)
+            TransactionDetails(
+                operationsViewModel = operationsViewModel,
+                )
             Spacer(modifier = Modifier.weight(1f))
             ActionButton(title = stringResource(R.string.back_to_home), onClick = {
                 operationsViewModel.clearAll()
                 navigateToScreen("home", emptyMap()) })
-
-
         }
     }
 }

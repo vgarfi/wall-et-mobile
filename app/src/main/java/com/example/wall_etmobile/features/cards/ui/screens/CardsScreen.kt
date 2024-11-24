@@ -1,4 +1,5 @@
 package com.example.wall_etmobile.features.cards.ui.screens
+import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
@@ -44,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -73,8 +75,11 @@ fun CardsScreen(
     viewModel : CardViewModel =( LocalContext.current.applicationContext as MyApplication).cardsViewmodel
 ) {
     val uiState = viewModel.uiCardState
-    var refreshKey by remember { mutableStateOf(0) }
     var showDialog by remember { mutableStateOf(false) }
+
+    val configuration = LocalConfiguration.current
+    val isRotated = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE  // si es verdadero esta rotada
+
     val onAddCard: (String, String, String, String) -> Unit = { cardNumber, cardCVV, cardExpiration, cardHolder ->
         val newCreditCard = CreditCard(
             number = cardNumber,
@@ -85,7 +90,6 @@ fun CardsScreen(
         )
         viewModel.addCard(newCreditCard)
         viewModel.getCards()
-        refreshKey++
     }
 
     LaunchedEffect(Unit) {
@@ -163,7 +167,6 @@ fun CardsScreen(
                 onDismiss = {
                     showDialog = false
                     viewModel.getCards()
-                    refreshKey++
                 },
                 onAddCard = onAddCard
             )

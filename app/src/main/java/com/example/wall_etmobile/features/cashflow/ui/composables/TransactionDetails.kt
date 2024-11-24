@@ -40,12 +40,12 @@ import kotlin.random.Random
 
 @Composable
 fun TransactionDetails(
-    operationsViewModel: OperationsViewModel
+    operationsViewModel: OperationsViewModel,
 ) {
     val operation = when(operationsViewModel.uiState.operationType){
         TransactionType.TRANSFER -> stringResource(R.string.operationTransferSucces)
         TransactionType.INCOME -> stringResource(R.string.operationIncomeSuccess)
-        else -> "Transaccion"
+        else -> stringResource(R.string.operationTransferSucces)
     }
     val paymentMethod =
         if (operationsViewModel.uiState.currentPaymentMethod?.number == "0000 0000 0000 0000"){
@@ -90,27 +90,30 @@ fun TransactionDetails(
                     fontSize = 55.sp
                 )
 
-                Spacer(modifier = Modifier.height(26.dp))
 
-                Text(
-                    text = stringResource(R.string.sent_to),
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-
-                ContactTransferTile(icon = R.drawable.logo, contactName = "", contactDetails = operationsViewModel.uiState.currentReceiverID ?: "")
-                Spacer(modifier = Modifier.height(12.dp))
-                Row {
+                if (operationsViewModel.uiState.operationType == TransactionType.TRANSFER)
+                {
+                    Spacer(modifier = Modifier.height(26.dp))
                     Text(
-                        text = stringResource(R.string.message) + ": ",
-                        color = Color.Gray,
+                        text = stringResource(R.string.sent_to),
                         fontWeight = FontWeight.Bold
                     )
-                    Text(
-                        text = operationsViewModel.uiState.currentMessage ?: "",
-                        color = Color.Gray
-                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    ContactTransferTile(icon = R.drawable.logo, contactName = operationsViewModel.uiState.currentReceiverID ?: "", contactDetails = stringResource(R.string.wallet_account))
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Row {
+                        Text(
+                            text = stringResource(R.string.message) + ": ",
+                            color = Color.Gray,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = operationsViewModel.uiState.currentMessage ?: "",
+                            color = Color.Gray
+                        )
+                    }
                 }
+
                 Spacer(modifier = Modifier.height(35.dp))
                 Text(
                     text = stringResource(R.string.transaction_details),

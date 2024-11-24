@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.TextUnit
@@ -35,6 +37,7 @@ import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.LightPurple
 import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.core.theme.MainGreen
+import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
 import com.example.wall_etmobile.core.theme.WalletMobileTheme
@@ -71,6 +74,8 @@ fun MovementTile(
         colors = CardDefaults.cardColors(MainWhite)
     ) {
         Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
             modifier = Modifier.padding(5.dp)
                 .then(
                     if (tileWidth == null) Modifier.fillMaxWidth()
@@ -78,8 +83,9 @@ fun MovementTile(
                 )
         ) {
             Box(
+                contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .size(tileHeight)
+                    .size((tileHeight).times(0.75f))
                     .background(LightPurple, CircleShape)
                     .align(Alignment.CenterVertically)
                     .padding(10.dp)
@@ -88,11 +94,12 @@ fun MovementTile(
                     painter = painterResource(id = transactionTypeStyle.iconId),
                     contentDescription = "Transaction Icon",
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(5.dp),
+                        .padding(5.dp)
+                        .size(25.dp),
                     tint = MainPurple
                 )
             }
+            Box(modifier = Modifier.width(10.dp))
             Column(
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier
@@ -109,12 +116,16 @@ fun MovementTile(
                     text = subTitle,
                     fontWeight = FontWeight.W300,
                     fontSize = subTitleSize,
+                    color = MainGrey
                 )
             }
+            Box(modifier = Modifier.width(10.dp))
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "${transactionTypeStyle.sign}${"%.2f".format(mount)}",
                 fontSize = mountSize,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 color = transactionTypeStyle.color,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)

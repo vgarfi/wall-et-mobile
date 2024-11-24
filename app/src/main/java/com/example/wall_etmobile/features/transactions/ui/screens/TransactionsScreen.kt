@@ -6,7 +6,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -46,10 +45,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.core.designKit.DateRangePickerModal
-import com.example.wall_etmobile.core.designKit.SearchBar
-import com.example.wall_etmobile.features.transactions.ui.designKit.FilterButton
-import com.example.wall_etmobile.features.transactions.ui.designKit.FilterIndicator
-import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDetails
+import com.example.wall_etmobile.features.transactions.ui.composables.FilterButton
+import com.example.wall_etmobile.features.transactions.ui.composables.FilterIndicator
 import com.example.wall_etmobile.core.theme.MainWhite
 import java.util.Locale
 import com.example.wall_etmobile.core.designKit.DoneTransactionDetails
@@ -67,13 +64,12 @@ fun TransactionsScreen(
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
-    val isRotated =
-        configuration.orientation == Configuration.ORIENTATION_LANDSCAPE  // si es verdadero esta rotada
+    val isRotated = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE  // si es verdadero esta rotada
 
     var movementTileHeight by remember { mutableStateOf((screenHeight * 0.065).dp) }
     var movementTitleSize by remember { mutableStateOf((screenHeight * 0.025).sp) }
-    var movementSubTitleSize by remember { mutableStateOf((screenHeight * 0.015).sp) }
-    var movementMountSize by remember { mutableStateOf((screenHeight * 0.03).sp) }
+    var movementSubTitleSize by remember { mutableStateOf((screenHeight * 0.0135).sp) }
+    var movementMountSize by remember { mutableStateOf((screenHeight * 0.0225).sp) }
     var onMovementClick by remember { mutableStateOf<(Int) -> Unit>({}) }
     var clickable by remember { mutableStateOf(false) }
 
@@ -187,11 +183,12 @@ fun TransactionsScreen(
             ) {
                 OutlinedCard(
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
+                        containerColor = MainWhite,
                     ),
                     border = BorderStroke(1.dp, Color.Black),
                     modifier = Modifier
                         .fillMaxSize()
+
                 ) {
                     if (showDetails && uiState.currentTransaction != null){
                         Box(modifier = Modifier.fillMaxSize()){

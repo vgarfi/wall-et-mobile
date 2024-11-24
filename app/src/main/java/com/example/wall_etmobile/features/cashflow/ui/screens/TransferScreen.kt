@@ -160,12 +160,10 @@ fun TransferScreenContent(
 
 fun getFrequentUsers(): List<User> {
     return listOf(
-        User(name = "Tomas", profilePic = R.drawable.tomas, contact = "tborda@gmail.com"),
-        User(name = "Lautaro", profilePic = R.drawable.lautaro, contact = "lpaletta@gmail.com"),
-        User(name = "Agustin", profilePic = R.drawable.agustin, contact = "aronda@gmail.com"),
-        User(name = "Valentin", profilePic = R.drawable.valentin, contact = "vgarfi@gmail.com"),
-        User(name = "Nicole", profilePic = R.drawable.nicole, contact = "nsalama@gmail.com")
-
+        User(name = "Tomas Borda", profilePic = R.drawable.tomas, contact = "tborda@gmail.com"),
+        User(name = "Lautaro Paletta", profilePic = R.drawable.lautaro, contact = "lapaletta@gmail.com"),
+        User(name = "Agustin Ronda", profilePic = R.drawable.agustin, contact = "aronda@gmail.com"),
+        User(name = "Valentin Garfi", profilePic = R.drawable.valentin, contact = "vgarfi@gmail.com"),
     )
 }
 @Composable
@@ -204,10 +202,10 @@ fun FrequentUserRow(user: User, onClick: () -> Unit = {}) {
                 Icon(
                     painter = painterResource(id = R.drawable.logo),
                     contentDescription = "icono",
-                    modifier = Modifier.size(15.dp),
+                    modifier = Modifier.size(13.dp),
                     tint = MainPurple
                 )
-                Box(modifier = Modifier.width(3.dp))
+                Box(modifier = Modifier.width(6.dp))
                 Text(text = stringResource(R.string.wallet_account), color = Color.Gray)
             }
         }
@@ -262,7 +260,7 @@ fun TransferOptionCard(
                 Icon(
                     painter = painterResource(id = iconRes),
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = MainPurple,
                     modifier = Modifier.size(40.dp)
                 )
                 Spacer(modifier = Modifier.height(8.dp))

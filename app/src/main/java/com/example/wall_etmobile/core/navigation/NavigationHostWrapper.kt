@@ -141,7 +141,6 @@ fun NavigationHostWrapper (
         }
         composable(Screen.TRANSACTIONDETAILS.route) {
             TransactionDetailsScreen(
-                navController = navController,
                 navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
                 operationsViewModel = operationsViewModel,
                 )

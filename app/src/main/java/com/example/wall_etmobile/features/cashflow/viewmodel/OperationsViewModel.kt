@@ -25,7 +25,6 @@ class OperationsViewModel(
     private val operationRepository: OperationsRepository,
 
 ) : ViewModel() {
-
     var uiState by mutableStateOf(OperationsUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
@@ -40,7 +39,7 @@ class OperationsViewModel(
                 currentReceiverID = operationRepository.getReceiverID(),
                 currentMessage = operationRepository.getDescription(),
                 currentPaymentMethod = operationRepository.getSelectedMethodPayment(),
-                operationType = operationRepository.getOperationType()
+                operationType = operationRepository.getOperationType(),
             )
         }
     }
