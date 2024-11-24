@@ -2,6 +2,7 @@ package com.example.wall_etmobile.features.cashflow.ui.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,6 +40,7 @@ import compose.icons.fontawesomeicons.solid.QuestionCircle
 fun CashFlowTitleRow(
     bigText: String,
     navController: NavController,
+    smallText: String? = null,
     arrowAction: (() -> Unit)? = null
 ) {
     val tooltipState = TooltipState()
@@ -64,7 +66,13 @@ fun CashFlowTitleRow(
             tint = MainWhite
         )
         Spacer(modifier = Modifier.weight(0.4f))
-        Text(text = bigText, color = MainWhite, fontSize = 22.sp, fontWeight = FontWeight.W600)
+        Column (
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            if (smallText != null) Text(text = smallText, color = MainWhite, fontSize = 16.sp, fontWeight = FontWeight.W500)
+            Text(text = bigText, color = MainWhite, fontSize = 22.sp, fontWeight = FontWeight.W600)
+        }
         Spacer(modifier = Modifier.weight(0.4f))
 
     }

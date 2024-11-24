@@ -21,6 +21,7 @@ import com.example.wall_etmobile.core.theme.MainWhite
 @Composable
 fun CashFlowBaseScaffold (
     bigText: String,
+    smallText: String? = null,
     navController: NavController,
     onArrowClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
@@ -43,7 +44,7 @@ fun CashFlowBaseScaffold (
                 .fillMaxSize()
                 .padding(16.dp).padding(vertical = 20.dp)
         ) {
-            CashFlowTitleRow(bigText = bigText, navController = navController,onArrowClick)
+            CashFlowTitleRow(bigText = bigText, smallText = smallText, navController = navController, arrowAction =  onArrowClick)
             content()
         }
     }

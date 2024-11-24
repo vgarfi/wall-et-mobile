@@ -32,6 +32,7 @@ import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 import com.example.wall_etmobile.features.transactions.model.TransactionType
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 import kotlinx.coroutines.launch
+import kotlin.math.roundToLong
 
 @Composable
 fun TransferToScreen(
@@ -134,11 +135,12 @@ fun TransferToScreen(
         navigateToScreen("transaction-details", emptyMap())
     }
 
-    CashFlowBaseScaffold(bigText = stringResource(R.string.transfer), navController = navController, onArrowClick = onclick) {
+    CashFlowBaseScaffold(bigText = ("$" + "%.2f".format(userViewModel.state.user?.wallet?.balance)), smallText = stringResource(R.string.home_mount_text),  navController = navController, onArrowClick = onclick) {
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,
-            modifier = Modifier.padding(top = (calculateTopPadding()*0.5).dp)
+            modifier = Modifier.padding(top = (calculateTopPadding()*0.5).dp),
+
         ) {
             HorizontalPager(
                 modifier = Modifier.padding(top = (calculateTopPadding() * 0.1).dp).padding(horizontal = 16.dp),

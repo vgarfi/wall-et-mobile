@@ -21,6 +21,7 @@ import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 import com.example.wall_etmobile.features.transactions.model.TransactionType
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 import kotlinx.coroutines.launch
+import kotlin.math.roundToLong
 
 @Composable
 fun EnterFromScreen (
@@ -42,7 +43,7 @@ fun EnterFromScreen (
     if (source == "bank"){
         onclick.value = {navigateToScreen("enter", emptyMap())}
     }
-    CashFlowBaseScaffold(bigText = headerText , navController = navController, onArrowClick = onclick.value ) {
+    CashFlowBaseScaffold(bigText = ("$" + "%.2f".format(userViewModel.state.user?.wallet?.balance)), smallText = stringResource(R.string.home_mount_text), navController = navController, onArrowClick = onclick.value ) {
         Column (
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
