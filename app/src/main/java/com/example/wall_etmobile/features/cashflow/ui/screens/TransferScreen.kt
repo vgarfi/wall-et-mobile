@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -33,7 +34,9 @@ import androidx.navigation.NavController
 import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.designKit.RoundedImage
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
+import com.example.wall_etmobile.ui.data.RoundedImageData
 import kotlinx.coroutines.launch
 
 
@@ -137,7 +140,7 @@ fun TransferScreenContent(
 
         item {
             Text(
-                text = stringResource(R.string.recents),
+                text = stringResource(R.string.favorites),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = adaptivePadding)
@@ -147,24 +150,29 @@ fun TransferScreenContent(
             FrequentUserRow(
                 user = user,
                 onClick = {
-                    navigateToScreen("transferTo", mapOf("target" to "user","contactName" to user.name,"contactDetail" to user.contact,"page" to "1"))
+                    navigateToScreen("transferTo", mapOf("target" to "account","contactName" to user.name,"contactDetail" to user.contact,"page" to "1"))
                 }
             )
         }
 
     }
 }
+
 fun getFrequentUsers(): List<User> {
     return listOf(
-        User("Tomas", Icons.Default.AccountCircle, Icons.Default.Done, contact = "bordatomas@gmail.com"),
-        User("Agustin", Icons.Default.AccountCircle, Icons.Default.Done, contact = "rondaagustin@gmail.com"),
-        User("Lautaro", Icons.Default.AccountCircle, Icons.Default.Done, contact = "palettalautaro@gmail.com"),
-        User("Valentin", Icons.Default.AccountCircle, Icons.Default.Done, contact = "garfivalentin@gmail.com")
+        User(name = "Tomas", profilePic = R.drawable.tomas, contact = "34411409831938"),
+        User(name = "Agustin", profilePic = R.drawable.lautaro, contact = "87463409831938"),
+        User(name = "Lautaro", profilePic = R.drawable.agustin, contact = "28953098209859"),
+        User(name = "Valentin", profilePic = R.drawable.valentin, contact = "924892395471")
     )
 }
 
 @Composable
 fun FrequentUserRow(user: User, onClick: () -> Unit = {}) {
+    val configuration = LocalConfiguration.current
+    val screenHeight = configuration.screenHeightDp
+    val contactsSize = (screenHeight * 0.065).dp
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -172,13 +180,9 @@ fun FrequentUserRow(user: User, onClick: () -> Unit = {}) {
             .padding(horizontal = 8.dp)
             .clickable(onClick = onClick)
     ) {
-        Icon(
-            imageVector = user.profilePic,
-            contentDescription = null,
-            tint = Color.Gray,
-            modifier = Modifier
-                .size(48.dp)
-                .padding(4.dp)
+        RoundedImage(
+            painter = painterResource(user.profilePic),
+            size = contactsSize
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
@@ -186,12 +190,6 @@ fun FrequentUserRow(user: User, onClick: () -> Unit = {}) {
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.weight(1f)
-        )
-        Icon(
-            imageVector = user.icon,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(24.dp)
         )
     }
 }
@@ -295,7 +293,7 @@ fun TransferScreenPreviewExpanded() {
 
 data class User(
     val name: String,
-    val profilePic: androidx.compose.ui.graphics.vector.ImageVector,
-    val icon: androidx.compose.ui.graphics.vector.ImageVector,
+    val profilePic: Int,
+  //  val icon: androidx.compose.ui.graphics.vector.ImageVector,
     val contact : String = ""
 )

@@ -1,5 +1,6 @@
 package com.example.wall_etmobile.features.cashflow.ui.composables
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
@@ -69,7 +70,8 @@ fun TransferTo(
 @Composable
 fun TransferAmount(
     onClick: () -> Unit = {},
-    operationsViewModel: OperationsViewModel
+    operationsViewModel: OperationsViewModel,
+    @DrawableRes logo : Int = R.drawable.logo
 ) : @Composable () -> Unit {
     return {
     val amountInput = remember { mutableStateOf(operationsViewModel.uiState.currentAmount ?: "") }
@@ -87,7 +89,7 @@ fun TransferAmount(
         modifier = Modifier.fillMaxSize(),
     ) {
         ContactTransferTile(
-            icon = R.drawable.logo,
+            icon = logo,
             contactName = "",
             contactDetails = operationsViewModel.uiState.currentReceiverID ?: "",
         )
@@ -141,7 +143,8 @@ fun TransferPayment(
     onClick: () -> Unit = {},
     PaymentBySelfBalance: Boolean = false,
     buttonText: String = stringResource(R.string.transfer),
-    operationsViewModel: OperationsViewModel
+    operationsViewModel: OperationsViewModel,
+    @DrawableRes logo : Int = R.drawable.logo
 ): @Composable () -> Unit {
     return {
         val paymentInput = remember { mutableStateOf<CreditCard?>(operationsViewModel.uiState.currentPaymentMethod) }
@@ -160,7 +163,7 @@ fun TransferPayment(
             ) {
                 operationsViewModel.uiState.currentReceiverID?.let {
                     ContactTransferTile(
-                        icon = R.drawable.logo,
+                        icon = logo,
                         contactName = "",
                         contactDetails = it,
                     )
