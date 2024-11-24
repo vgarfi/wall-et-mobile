@@ -122,7 +122,8 @@ fun TransferToScreen(
                 }
             },
             operationsViewModel = operationsViewModel,
-            type = fixedStrings[2]
+            type = fixedStrings[2],
+            userViewModel = userViewModel
         )
     )
 
@@ -161,21 +162,3 @@ fun calculateTopPadding(): Int {
     }
 }
 
-fun getSampleCards(): List<CreditCard> {
-    return listOf(
-        CreditCard(
-            number = "4509909098989898",
-            holderName = "Tomas Borda",
-            expirationDate = "07/25",
-            color = 0,
-            cvv = "123"
-        ),
-        CreditCard(
-            number = "4509909098980931",
-            holderName = "Lucia Mateu",
-            expirationDate = "07/29",
-            color = 2,
-            cvv = "143"
-        ),
-    )
-}
