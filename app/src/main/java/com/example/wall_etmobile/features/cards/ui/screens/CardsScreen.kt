@@ -261,20 +261,20 @@ fun ConfirmationDialog(
 
         onDismissRequest = { onDismiss() },
         title = {
-            Text(text = "Eliminar tarjeta", fontWeight = FontWeight.W400, color = MainBlack, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+            Text(text = stringResource(R.string.delete_card), fontWeight = FontWeight.W400, color = MainBlack, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
         },
         text = {
-            Text(text = "¿Estás seguro de que quieres eliminar esta tarjeta? Esta acción no se puede deshacer, y deberás volver a ingresar sus datos para tenerla nuevamente en Wall-et", fontSize = 16.sp)
+            Text(text = stringResource(R.string.sure_deleting_card), fontSize = 16.sp)
         },
         confirmButton = {
             androidx.compose.material3.TextButton(onClick = { onConfirm() }) {
-                Text(text = "Eliminar", color = MainRed)
+                Text(text = stringResource(R.string.delete), color = MainRed)
             }
         },
 
         dismissButton = {
             androidx.compose.material3.TextButton(onClick = { onDismiss() }) {
-                Text(text = "Cancelar")
+                Text(text = stringResource(R.string.cancel))
             }
         }
     )
