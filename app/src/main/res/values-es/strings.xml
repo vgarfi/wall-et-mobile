@@ -173,4 +173,15 @@
     <string name="default_message_payment">Transacción</string>
     <string name="operationTransferSucces">Transferencia exitosa</string>
     <string name="operationIncomeSuccess">Ingreso exitoso</string>
+    <string name="no_transactions">Todavía no tienes ningún movimiento. ¡Realiza el primero!</string>
+    <string name="no_cards">No tienes tarjetas vinculadas. ¡Agrega la primera!</string>
+    <string name="self_balance">Dinero en cuenta</string>
+    <string name="transaction_succesfully_made">La transacción se hizo correctamente</string>
+    <string name="sent_to">Enviado a</string>
+    <string name="hour">Hora</string>
+    <string name="total_pay">Pago total</string>
+    <string name="delete_card">Eliminar tarjeta</string>
+    <string name="sure_deleting_card">¿Estás seguro de que quieres eliminar esta tarjeta? Esta acción no se puede deshacer, y deberás volver a ingresar sus datos para tenerla nuevamente en Wall-et</string>
+    <string name="delete">Eliminar</string>
+
 </resources>

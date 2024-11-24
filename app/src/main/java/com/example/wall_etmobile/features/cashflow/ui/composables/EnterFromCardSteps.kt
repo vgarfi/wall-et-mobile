@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,13 +26,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 
 @Composable
 fun EnterAmount(
-    operationsViewModel: OperationsViewModel
+    operationsViewModel: OperationsViewModel,
+    onClick: () -> Unit = {},
 ): @Composable () -> Unit {
     return {
        // operationsViewModel.setReceiverID()
@@ -40,12 +43,21 @@ fun EnterAmount(
             operationsViewModel.setAmount(amountInput.value)
         }
         Column(
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
             Text(text = stringResource(R.string.enter_amount))
+            Spacer(modifier = Modifier.weight(0.03f))
             AmountInputField(onValueChange = {amountInput.value = it})
+            Spacer(modifier = Modifier.weight(1f))
+            ActionButton(
+                modifier = Modifier.fillMaxWidth(),
+                title = stringResource(R.string.continue_text),
+                onClick = onClick,
+                elevation = true,
+                enabled = !operationsViewModel.uiState.currentAmount.isNullOrEmpty(),
+            )
         }
     }
 }
@@ -54,35 +66,44 @@ fun EnterAmount(
 fun EnterPayment(
     paymentBySelfBalance: Boolean = false,
     amount: String = "0",
-    operationsViewModel: OperationsViewModel
+    operationsViewModel: OperationsViewModel,
+    onClick: () -> Unit = {},
 ): @Composable () -> Unit {
     return {
         val paymentInput = remember { mutableStateOf<CreditCard?>(operationsViewModel.uiState.currentPaymentMethod) }
         val configuration = LocalConfiguration.current
         val screenHeight = configuration.screenHeightDp
-        val screenWidth = configuration.screenWidthDp
         LaunchedEffect(paymentInput.value) {
             paymentInput.value?.let { operationsViewModel.setPaymentMethod(it) }
         }
         Column(
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize().height((screenHeight*0.45).dp)
         ) {
             Text(text = stringResource(R.string.you_are_entering), fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
-            Box(Modifier.height(15.dp))
+            Spacer(modifier = Modifier.weight(0.005f))
             Text("$" + amount, style = TextStyle(
                 fontSize = 54.sp,
                 color = MainPurple,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
             ),)
+            Spacer(modifier = Modifier.weight(0.4f))
                 PaymentSelector(
                     selectedObject = {paymentInput.value = it},
                     PaymentBySelfBalance = paymentBySelfBalance,
                 ) {
                     Text(text = stringResource(R.string.payment_method), fontWeight = FontWeight.Bold)
                 }
+            Spacer(modifier = Modifier.weight(0.1f))
+            ActionButton(
+                modifier = Modifier.fillMaxWidth(),
+                title = stringResource(R.string.enter),
+                onClick = onClick,
+                elevation = true,
+                enabled = operationsViewModel.uiState.currentPaymentMethod != null,
+            )
         }
     }
 }

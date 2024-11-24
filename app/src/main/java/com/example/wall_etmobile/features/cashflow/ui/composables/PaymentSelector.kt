@@ -1,6 +1,5 @@
 package com.example.wall_etmobile.features.cashflow.ui.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -9,21 +8,19 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wall_etmobile.MyApplication
+import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.DashedCreditCard
 import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cards.ui.composables.AddNewCreditCard
 import com.example.wall_etmobile.features.cards.ui.composables.CreditCardComponent
 import com.example.wall_etmobile.features.cards.ui.composables.getBankFromCard
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
-import com.example.wall_etmobile.features.cashflow.ui.screens.getSampleCards
 
 @Composable
 fun PaymentSelector(
@@ -47,7 +44,11 @@ fun PaymentSelector(
     }
 
     Column(modifier = modifier.padding(1.dp)) {
-        Header()
+        Box(
+            Modifier.padding(vertical = 10.dp)
+        ) {
+            Header()
+        }
         LazyRow(
             state = listState,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -62,7 +63,7 @@ fun PaymentSelector(
                     }
                 ){
                     CreditCardComponent(
-                        bankName = "Dinero en cuenta",
+                        bankName = stringResource(R.string.self_balance),
                         cardNumber = "",
                         cardHolder = "",
                         cardExpiration = "",

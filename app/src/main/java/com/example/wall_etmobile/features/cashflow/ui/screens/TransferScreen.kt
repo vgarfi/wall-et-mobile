@@ -39,7 +39,6 @@ import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseSc
 import com.example.wall_etmobile.ui.data.RoundedImageData
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun TransferScreen(
     navController: NavController,
@@ -73,8 +72,7 @@ fun TransferScreen(
 
     CashFlowBaseScaffold(bigText = stringResource(R.string.transfer), navController = navController, onArrowClick = onclick) {
         Column(
-            modifier = Modifier
-                .padding(top = topPadding.dp)
+            modifier = Modifier.padding(top = (topPadding*0.4).dp)
         ) {
             TransferScreenContent(
                 adaptivePadding = adaptivePadding,

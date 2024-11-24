@@ -26,7 +26,9 @@ fun CashFlowBaseScaffold (
     content: @Composable () -> Unit,
 
 ) {
-    Box(modifier = Modifier.fillMaxSize().background(color = MainWhite)) {
+    Box(
+        contentAlignment = Alignment.TopCenter,
+        modifier = Modifier.fillMaxSize().background(color = MainWhite)) {
         Image(
             painter = painterResource(id = R.drawable.cashflow_header),
             contentDescription = "header",
@@ -39,7 +41,7 @@ fun CashFlowBaseScaffold (
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(16.dp).padding(vertical = 20.dp)
         ) {
             CashFlowTitleRow(bigText = bigText, navController = navController,onArrowClick)
             content()

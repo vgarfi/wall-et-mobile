@@ -75,7 +75,7 @@ fun ProfileScreen(
     Scaffold (
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
-        BaseScaffold(tinyText = stringResource(R.string.your), bigText = stringResource(R.string.profile)) {
+        BaseScaffold(tinyText = "", bigText = stringResource(R.string.profile)) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()

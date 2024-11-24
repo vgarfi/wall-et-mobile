@@ -49,6 +49,7 @@ fun CustomTextField(
             onValueChange = { controller.value = it },
             placeholder = { Text(text = hint) },
             enabled = enabled,
+            maxLines = 1,
             visualTransformation = if (isPassword && !passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = if (isPassword) KeyboardType.Password else KeyboardType.Text,

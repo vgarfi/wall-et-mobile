@@ -3,6 +3,9 @@ package com.example.wall_etmobile.features.cashflow.ui.composables
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
@@ -31,27 +35,25 @@ fun TransactionDetailsScreen(
         Image(
             painter = painterResource(id = R.drawable.details_background),
             contentDescription = "Fondo",
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxHeight(),
             contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter
         )
-        LazyColumn (
-            verticalArrangement = Arrangement.Top,
+        Column (
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxSize(),
+        ) {
+            Spacer(modifier = Modifier.weight(0.3f))
+            TransactionDetails(operationsViewModel = operationsViewModel)
+            Spacer(modifier = Modifier.weight(1f))
+            ActionButton(title = stringResource(R.string.back_to_home), onClick = {
+                operationsViewModel.clearAll()
+                navigateToScreen("home", emptyMap()) })
 
-        ) { item {   TransactionDetails(operationsViewModel = operationsViewModel) }
-      //      item {
-      //          ActionButton(title = "Compartir comprobante", enabled = false, onClick = { }, modifier = Modifier.padding(bottom = 12.dp), elevation = false)
-      //      }
-            item {
-                ActionButton(title = "Volver al inicio", onClick = {
-                    operationsViewModel.clearAll()
-                    navigateToScreen("home", emptyMap()) })
 
-            }
         }
     }
 }
