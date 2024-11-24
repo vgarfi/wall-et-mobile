@@ -109,7 +109,7 @@
 
     <string name="message">Mensaje</string>
     <string name="optional">(opcional)</string>
-    <string name="write_a_message">Write a message</string>
+    <string name="write_a_message">Escribe un mensaje</string>
     <string name="continue_text">Continuar</string>
     <string name="you_are_transfering">Vas a transferirle</string>
     <string name="no_message">sin mensaje</string>
