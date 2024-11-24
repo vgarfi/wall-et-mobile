@@ -38,9 +38,10 @@ class CardViewModel(
         { state, response ->
             state.copy(
                 currentCard = response,
-//                cards = null
+                cards = state.cards?.plus(response)
             )
         }
+
     )
 
     fun deleteCard(cardId: Int) = runOnViewModelScope(
