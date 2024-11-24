@@ -25,6 +25,7 @@ import com.example.wall_etmobile.features.auth.ui.screens.RegisterScreen
 import com.example.wall_etmobile.features.auth.ui.screens.RestorePasswordScreen
 import com.example.wall_etmobile.features.auth.ui.screens.VerifyAccountScreen
 import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
+import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 import com.example.wall_etmobile.features.cashflow.ui.screens.ChargeScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.EnterFromScreen
 import com.example.wall_etmobile.features.cashflow.ui.screens.EnterScreen
@@ -33,6 +34,7 @@ import com.example.wall_etmobile.features.cashflow.ui.screens.TransferScreen
 import com.example.wall_etmobile.features.qr_scanner.ui.screens.QrScannerScreen
 import com.example.wall_etmobile.features.splash.ui.SplashScreen
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 
 @Composable
 fun NavigationHostWrapper (
@@ -42,6 +44,8 @@ fun NavigationHostWrapper (
 ){
     val authViewModel: AuthViewModel = (LocalContext.current.applicationContext as MyApplication).authViewModel
     val transactionViewModel: TransactionViewModel = (LocalContext.current.applicationContext as MyApplication).transactionViewModel
+    val cardsViewModel: CardViewModel = (LocalContext.current.applicationContext as MyApplication).cardsViewmodel
+    val operationsViewModel: OperationsViewModel = (LocalContext.current.applicationContext as MyApplication).operationsViewModel
 
     NavHost(navController = navController,
         startDestination = Screen.SPLASH.route,
@@ -104,16 +108,16 @@ fun NavigationHostWrapper (
         composable(Screen.TRANSFER.route) {
             TransferScreen(
                 navController = navController,
-                navigateToScreen = { route, args -> navigateToScreen(navController, route, args) }
+                navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
             )
         }
         composable(Screen.CHARGE.route) {
-            ChargeScreen(navController = navController, navigateToScreen = { route, args -> navigateToScreen(navController, route, args) })
+            ChargeScreen(navController = navController, navigateToScreen = { route, args -> navigateToScreen(navController, route, args) }, operationsViewModel = operationsViewModel,)
         }
         composable(Screen.ENTER.route) {
             EnterScreen(
                 navController = navController,
-                navigateToScreen = { route, args -> navigateToScreen(navController, route, args) }
+                navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
             )
         }
         composable(
@@ -130,10 +134,17 @@ fun NavigationHostWrapper (
                 navController = navController,
                 navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
                 page = page?.toInt(),
+                operationsViewModel = operationsViewModel,
+                userViewModel = authViewModel,
+                transactionViewModel = transactionViewModel,
             )
         }
         composable(Screen.TRANSACTIONDETAILS.route) {
-            TransactionDetailsScreen(navController = navController, navigateToScreen = { route, args -> navigateToScreen(navController, route, args) })
+            TransactionDetailsScreen(
+                navController = navController,
+                navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
+                operationsViewModel = operationsViewModel,
+                )
         }
         composable(
             Screen.TRANSFERTO.route,
@@ -152,7 +163,11 @@ fun NavigationHostWrapper (
                 navigateToScreen = { route, args -> navigateToScreen(navController, route, args) },
                 page = page?.toInt(),
                 contactName = contactName,
-                contactDetail = contactDetail
+                contactDetail = contactDetail,
+                userViewModel = authViewModel,
+                cardViewModel = cardsViewModel,
+                transactionViewModel = transactionViewModel,
+                operationsViewModel = operationsViewModel,
             )
         }
     }

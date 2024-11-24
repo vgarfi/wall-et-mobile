@@ -26,4 +26,10 @@ interface TransactionApiService {
 
     @POST("payment/{linkUuid}")
     suspend fun addLinkPayment(@Path("linkUuid") linkUuid: UUID, @Body payment: NetworkPaymentBody): Response<NetworkLinkPaymentResponse>
+
+    @GET("payment/link/{linkUuid}")
+    suspend fun getLinkPayment(@Path("linkUuid") linkUuid: UUID): Response<NetworkLinkPaymentResponse>
+
+
+
 }

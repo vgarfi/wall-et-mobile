@@ -15,6 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.example.wall_etmobile.core.model.Error
 import com.example.wall_etmobile.features.transactions.model.TransactionInfo
+import com.example.wall_etmobile.features.transactions.model.body.NetworkPaymentBody
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -41,6 +42,13 @@ class TransactionViewModel(
         uiState.endDate = endDate
         fetchFilteredTransactions(uiState)
     }
+
+    fun addPayment(payment: NetworkPaymentBody) = runOnViewModelScope(
+        { transactionRepository.addPayment(payment) },
+        { state, response -> (state)}
+    )
+
+
 
     private fun fetchFilteredTransactions(state: TransactionUiState){
         uiState = uiState.copy(filteredTransactions = getFilteredTransactions(state))
