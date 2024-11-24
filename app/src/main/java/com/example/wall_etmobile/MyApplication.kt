@@ -15,7 +15,8 @@ import com.example.wall_etmobile.features.transactions.datasource.TransactionRem
 import com.example.wall_etmobile.features.transactions.repository.TransactionRepository
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
-import com.example.wall_etmobile.features.transactions.ui.TransactionUiState
+import com.example.wall_etmobile.features.cashflow.repository.OperationsRepository
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 
 
 class MyApplication : Application() {
@@ -45,6 +46,9 @@ class MyApplication : Application() {
     val transactionRepository: TransactionRepository
         get() = TransactionRepository(transactionRemoteDataSource)
 
+    val operationsRepository: OperationsRepository
+        get() = OperationsRepository()
+
     val transactionViewModel: TransactionViewModel
         @Composable
         get() = viewModel(factory = TransactionViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
@@ -56,4 +60,8 @@ class MyApplication : Application() {
     val authViewModel: AuthViewModel
         @Composable
         get() = viewModel(factory = AuthViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+
+    val operationsViewModel: OperationsViewModel
+        @Composable
+        get() = viewModel(factory = OperationsViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
 }

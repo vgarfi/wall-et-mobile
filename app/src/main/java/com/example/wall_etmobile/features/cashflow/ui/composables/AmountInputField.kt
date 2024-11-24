@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,14 +23,15 @@ import com.example.wall_etmobile.core.theme.MainPurple
 fun AmountInputField(
     onValueChange: (String) -> Unit,
     textIn : String = "",
+    text : MutableState<String> = remember { mutableStateOf(textIn) }
 ) {
-    var text by remember { mutableStateOf(textIn) }
+
     TextField(
-        value = text,
+        value = text.value,
         onValueChange = { newValue ->
             val sanitizedValue = newValue.filter { it.isDigit() || it == '.'}
             if (sanitizedValue.count { it == '.' } <= 1) {
-                text = sanitizedValue
+                text.value = sanitizedValue
                 onValueChange(sanitizedValue)
             }
         },
@@ -44,7 +46,7 @@ fun AmountInputField(
         ),
         singleLine = true,
         prefix = {
-            if (text.isNotEmpty()) Text(text = "$", style = TextStyle(
+            if (text.value.isNotEmpty()) Text(text = "$", style = TextStyle(
                 fontSize = 54.sp,
                 color = MainPurple,
                 fontWeight = FontWeight.Bold,

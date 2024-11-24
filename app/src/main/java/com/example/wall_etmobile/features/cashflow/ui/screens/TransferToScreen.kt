@@ -1,10 +1,12 @@
 package com.example.wall_etmobile.features.cashflow.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -12,17 +14,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.window.core.layout.WindowHeightSizeClass
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.model.CreditCard
+import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowStepIndicator
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransferAmount
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransferPayment
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransferTo
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
+import com.example.wall_etmobile.features.transactions.model.TransactionType
+import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -32,16 +40,24 @@ fun TransferToScreen(
     target: String?,
     page: Int?,
     contactName: String?,
-    contactDetail: String?
+    contactDetail: String?,
+    operationsViewModel : OperationsViewModel,
+    userViewModel : AuthViewModel,
+    cardViewModel : CardViewModel,
+    transactionViewModel : TransactionViewModel
 ) {
-    var userId = remember { mutableStateOf("") }
-    var message = remember { mutableStateOf("") }
-    var selectedObject = remember { mutableStateOf<CreditCard?>(null) }
-    var amount = remember { mutableStateOf("0") }
 
+    val context = LocalContext.current
     val totalSteps = 3
-    var currentStep by remember { mutableIntStateOf(page ?: 0) }
+    LaunchedEffect(Unit) {
+        if (!contactDetail.isNullOrEmpty()){
+            operationsViewModel.setReceiverID(contactDetail)
+        }
+        operationsViewModel.getReceiverID()
+    }
 
+    var currentStep by remember { mutableIntStateOf(page ?: 0) }
+    operationsViewModel.setOperationType(TransactionType.TRANSFER)
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { totalSteps }, initialPage = currentStep)
 
@@ -62,26 +78,16 @@ fun TransferToScreen(
             }
         }
     }
+
+    BackHandler(enabled = currentStep > 0) {
+        onclick()
+    }
+
     val pages = listOf(
         TransferTo(
-            topPadding = calculateTopPadding(),
+
             hint = fixedStrings[1],
             header = fixedStrings[0],
-            onValueChange = userId,
-            onClick = {
-                coroutineScope.launch {
-                    if (pagerState.currentPage < pagerState.pageCount - 1) {
-                        currentStep++
-                        pagerState.animateScrollToPage(currentStep)
-                    }
-                }
-            }
-        ),
-        TransferAmount(
-            topPadding = calculateTopPadding(),
-            contactDetails = userId.value,
-            contactName = contactName ?: "Desconocido",
-            onValueChange = message,
             onClick = {
                 coroutineScope.launch {
                     if (pagerState.currentPage < pagerState.pageCount - 1) {
@@ -90,25 +96,41 @@ fun TransferToScreen(
                     }
                 }
             },
-            onAmountChange = amount
+            operationsViewModel = operationsViewModel
+        ),
+        TransferAmount(
+            onClick = {
+                coroutineScope.launch {
+                    if (pagerState.currentPage < pagerState.pageCount - 1) {
+                        currentStep++
+                        pagerState.animateScrollToPage(currentStep)
+                    }
+                }
+            },
+            operationsViewModel = operationsViewModel,
+            logo = if(target == "user") R.drawable.logo else R.drawable.bank,
         ),
         TransferPayment(
-            topPadding = calculateTopPadding(),
-            contactDetails = userId.value,
-            contactName = contactName ?: "Desconocido",
-            onValueChange = remember { mutableStateOf("") },
-            message = message.value,
-            cardsInfo = getSampleCards(),
-            selectedObject = { selectedObject.value = it },
-            amount = amount.value,
             buttonText = stringResource(R.string.transfer),
-            buttonEnabled = true,
+            PaymentBySelfBalance = true,
             onClick = {
-                currentStep = 0
-                navigateToScreen("transaction-details", emptyMap())
-            }
+                if(target == "user") {
+                    operationsViewModel.makePayment(context)
+                }else{
+                    currentStep = 0
+                    navigateToScreen("transaction-details", emptyMap())
+                }
+            },
+            operationsViewModel = operationsViewModel
         )
     )
+
+    LaunchedEffect(operationsViewModel.uiState.payment) {
+        if (operationsViewModel.uiState.payment == null) return@LaunchedEffect
+        operationsViewModel.uiState.payment?.let { transactionViewModel.addPayment(it) }
+        currentStep = 0
+        navigateToScreen("transaction-details", emptyMap())
+    }
 
     CashFlowBaseScaffold(bigText = stringResource(R.string.transfer), navController = navController, onArrowClick = onclick) {
         CashFlowStepIndicator(

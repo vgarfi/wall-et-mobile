@@ -24,14 +24,36 @@ import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainPurple
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.core.theme.MainGreen
 import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.core.theme.MainWhite
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
+import com.example.wall_etmobile.features.transactions.model.TransactionType
+import java.sql.Date
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 @Composable
-fun TransactionDetails() {
+fun TransactionDetails(
+    operationsViewModel: OperationsViewModel
+) {
+    val operation = when(operationsViewModel.uiState.operationType){
+        TransactionType.TRANSFER -> stringResource(R.string.operationTransferSucces)
+        TransactionType.INCOME -> stringResource(R.string.operationIncomeSuccess)
+        else -> "Transaccion"
+    }
+    val paymentMethod =
+        if (operationsViewModel.uiState.currentPaymentMethod?.number == "0000 0000 0000 0000"){
+            stringResource(R.string.money_in_wallet)
+        }
+        else{
+            stringResource(R.string.card)
+        }
+
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier = Modifier
@@ -48,7 +70,7 @@ fun TransactionDetails() {
             ) {
                 Box(modifier = Modifier.height(36.dp))
                 Text(
-                    text = "Transferencia exitosa",
+                    text = "${operation} exitosa",
                     color = MainGreen,
                     fontWeight = FontWeight.W800,
                     fontSize = 19.sp
@@ -61,7 +83,7 @@ fun TransactionDetails() {
                 Spacer(modifier = Modifier.height(26.dp))
 
                 Text(
-                    text = "$7,500.00",
+                    text = operationsViewModel.uiState.currentAmount ?: "",
                     color = MainPurple,
                     fontWeight = FontWeight.W900,
                     fontSize = 55.sp
@@ -75,7 +97,7 @@ fun TransactionDetails() {
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
-                ContactTransferTile(icon = R.drawable.logo, contactName = "Agustín Ronda", contactDetails = "ISBC")
+                ContactTransferTile(icon = R.drawable.logo, contactName = "", contactDetails = operationsViewModel.uiState.currentReceiverID ?: "")
                 Spacer(modifier = Modifier.height(12.dp))
                 Row {
                     Text(
@@ -84,7 +106,7 @@ fun TransactionDetails() {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = " cochera mes Agosto",
+                        text = operationsViewModel.uiState.currentMessage ?: "",
                         color = Color.Gray
                     )
                 }
@@ -95,9 +117,9 @@ fun TransactionDetails() {
                 )
                 Spacer(modifier = Modifier.height(18.dp))
 
-                TransactionDetailItem(label = "Medio de pago", value = "Dinero en cuenta")
-                TransactionDetailItem(label = "Fecha", value = "Agosto 31, 2024")
-                TransactionDetailItem(label = "Hora", value = "20:32")
+                TransactionDetailItem(label = "Medio de pago", value = paymentMethod)
+                TransactionDetailItem(label = "Fecha", value = LocalDate.now().toString())
+                TransactionDetailItem(label = "Hora", value = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")))
                 TransactionDetailItem(label = "Referencia", value = "QOIU-0012-ADFE-2234")
 
                 Spacer(modifier = Modifier.height(25.dp))
@@ -111,7 +133,7 @@ fun TransactionDetails() {
                         fontSize = 19.sp,
                         fontWeight = FontWeight.Bold)
                     Text(
-                        text = "$7,500.00",
+                        text =  operationsViewModel.uiState.currentAmount ?: "",
                         fontSize = 24.sp,
                         color = MainPurple, // Purple color
                         fontWeight = FontWeight.W900

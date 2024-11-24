@@ -2,6 +2,8 @@ package com.example.wall_etmobile.features.transactions.repository
 
 import com.example.wall_etmobile.features.transactions.datasource.TransactionRemoteDataSource
 import com.example.wall_etmobile.features.transactions.model.TransactionInfo
+import com.example.wall_etmobile.features.transactions.model.body.NetworkPaymentBody
+import com.example.wall_etmobile.features.transactions.model.response.NetworkPaymentResponse
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -34,5 +36,9 @@ class TransactionRepository(
             }
         }
         return transactionsMutex.withLock { this.actualTransaction }
+    }
+
+    suspend fun addPayment(payment: NetworkPaymentBody): NetworkPaymentResponse {
+        return remoteDataSource.addPayment(payment)
     }
 }

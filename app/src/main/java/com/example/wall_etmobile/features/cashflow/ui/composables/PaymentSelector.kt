@@ -33,10 +33,11 @@ fun PaymentSelector(
     viewModel : CardViewModel =( LocalContext.current.applicationContext as MyApplication).cardsViewmodel,
     Header: @Composable () -> Unit
 ) {
-    var cards = viewModel.uiCardState.cards.orEmpty()
-    var uiCards = cards
 
-    var selectedMethod by remember { mutableStateOf(cards.firstOrNull()) }
+    var cards = viewModel.uiCardState.cards.orEmpty()
+    val selfBalancePayment = CreditCard(number = "0000 0000 0000 0000", holderName = "SELFBALANCE", color = 0, expirationDate = "00/00", cvv = null)
+    var uiCards = cards
+    var selectedCard by remember { mutableStateOf<CreditCard?>(null) }
     val listState = rememberLazyListState()
     var showDialog by remember { mutableStateOf(false) }
 
@@ -52,12 +53,31 @@ fun PaymentSelector(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-
+            if (PaymentBySelfBalance){
+            item {
+                Box(
+                    modifier = Modifier.clickable {
+                        selectedObject(selfBalancePayment)
+                        selectedCard = selfBalancePayment
+                    }
+                ){
+                    CreditCardComponent(
+                        bankName = "Dinero en cuenta",
+                        cardNumber = "",
+                        cardHolder = "",
+                        cardExpiration = "",
+                        cardImageIndex = 0,
+                        scaleFactor = 0.28f,
+                        alpha = if(selectedCard == selfBalancePayment) 1f else 0.7f
+                    )
+                }
+            }
+            }
             items(items = uiCards) { card ->
                 Box(
                     modifier = Modifier.clickable {
-                        selectedMethod = card
                         selectedObject(card)
+                        selectedCard = card
                     }
                 ) {
                     CreditCardComponent(
@@ -66,7 +86,8 @@ fun PaymentSelector(
                         cardHolder = card.holderName,
                         cardExpiration = card.expirationDate,
                         cardImageIndex = card.color,
-                        scaleFactor = 0.28f
+                        scaleFactor = 0.28f,
+                        alpha = if(selectedCard == card) 1f else 0.7f
                     )
                 }
             }
