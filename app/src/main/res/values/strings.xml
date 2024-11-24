@@ -158,5 +158,9 @@
     <string name="no_transactions">You don\'t have any transaction yet. Make the first one!</string>
     <string name="no_cards">You don\'t have any card added yet. Add the first one!</string>
     <string name="self_balance">Account money</string>
+    <string name="transaction_succesfully_made">The transaction was successfully made</string>
+    <string name="sent_to">Sento to</string>
+    <string name="hour">Hour</string>
+    <string name="total_pay">Total pay</string>
 
 </resources>

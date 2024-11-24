@@ -36,6 +36,7 @@ import java.sql.Date
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import kotlin.random.Random
 
 @Composable
 fun TransactionDetails(
@@ -70,20 +71,20 @@ fun TransactionDetails(
             ) {
                 Box(modifier = Modifier.height(36.dp))
                 Text(
-                    text = "${operation} exitosa",
+                    text = operation,
                     color = MainGreen,
                     fontWeight = FontWeight.W800,
                     fontSize = 19.sp
                 )
                 Text(
-                    text = "La transacción se hizo correctamente",
+                    text = stringResource(R.string.transaction_succesfully_made),
                     color = MainGrey,
                 )
 
                 Spacer(modifier = Modifier.height(26.dp))
 
                 Text(
-                    text = operationsViewModel.uiState.currentAmount ?: "",
+                    text = ("$" + operationsViewModel.uiState.currentAmount),
                     color = MainPurple,
                     fontWeight = FontWeight.W900,
                     fontSize = 55.sp
@@ -92,7 +93,7 @@ fun TransactionDetails(
                 Spacer(modifier = Modifier.height(26.dp))
 
                 Text(
-                    text = "Enviado a",
+                    text = stringResource(R.string.sent_to),
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(6.dp))
@@ -101,7 +102,7 @@ fun TransactionDetails(
                 Spacer(modifier = Modifier.height(12.dp))
                 Row {
                     Text(
-                        text = "Mensaje:",
+                        text = stringResource(R.string.message) + ": ",
                         color = Color.Gray,
                         fontWeight = FontWeight.Bold
                     )
@@ -112,15 +113,15 @@ fun TransactionDetails(
                 }
                 Spacer(modifier = Modifier.height(35.dp))
                 Text(
-                    text = "Detalles de la transacción",
+                    text = stringResource(R.string.transaction_details),
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(18.dp))
 
-                TransactionDetailItem(label = "Medio de pago", value = paymentMethod)
-                TransactionDetailItem(label = "Fecha", value = LocalDate.now().toString())
-                TransactionDetailItem(label = "Hora", value = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")))
-                TransactionDetailItem(label = "Referencia", value = "QOIU-0012-ADFE-2234")
+                TransactionDetailItem(label = stringResource(R.string.payment_method), value = paymentMethod)
+                TransactionDetailItem(label = stringResource(R.string.date), value = LocalDate.now().toString())
+                TransactionDetailItem(label = stringResource(R.string.hour), value = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")))
+                TransactionDetailItem(label = stringResource(R.string.reference), value = generateReference())
 
                 Spacer(modifier = Modifier.height(25.dp))
                 Row(
@@ -128,14 +129,14 @@ fun TransactionDetails(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Pago total",
+                        text = stringResource(R.string.total_pay),
                         color = MainPurple,
                         fontSize = 19.sp,
                         fontWeight = FontWeight.Bold)
                     Text(
-                        text =  operationsViewModel.uiState.currentAmount ?: "",
+                        text = ("$" + operationsViewModel.uiState.currentAmount),
                         fontSize = 24.sp,
-                        color = MainPurple, // Purple color
+                        color = MainPurple,
                         fontWeight = FontWeight.W900
                     )
                 }
@@ -157,6 +158,22 @@ fun TransactionDetails(
         }
     }
 
+}
+
+fun generateReference(): String {
+    fun randomSegment(length: Int): String {
+        val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return (1..length)
+            .map { chars[Random.nextInt(chars.length)] }
+            .joinToString("")
+    }
+
+    val segment1 = randomSegment(4)
+    val segment2 = randomSegment(4)
+    val segment3 = randomSegment(4)
+    val segment4 = randomSegment(4)
+
+    return "$segment1-$segment2-$segment3-$segment4"
 }
 
 @Composable

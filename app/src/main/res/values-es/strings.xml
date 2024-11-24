@@ -176,5 +176,10 @@
     <string name="no_transactions">Todavía no tienes ningún movimiento. ¡Realiza el primero!</string>
     <string name="no_cards">No tienes tarjetas vinculadas. ¡Agrega la primera!</string>
     <string name="self_balance">Dinero en cuenta</string>
+    <string name="transaction_succesfully_made">La transacción se hizo correctamente</string>
+    <string name="sent_to">Enviado a</string>
+    <string name="hour">Hora</string>
+    <string name="total_pay">Pago total</string>
+
 
 </resources>

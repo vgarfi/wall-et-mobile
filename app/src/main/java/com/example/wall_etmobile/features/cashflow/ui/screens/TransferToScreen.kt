@@ -136,12 +136,12 @@ fun TransferToScreen(
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,
-            modifier = Modifier.padding(top = calculateTopPadding().dp)
+            modifier = Modifier.padding(top = (calculateTopPadding()*0.5).dp)
         ) {
             HorizontalPager(
-                modifier = Modifier.padding(top = (calculateTopPadding() * 0.1).dp),
+                modifier = Modifier.padding(top = (calculateTopPadding() * 0.1).dp).padding(horizontal = 16.dp),
                 state = pagerState,
-                userScrollEnabled = false
+                userScrollEnabled = false,
             ) { page ->
                 pages[page].invoke()
             }

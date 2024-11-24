@@ -35,8 +35,9 @@ fun AmountInputField(
                 onValueChange(sanitizedValue)
             }
         },
+        maxLines = 1,
         textStyle = TextStyle(
-            fontSize = 54.sp,
+            fontSize = 56.sp,
             color = MainPurple,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -47,7 +48,7 @@ fun AmountInputField(
         singleLine = true,
         prefix = {
             if (text.value.isNotEmpty()) Text(text = "$", style = TextStyle(
-                fontSize = 54.sp,
+                fontSize = 56.sp,
                 color = MainPurple,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
