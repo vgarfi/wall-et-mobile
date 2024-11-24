@@ -141,7 +141,6 @@ fun TransferAmount(
 @Composable
 fun TransferPayment(
     onClick: () -> Unit = {},
-    PaymentBySelfBalance: Boolean = false,
     buttonText: String = stringResource(R.string.transfer),
     operationsViewModel: OperationsViewModel,
     type: String,
@@ -150,6 +149,22 @@ fun TransferPayment(
 ): @Composable () -> Unit {
     return {
         val paymentInput = remember { mutableStateOf<CreditCard?>(operationsViewModel.uiState.currentPaymentMethod) }
+        val allowSelfBalance = when {
+            // Prevents self-payment
+            operationsViewModel.uiState.currentReceiverID == userViewModel.getUserData()?.email -> false
+
+            // Ensures currentAmount is not null or invalid
+            operationsViewModel.uiState.currentAmount.isNullOrEmpty() -> false
+
+            // Ensures wallet balance and currentAmount are valid
+            else -> {
+                val currentAmount = operationsViewModel.uiState.currentAmount?.toDoubleOrNull()
+                val walletBalance = userViewModel.getUserData()?.wallet?.balance
+                currentAmount != null && walletBalance != null && currentAmount <= walletBalance
+            }
+        }
+
+
         LaunchedEffect(paymentInput.value) {
             paymentInput.value?.let { operationsViewModel.setPaymentMethod(it) }
         }
@@ -194,8 +209,7 @@ fun TransferPayment(
 
             PaymentSelector(
                 selectedObject = { paymentInput.value = it },
-                PaymentBySelfBalance = if(operationsViewModel.uiState.currentReceiverID == userViewModel.getUserData()?.email) false else if(operationsViewModel.uiState.currentAmount?.toDouble()!! <= userViewModel.getUserData()?.wallet?.balance!!) true else false,
-
+                PaymentBySelfBalance = allowSelfBalance
             ) {
                 Text(text = stringResource(R.string.payment_method), fontWeight = FontWeight.Bold)
             }

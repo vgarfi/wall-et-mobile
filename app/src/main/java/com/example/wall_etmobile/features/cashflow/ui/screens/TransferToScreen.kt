@@ -113,7 +113,6 @@ fun TransferToScreen(
         ),
         TransferPayment(
             buttonText = stringResource(R.string.transfer),
-            PaymentBySelfBalance = true,
             onClick = {
                 if(target == "user") {
                     operationsViewModel.makePayment(context)
