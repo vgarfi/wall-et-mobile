@@ -330,7 +330,7 @@ fun HomeScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height((screenHeight * 0.45).dp)
+                        .height((screenHeight * 0.50).dp)
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.home_header),
