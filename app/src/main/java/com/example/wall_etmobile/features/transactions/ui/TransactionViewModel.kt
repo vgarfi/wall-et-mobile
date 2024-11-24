@@ -101,6 +101,10 @@ class TransactionViewModel(
         return localDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
     }
 
+    fun setCurrentTransaction(id: Int) {
+        uiState = uiState.copy(currentTransaction = uiState.allTransactions?.find { it.id == id })
+    }
+
     companion object {
         const val TAG = "UI Layer"
         fun provideFactory(

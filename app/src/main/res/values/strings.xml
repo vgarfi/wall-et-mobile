@@ -38,6 +38,17 @@
     <string name="from">from</string>
     <string name="to">to</string>
 
+    <string name="sent">Sent</string>
+    <string name="received">Received</string>
+
+    <string name="rent">Rent</string>
+    <string name="money_in_wallet">Money in Wallet</string>
+    <string name="card">Card</string>
+    <string name="date">Date</string>
+    <string name="reference">Reference</string>
+    <string name="total_amount">Total amount</string>
+    <string name="successful_transference">Successful transference</string>
+
     <string name="select_movent_indication">Select some transaction to see more details</string>
     <string name="your_new_ally_in">Your new ally in</string>
     <string name="personal_finance">personal finance</string>

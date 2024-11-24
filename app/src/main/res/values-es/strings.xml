@@ -19,6 +19,18 @@
     <string name="from">de</string>
     <string name="to">a</string>
 
+    <string name="sent">Enviado</string>
+    <string name="received">Recibido</string>
+
+    <string name="rent">Alquiler</string>
+    <string name="money_in_wallet">Dinero en cuenta</string>
+    <string name="card">Tarjeta</string>
+    <string name="date">Fecha</string>
+    <string name="reference">Referencia</string>
+    <string name="total_amount">Pago total</string>
+    <string name="successful_transference">Transferencia exitosa</string>
+
+
     <string name="cvu_info">Tu CVU es único e identifica tu cuenta Wall-et.</string>
     <string name="cvu_presenter">Tu CVU:</string>
 

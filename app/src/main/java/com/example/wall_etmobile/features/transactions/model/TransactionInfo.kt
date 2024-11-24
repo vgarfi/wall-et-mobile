@@ -5,6 +5,7 @@ import com.example.wall_etmobile.features.auth.model.User
 data class TransactionInfo(
     var id: Int,
     var type: TransactionType,
+    var payType: String?,
     var amount: Double,
     var createdAt: String?,
     var updatedAt: String?,

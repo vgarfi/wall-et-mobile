@@ -42,7 +42,8 @@ class NetworkTransactionInfo (
             payer = payer,
             receiver = receiver,
             pending = pending,
-            card = card?.asModel()
+            card = card?.asModel(),
+            payType = type
         )
     }
 }

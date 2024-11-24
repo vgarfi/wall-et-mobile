@@ -50,7 +50,6 @@ import com.example.wall_etmobile.core.designKit.TransactionTypeStyle
 import com.example.wall_etmobile.core.navigation.NavigatorWrapper
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.MainBlack
-import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 import com.example.wall_etmobile.features.home.ui.HomeViewModel
@@ -88,7 +87,9 @@ fun HomeScreen(
     var movementTitleSize = (screenHeight*0.02).sp
     var movementSubTitleSize = (screenHeight*0.015).sp
     var movementMountSize = (screenHeight*0.03).sp
-    val onMovementTileClick = { navWrapper.navigateToDetailsFromHome() }
+    val onMovementTileClick = { id: Int ->
+
+    }
 
     val contactsSize = (screenHeight * 0.065).dp
 
@@ -302,7 +303,8 @@ fun HomeScreen(
             mount = it.amount,
             mountSize = movementMountSize,
             transactionTypeStyle = type,
-            onClick = onMovementTileClick
+            onClick = onMovementTileClick,
+            id = it.id
         )
     } ?: emptyList()
 

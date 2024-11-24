@@ -1,7 +1,6 @@
 package com.example.wall_etmobile.core.designKit
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -49,6 +48,7 @@ enum class TransactionTypeStyle(val color: Color, val sign: Char, val descriptio
 
 @Composable
 fun MovementTile(
+    id: Int,
     tileHeight: Dp,
     tileWidth: Dp? = null,
     title: String,
@@ -58,12 +58,16 @@ fun MovementTile(
     mount: Double,
     mountSize: TextUnit,
     transactionTypeStyle: TransactionTypeStyle,
-    onClick: () -> Unit
+    clickable: Boolean = false,
+    onClick: (Int) -> Unit = {}
 ){
     Card(
         modifier = Modifier
             .padding(5.dp)
-            .clickable(onClick = { onClick() }),
+            .clickable(
+                onClick = { onClick(id) },
+                enabled = clickable
+            ),
         colors = CardDefaults.cardColors(MainWhite)
     ) {
         Row(
@@ -133,7 +137,8 @@ fun MovementTileTransferPreview(){
             mount = 60.00,
             mountSize = 30.sp,
             transactionTypeStyle = TransactionTypeStyle.TRANSFER,
-            onClick = {}
+            onClick = {},
+            id = 0
         )
     }
 }
@@ -151,7 +156,8 @@ fun MovementTileChargePreview(){
             mount = 60.00,
             mountSize = 30.sp,
             transactionTypeStyle = TransactionTypeStyle.CHARGE,
-            onClick = {}
+            onClick = {},
+            id = 0
         )
     }
 }
@@ -169,7 +175,8 @@ fun MovementTileIncomePreview(){
             mount = 60.00,
             mountSize = 30.sp,
             transactionTypeStyle = TransactionTypeStyle.INCOME,
-            onClick = {}
+            onClick = {},
+            id = 0
         )
     }
 }

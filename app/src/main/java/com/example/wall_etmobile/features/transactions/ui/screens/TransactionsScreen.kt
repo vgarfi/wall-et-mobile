@@ -32,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
@@ -52,7 +51,7 @@ import com.example.wall_etmobile.features.transactions.ui.designKit.FilterIndica
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDetails
 import com.example.wall_etmobile.core.theme.MainWhite
 import java.util.Locale
-import com.example.wall_etmobile.MyApplication
+import com.example.wall_etmobile.core.designKit.DoneTransactionDetails
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 
 
@@ -74,7 +73,8 @@ fun TransactionsScreen(
     var movementTitleSize by remember { mutableStateOf((screenHeight * 0.025).sp) }
     var movementSubTitleSize by remember { mutableStateOf((screenHeight * 0.015).sp) }
     var movementMountSize by remember { mutableStateOf((screenHeight * 0.03).sp) }
-    var onMovementClick by remember { mutableStateOf({ navWrapper.navigateToDetailsFromMovements() }) }
+    var onMovementClick by remember { mutableStateOf<(Int) -> Unit>({}) }
+    var clickable by remember { mutableStateOf(false) }
 
     val searchText = remember { mutableStateOf("") }
 
@@ -107,6 +107,7 @@ fun TransactionsScreen(
         }
 
         MovementData(
+            id = it.id,
             tileHeight = movementTileHeight,
             title = stringResource(it.type.description),
             titleSize = movementTitleSize,
@@ -115,7 +116,8 @@ fun TransactionsScreen(
             mount = it.amount,
             mountSize = movementMountSize,
             transactionTypeStyle = type,
-            onClick = onMovementClick
+            onClick = onMovementClick,
+            clickable = clickable
         )
     } ?: emptyList()
 
@@ -127,7 +129,11 @@ fun TransactionsScreen(
         movementTitleSize = (screenHeight * 0.05).sp
         movementSubTitleSize = (screenHeight * 0.04).sp
         movementMountSize = (screenHeight * 0.04).sp
-        onMovementClick = { showDetails = true }
+        onMovementClick = { id: Int ->
+            showDetails = true
+            viewModel.setCurrentTransaction(id)
+        }
+        clickable = true
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -155,18 +161,13 @@ fun TransactionsScreen(
                         }
                     }
                     Row(
-                        horizontalArrangement = Arrangement.Start,
+                        horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height((screenHeight * 0.08).dp)
 
                     ) {
-                        SearchBar(
-                            width = (screenWidth * 0.5 * 0.6).dp,
-                            searchText = searchText
-                        )
-
                         FilterButton(
                             width = (screenWidth * 0.5 * 0.4).dp,
                             onClick = filterAction
@@ -183,7 +184,7 @@ fun TransactionsScreen(
                 modifier = Modifier
                     .width((screenWidth * 0.5).dp)
                     .background(MainWhite)
-                    .padding(40.dp)
+                    .padding(30.dp)
                     .align(Alignment.CenterVertically)
             ) {
                 OutlinedCard(
@@ -194,8 +195,10 @@ fun TransactionsScreen(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    if (showDetails){
-                        TransactionDetails()
+                    if (showDetails && uiState.currentTransaction != null){
+                        Box(modifier = Modifier.fillMaxSize()){
+                            DoneTransactionDetails(uiState.currentTransaction)
+                        }
                     } else {
                         Box(
                             modifier = Modifier

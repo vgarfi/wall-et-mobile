@@ -12,6 +12,7 @@ fun MovementTileList(
     LazyColumn {
         items(items = movements) {
             MovementTile(
+                id = it.id,
                 tileHeight = it.tileHeight,
                 title = it.title,
                 titleSize = it.titleSize,
@@ -20,7 +21,8 @@ fun MovementTileList(
                 mount = it.mount,
                 mountSize = it.mountSize,
                 transactionTypeStyle = it.transactionTypeStyle,
-                onClick = it.onClick
+                onClick = it.onClick,
+                clickable = it.clickable
             )
         }
     }
