@@ -1,8 +1,11 @@
 package com.example.wall_etmobile.features.cards.ui.composables
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Person
@@ -14,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +43,9 @@ fun AddNewCreditCard(
     onDismiss: () -> Unit,
     onAddCard: (String, String, String, String) -> Unit
 ) {
+    val configuration = LocalConfiguration.current
+    val isRotated = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val screenHeight = configuration.screenHeightDp
     if (showDialog) {
         Dialog(
             onDismissRequest = onDismiss,
@@ -82,7 +89,8 @@ fun AddNewCreditCard(
                             Row (
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween,
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier
+                                    .fillMaxWidth()
                             ){
                                 OutlinedTextField(
                                     value = cardNumber,
@@ -206,10 +214,10 @@ fun AddNewCreditCard(
                                 modifier = Modifier.fillMaxWidth()
                             )
                         }
-                        item { Box(modifier = Modifier.height(26.dp)) }
-                        item { Text(stringResource(R.string.your_new_card), color = MainGrey, fontWeight = FontWeight.W500) }
-                        item { Box(modifier = Modifier.height(6.dp)) }
-                        item {
+                        if(!isRotated) item { Box(modifier = Modifier.height(26.dp)) }
+                        if(!isRotated) item { Text(stringResource(R.string.your_new_card), color = MainGrey, fontWeight = FontWeight.W500) }
+                        if(!isRotated) item { Box(modifier = Modifier.height(6.dp)) }
+                        if(!isRotated) item {
                             CreditCardComponent(
                                 bankName = bankName,
                                 cardNumber = cardNumber.text,

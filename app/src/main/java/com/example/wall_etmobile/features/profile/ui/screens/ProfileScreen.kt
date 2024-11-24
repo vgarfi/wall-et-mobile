@@ -5,6 +5,7 @@ import com.example.wall_etmobile.core.designKit.CustomTextField
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,7 +16,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -81,7 +84,7 @@ fun ProfileScreen(
     ) { _ ->
         BaseScaffold(tinyText = "", bigText = stringResource(R.string.profile)) {
             Column(
-                modifier = Modifier.fillMaxSize().padding(14.dp),
+                modifier = Modifier.fillMaxSize().padding(14.dp).verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
@@ -93,7 +96,7 @@ fun ProfileScreen(
                         .clip(CircleShape)
                         .border(2.dp, MainPurple, CircleShape)
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth()
@@ -105,7 +108,7 @@ fun ProfileScreen(
                             .size(40.dp),
                         colorFilter = ColorFilter.tint(MainPurple)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(10.dp))
                     Column {
                         Text(
                             text = currentUser?.firstName + " " + currentUser?.lastName,
@@ -113,7 +116,7 @@ fun ProfileScreen(
                             color = MainBlack
                         )
                         Text(
-                            text = stringResource(R.string.member_since_july_9th),
+                            text = stringResource(R.string.wallet_member),
                             fontSize = 12.sp,
                             color = GrayText
                         )
@@ -148,14 +151,6 @@ fun ProfileScreen(
                     hint = "",
                     controller = email,
                     enabled = false,
-                    suffix = {
-                        Icon(
-                            imageVector = FontAwesomeIcons.Solid.Edit,
-                            contentDescription = "Edit Email",
-                            tint = MainGrey,
-                            modifier = Modifier.size(16.dp)
-                        )
-                    }
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
@@ -180,8 +175,7 @@ fun ProfileScreen(
                         }
                     },
                     modifier = Modifier
-                        .fillMaxWidth().height(48.dp)
-                        .padding(horizontal = 16.dp),
+                        .fillMaxWidth().height(48.dp),
                     title = stringResource(R.string.logout),
                     elevation = true,
                 )

@@ -82,7 +82,7 @@ fun NavigationHostWrapper (
             TransactionsScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo, viewModel = transactionViewModel)
         }
         composable(Screen.CARDS.route) {
-            CardsScreen()
+            CardsScreen(adaptiveInfo = adaptiveInfo)
         }
         composable(Screen.LOGIN.route) {
             LoginScreen(navController, authViewModel)

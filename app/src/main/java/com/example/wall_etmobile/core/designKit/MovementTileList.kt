@@ -28,7 +28,7 @@ fun MovementTileList(
             item {
                 CustomCard (
                     isDashed = true,
-                    modifier = Modifier.fillMaxHeight().padding(vertical = 20.dp),
+                    modifier = Modifier.fillMaxHeight().padding(vertical = 25.dp),
                     backgroundColor = MainWhite
                 ){
                     Text(

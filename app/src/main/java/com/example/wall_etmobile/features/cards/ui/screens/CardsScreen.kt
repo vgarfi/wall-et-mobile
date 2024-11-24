@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -12,11 +13,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 
 import androidx.compose.foundation.lazy.items
@@ -25,13 +31,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxState
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -54,11 +64,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.BaseScaffold
 import com.example.wall_etmobile.core.designKit.BigIconButton
 import com.example.wall_etmobile.core.designKit.CustomCard
+import com.example.wall_etmobile.core.designKit.DoneTransactionDetails
 import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.core.theme.MainPurple
@@ -72,6 +84,7 @@ import kotlinx.coroutines.delay
 import java.util.Date
 @Composable
 fun CardsScreen(
+    adaptiveInfo: WindowAdaptiveInfo,
     viewModel : CardViewModel =( LocalContext.current.applicationContext as MyApplication).cardsViewmodel
 ) {
     val uiState = viewModel.uiCardState
@@ -79,6 +92,7 @@ fun CardsScreen(
 
     val configuration = LocalConfiguration.current
     val isRotated = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE  // si es verdadero esta rotada
+    val screenWidth = configuration.screenWidthDp
 
     val onAddCard: (String, String, String, String) -> Unit = { cardNumber, cardCVV, cardExpiration, cardHolder ->
         val newCreditCard = CreditCard(
@@ -96,82 +110,175 @@ fun CardsScreen(
             viewModel.getCards()
     }
 
-    BaseScaffold(tinyText = "", bigText = stringResource(R.string.cards)) {
-        Column(modifier = Modifier
+    if (isRotated || adaptiveInfo.windowSizeClass.windowWidthSizeClass != WindowWidthSizeClass.COMPACT) {
+        Row(modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 10.dp)) {
-            BigIconButton(
-                icon = R.drawable.add_card_icon,
-                boldText = stringResource(R.string.add),
-                normalText = stringResource(R.string.a_new_card),
-                onClick = { showDialog = true },
-            )
-            Box(modifier = Modifier.height(10.dp))
-
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(vertical = 10.dp)
-            ) {
-                if (uiState.cards.isNullOrEmpty()) {
-                    item {
-                        CustomCard (
-                            isDashed = true,
-                            modifier = Modifier.fillMaxHeight().padding(vertical = 20.dp),
-                            backgroundColor = MainWhite
-                        ){
-                            Text(
-                                stringResource(R.string.no_cards),
-                                textAlign = TextAlign.Center,
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.W400,
-                                color = MainGrey.copy(alpha = 0.7f),
-                                modifier = Modifier.fillMaxSize().padding(vertical = 30.dp)
-                            )
-                        }
-                    }
-                }
-                else {
-                    items(
-                        items = uiState.cards.orEmpty(),
-                        key = { card -> card.number }
-                    ) { card ->
-                        Box(
-                            modifier = Modifier.padding(bottom = 20.dp)
-                        ) {
-                            SwipeToDeleteContainer(
-                                item = card,
-                                onDelete = { cardToDelete ->
-                                    if (cardToDelete.id != null) {
-                                        viewModel.deleteCard(cardToDelete.id!!)
-                                        viewModel.getCards()
+            .padding(horizontal = 10.dp)){
+            Box(modifier = Modifier
+                .width((screenWidth * 0.5).dp)
+                .fillMaxHeight()) {
+                BaseScaffold(tinyText = "", bigText = stringResource(R.string.cards)) {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(vertical = 10.dp)
+                    ) {
+                        if (uiState.cards.isNullOrEmpty()) {
+                            item {
+                                CustomCard(
+                                    isDashed = true,
+                                    modifier = Modifier
+                                        .fillMaxHeight()
+                                        .padding(vertical = 20.dp),
+                                    backgroundColor = MainWhite
+                                ) {
+                                    Text(
+                                        stringResource(R.string.no_cards),
+                                        textAlign = TextAlign.Center,
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.W400,
+                                        color = MainGrey.copy(alpha = 0.7f),
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(vertical = 30.dp)
+                                    )
+                                }
+                            }
+                        } else {
+                            items(
+                                items = uiState.cards.orEmpty(),
+                                key = { card -> card.number }
+                            ) { card ->
+                                Box(
+                                    modifier = Modifier.padding(bottom = 20.dp)
+                                ) {
+                                    SwipeToDeleteContainer(
+                                        item = card,
+                                        onDelete = { cardToDelete ->
+                                            if (cardToDelete.id != null) {
+                                                viewModel.deleteCard(cardToDelete.id!!)
+                                                viewModel.getCards()
+                                            }
+                                        }
+                                    ) { currentCard ->
+                                        CreditCardComponent(
+                                            bankName = getBankFromCard(currentCard.number),
+                                            cardNumber = currentCard.number,
+                                            cardHolder = currentCard.holderName,
+                                            cardExpiration = currentCard.expirationDate,
+                                            cardImageIndex = currentCard.color
+                                        )
+                                        Box(Modifier.height(20.dp))
                                     }
                                 }
-                            ) { currentCard ->
-                                CreditCardComponent(
-                                    bankName = getBankFromCard(currentCard.number),
-                                    cardNumber = currentCard.number,
-                                    cardHolder = currentCard.holderName,
-                                    cardExpiration = currentCard.expirationDate,
-                                    cardImageIndex = currentCard.color
-                                )
-                                Box(Modifier.height(20.dp))
                             }
                         }
                     }
                 }
             }
+            Box(
+                modifier = Modifier
+                    .width((screenWidth * 0.5).dp)
+                    .fillMaxHeight().align(Alignment.CenterVertically)
+            ) {
+                Box(modifier = Modifier.height(10.dp))
+                BigIconButton(
+                    icon = R.drawable.add_card_icon,
+                    boldText = stringResource(R.string.add),
+                    normalText = stringResource(R.string.a_new_card),
+                    onClick = { showDialog = true },
+                )
+                Box(modifier = Modifier.height(10.dp))
+            }
+        }
 
-            AddNewCreditCard(
-                showDialog = showDialog,
-                onDismiss = {
-                    showDialog = false
-                    viewModel.getCards()
-                },
-                onAddCard = onAddCard
-            )
+    }
+
+    else {
+        BaseScaffold(tinyText = "", bigText = stringResource(R.string.cards)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 10.dp)
+            ) {
+                BigIconButton(
+                    icon = R.drawable.add_card_icon,
+                    boldText = stringResource(R.string.add),
+                    normalText = stringResource(R.string.a_new_card),
+                    onClick = { showDialog = true },
+                )
+                Box(modifier = Modifier.height(10.dp))
+
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(vertical = 10.dp)
+                ) {
+                    if (uiState.cards.isNullOrEmpty()) {
+                        item {
+                            CustomCard(
+                                isDashed = true,
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .padding(vertical = 20.dp),
+                                backgroundColor = MainWhite
+                            ) {
+                                Text(
+                                    stringResource(R.string.no_cards),
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.W400,
+                                    color = MainGrey.copy(alpha = 0.7f),
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(vertical = 30.dp)
+                                )
+                            }
+                        }
+                    } else {
+                        items(
+                            items = uiState.cards.orEmpty(),
+                            key = { card -> card.number }
+                        ) { card ->
+                            Box(
+                                modifier = Modifier.padding(bottom = 20.dp)
+                            ) {
+                                SwipeToDeleteContainer(
+                                    item = card,
+                                    onDelete = { cardToDelete ->
+                                        if (cardToDelete.id != null) {
+                                            viewModel.deleteCard(cardToDelete.id!!)
+                                            viewModel.getCards()
+                                        }
+                                    }
+                                ) { currentCard ->
+                                    CreditCardComponent(
+                                        bankName = getBankFromCard(currentCard.number),
+                                        cardNumber = currentCard.number,
+                                        cardHolder = currentCard.holderName,
+                                        cardExpiration = currentCard.expirationDate,
+                                        cardImageIndex = currentCard.color
+                                    )
+                                    Box(Modifier.height(20.dp))
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            }
         }
     }
+
+    AddNewCreditCard(
+        showDialog = showDialog,
+        onDismiss = {
+            showDialog = false
+            viewModel.getCards()
+        },
+        onAddCard = onAddCard,
+    )
 }
 @Composable
 fun <T> SwipeToDeleteContainer(

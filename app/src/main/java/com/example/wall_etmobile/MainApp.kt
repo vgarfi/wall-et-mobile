@@ -2,11 +2,13 @@ package com.example.wall_etmobile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
@@ -120,7 +122,7 @@ fun MainApp() {
                             .fillMaxWidth()
                             .background(color = MainWhite)
                             .statusBarsPadding()
-                            .padding(horizontal = 20.dp, vertical = 15.dp)
+                            .padding(horizontal = 20.dp, vertical = 10.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth()
@@ -154,8 +156,8 @@ fun MainApp() {
                         }
                     }
                 },
-            ) { _ -> Box(
-                modifier = Modifier.fillMaxSize()
+            ) { innerPadding -> Box(
+                modifier = Modifier.fillMaxSize().padding(if (currentRouteModel?.route == Screen.LOGIN.route) innerPadding else PaddingValues(0.dp))
                 ) {
                 NavigationHostWrapper(navController = navController, adaptiveInfo = adaptiveInfo, navigatorWrapper = navigatorWrapper)
             }
