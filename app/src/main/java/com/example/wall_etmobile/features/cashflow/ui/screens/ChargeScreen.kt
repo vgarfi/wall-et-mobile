@@ -1,5 +1,6 @@
 package com.example.wall_etmobile.features.cashflow.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,6 +51,9 @@ fun ChargeScreen(
                 pagerState.animateScrollToPage(currentStep)
             }
         }
+    }
+    BackHandler(enabled = currentStep > 0) {
+        onclick()
     }
     val pages = listOf(
         ChargeAmount(

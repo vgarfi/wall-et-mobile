@@ -20,9 +20,10 @@ import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.navigation.NavigatorWrapper
 import com.example.wall_etmobile.core.theme.MainWhite
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 
 @Composable
-fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp){
+fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp, operationsViewModel : OperationsViewModel,){
     ElevatedCard(
         colors =  CardDefaults.elevatedCardColors(MainWhite),
         modifier = Modifier
@@ -41,6 +42,7 @@ fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp){
                 title = R.string.transfer,
                 icon = R.drawable.transfer_icon,
                 onClick = {
+                    operationsViewModel.clearAll()
                     navWrapper.navigateTransfer()
                 },
                 )
@@ -52,6 +54,7 @@ fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp){
             Spacer(modifier = Modifier.weight(weight = 1f))
             SectionButton(title = R.string.charge_text, icon = R.drawable.charge_icon,
                 onClick = {
+                    operationsViewModel.clearAll()
                     navWrapper.navigateCharge()
                 }
             )
@@ -63,6 +66,7 @@ fun SectionButtons(navWrapper: NavigatorWrapper, height: Dp){
             Spacer(modifier = Modifier.weight(weight = 1f))
             SectionButton(title = R.string.income_text, icon = R.drawable.enter_icon,
                 onClick = {
+                    operationsViewModel.clearAll()
                     navWrapper.navigateIncome()
                 })
         }

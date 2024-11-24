@@ -52,6 +52,7 @@ import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 import com.example.wall_etmobile.features.home.ui.HomeViewModel
 import com.example.wall_etmobile.features.home.ui.designKit.CvuBottomSheet
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
@@ -64,6 +65,7 @@ fun HomeScreen(
     transactionViewModel: TransactionViewModel,
     homeViewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)),
     authViewModel: AuthViewModel,
+    operationsViewModel : OperationsViewModel,
 ) {
     val currentUser = authViewModel.getUserData()
 
@@ -369,7 +371,7 @@ fun HomeScreen(
                     Box(
                         modifier = Modifier.padding(8.dp)
                     ) {
-                        SectionButtons(navWrapper = navWrapper, height = (screenHeight * 0.3).dp)
+                        SectionButtons(navWrapper = navWrapper, height = (screenHeight * 0.3).dp,operationsViewModel)
                     }
                 }
             }
@@ -403,7 +405,7 @@ fun HomeScreen(
                     showMoney = uiHomeState.showMoney
                 )
                 Box(modifier = Modifier.height((screenHeight*0.025).dp))
-                SectionButtons(navWrapper = navWrapper, height = (screenHeight * 0.1).dp)
+                SectionButtons(navWrapper = navWrapper, height = (screenHeight * 0.1).dp,operationsViewModel)
                 Box(modifier = Modifier.height((screenHeight*0.035).dp))
                 Column(
                     modifier = Modifier

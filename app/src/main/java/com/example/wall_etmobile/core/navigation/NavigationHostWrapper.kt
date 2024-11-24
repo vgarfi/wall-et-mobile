@@ -76,7 +76,7 @@ fun NavigationHostWrapper (
             )
         }
         composable(Screen.HOME.route) {
-            HomeScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo, authViewModel = authViewModel, transactionViewModel = transactionViewModel)
+            HomeScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo, authViewModel = authViewModel, transactionViewModel = transactionViewModel, operationsViewModel = operationsViewModel)
         }
         composable(Screen.TRANSACTIONS.route) {
             TransactionsScreen(navWrapper = navigatorWrapper, adaptiveInfo = adaptiveInfo, viewModel = transactionViewModel)

@@ -1,5 +1,6 @@
 package com.example.wall_etmobile.features.cashflow.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -70,6 +71,11 @@ fun TransferToScreen(
             }
         }
     }
+
+    BackHandler(enabled = currentStep > 0) {
+        onclick()
+    }
+
     val pages = listOf(
         TransferTo(
 
@@ -101,7 +107,12 @@ fun TransferToScreen(
             buttonText = stringResource(R.string.transfer),
             PaymentBySelfBalance = true,
             onClick = {
-                operationsViewModel.makePayment(context)
+                if(target == "user") {
+                    operationsViewModel.makePayment(context)
+                }else{
+                    currentStep = 0
+                    navigateToScreen("transaction-details", emptyMap())
+                }
             },
             operationsViewModel = operationsViewModel
         )

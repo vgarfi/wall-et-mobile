@@ -1,5 +1,6 @@
 package com.example.wall_etmobile.features.cashflow.ui.composables
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -76,6 +77,9 @@ fun FromCardContent(
                 pagerState.animateScrollToPage(currentStep)
             }
         }
+    }
+    BackHandler(enabled = currentStep > 0) {
+        onclick()
     }
     LaunchedEffect(operationsViewModel.uiState.payment) {
         if (operationsViewModel.uiState.payment == null) return@LaunchedEffect
