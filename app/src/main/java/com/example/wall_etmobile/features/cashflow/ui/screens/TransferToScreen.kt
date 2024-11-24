@@ -49,6 +49,13 @@ fun TransferToScreen(
 
     val context = LocalContext.current
     val totalSteps = 3
+    LaunchedEffect(Unit) {
+        if (!contactDetail.isNullOrEmpty()){
+            operationsViewModel.setReceiverID(contactDetail)
+        }
+        operationsViewModel.getReceiverID()
+    }
+
     var currentStep by remember { mutableIntStateOf(page ?: 0) }
     operationsViewModel.setOperationType(TransactionType.TRANSFER)
     val coroutineScope = rememberCoroutineScope()
@@ -100,8 +107,8 @@ fun TransferToScreen(
                     }
                 }
             },
-            operationsViewModel = operationsViewModel
-
+            operationsViewModel = operationsViewModel,
+            logo = if(target == "user") R.drawable.logo else R.drawable.bank,
         ),
         TransferPayment(
             buttonText = stringResource(R.string.transfer),
