@@ -84,7 +84,7 @@
     <string name="confirm_your_new_password">Confirma tu nueva contraseña</string>
     <string name="restore_password">Restablecer contraseña</string>
     <string name="profile">Perfil</string>
-    <string name="member_since_july_9th">Miembro desde el 9 de Julio</string>
+    <string name="wallet_member">Miembro de Wall-et</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="logout">Cerrar sesión</string>
 

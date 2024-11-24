@@ -82,7 +82,7 @@
     <string name="confirm_your_new_password">Confirm your new password</string>
     <string name="restore_password">Restore password</string>
     <string name="profile">Profile</string>
-    <string name="member_since_july_9th">Member since July 9th</string>
+    <string name="wallet_member">Wall-et member</string>
     <string name="change_password">Change password</string>
     <string name="logout">Logout</string>
     <string name="home">Home</string>
