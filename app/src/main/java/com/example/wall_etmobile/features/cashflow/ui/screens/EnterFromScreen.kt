@@ -56,7 +56,7 @@ fun EnterFromScreen (
                     transactionViewModel = transactionViewModel
                 )
             } else {
-                WithCVUContent()
+                WithCVUContent(onClick = {navigateToScreen("home", emptyMap())})
             }
         }
     }

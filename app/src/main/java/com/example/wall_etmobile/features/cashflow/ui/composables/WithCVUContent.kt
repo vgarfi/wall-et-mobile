@@ -21,7 +21,9 @@ import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.designKit.CopyCVU
 @Composable
-fun WithCVUContent() {
+fun WithCVUContent(
+    onClick : ()->Unit= {}
+) {
     Column (
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,10 +48,10 @@ fun WithCVUContent() {
         CopyCVU(number = "0042078575744892407")
         Spacer(modifier = Modifier.weight(0.2f))
         ActionButton(
-            title = stringResource(R.string.share_cvu),
-            onClick = {},
+            title = stringResource(R.string.home),
+            onClick = onClick,
             elevation = true,
-            modifier = Modifier.fillMaxWidth()
+
         )
     }
 }
