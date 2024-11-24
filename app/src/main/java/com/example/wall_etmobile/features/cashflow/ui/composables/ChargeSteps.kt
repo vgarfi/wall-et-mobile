@@ -29,18 +29,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun ChargeAmount(
     operationsViewModel : OperationsViewModel,
+    onClick: () -> Unit = {},
     ) : @Composable () -> Unit {
     return {
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(top = 80.dp)
+            modifier = Modifier.padding(top = 80.dp).fillMaxSize()
         ) {
             var amountInput = remember { mutableStateOf(operationsViewModel.uiState.currentAmount ?: "") }
             var messageInput = remember { mutableStateOf(operationsViewModel.uiState.currentMessage ?: "") }
@@ -51,7 +54,6 @@ fun ChargeAmount(
             LaunchedEffect(messageInput.value) {
                 operationsViewModel.setDescription(messageInput.value)
             }
-
             Text(text = stringResource(R.string.i_want_to_charge), fontSize = 22.sp)
             Box(modifier = Modifier.height(10.dp))
             AmountInputField(
@@ -60,7 +62,7 @@ fun ChargeAmount(
                 },
                 textIn = amountInput.value
             )
-            Spacer(modifier = Modifier.height(85.dp))
+            Spacer(modifier = Modifier.weight(0.1f))
             Column (
                 modifier = Modifier.padding(horizontal = 16.dp)
             ) {
@@ -69,7 +71,6 @@ fun ChargeAmount(
                     Text(text = stringResource(R.string.message), fontWeight = FontWeight.Bold)
                     Text(text = " " + stringResource(R.string.optional))
                 }
-                Box(modifier = Modifier.height(5.dp))
                 CustomTextField(
                     hint = stringResource(R.string.write_a_message),
                     label = "",
@@ -77,55 +78,62 @@ fun ChargeAmount(
                     controller = messageInput,
                 )
             }
+            Spacer(modifier = Modifier.weight(0.1f))
+            ActionButton(
+                title = stringResource(R.string.continue_text) ,
+                onClick = onClick,
+                elevation = true,
+                enabled = amountInput.value.isNotEmpty(),
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
 @Composable
 fun ChargeQR (
     amount: String,
-    message: String
+    message: String,
+    onClick: () -> Unit = {},
 ) : @Composable () -> Unit  {
     return {
-        Column {
-
-                Column(
-                    verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .padding(top = 15.dp)
-                        .fillMaxWidth()
-                ) {
-                    Text(text = stringResource(R.string.you_are_charging), fontSize = 22.sp)
-                    Box(modifier = Modifier.height(10.dp))
-                    Text(text = "$"+amount, style = TextStyle(
-                        fontSize = 40.sp,
-                        color = MainPurple,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
-                    ),)
-                    Column (
-                        verticalArrangement = Arrangement.Top,
-                        horizontalAlignment = Alignment.Start,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    ) {
-                        Box(modifier = Modifier.height(20.dp))
-                        Box (modifier = Modifier.height(300.dp)){
-                            Image(
-                                painter = painterResource(id = R.drawable.qr),
-                                contentDescription = "qr",
-                                modifier = Modifier.fillMaxSize()
-                            )
-                        }
-                        Box(modifier = Modifier.height(25.dp))
-                        Row (
-                        ){
-                            Text(text = stringResource(R.string.message), fontWeight = FontWeight.Bold)
-                            Text(text = if (message.isNotEmpty()) message else ": " + stringResource(R.string.no_message))
-                        }
-
+            Column(
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(top = 15.dp).fillMaxWidth()
+            ) {
+                Spacer(modifier = Modifier.weight(0.12f))
+                Text(text = stringResource(R.string.you_are_charging), fontSize = 22.sp)
+                Box(modifier = Modifier.height(15.dp))
+                Text(text = "$"+amount, style = TextStyle(
+                    fontSize = 50.sp,
+                    color = MainPurple,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                ),)
+                Spacer(modifier = Modifier.weight(0.25f))
+                    Box (modifier = Modifier.height(300.dp)){
+                        Image(
+                            painter = painterResource(id = R.drawable.qr),
+                            contentDescription = "qr",
+                            modifier = Modifier.fillMaxSize()
+                        )
                     }
-                }
+                    Box(modifier = Modifier.height(25.dp))
+                    Row (
+                    ){
+                        Text(text = stringResource(R.string.message), fontWeight = FontWeight.Bold)
+                        Text(text = if (message.isNotEmpty()) message else ": " + stringResource(R.string.no_message))
+                    }
+                Spacer(modifier = Modifier.weight(0.4f))
+                ActionButton(
+                    title = stringResource(R.string.back_to_home) ,
+                    onClick = onClick,
+                    elevation = true,
+                    enabled = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
+
 
 
     }
