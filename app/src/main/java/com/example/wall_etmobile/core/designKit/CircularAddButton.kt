@@ -28,7 +28,6 @@ import com.example.wall_etmobile.core.theme.MainPurple
 @Composable
 fun CircularAddButton(
     size: Dp,
-    onClick: () -> Unit,
     text: String
 ) {
     Column(
@@ -38,7 +37,6 @@ fun CircularAddButton(
             modifier = Modifier
                 .size(size)
                 .background(Color.Transparent, CircleShape)
-                .clickable { onClick() }
         ) {
             Canvas(modifier = Modifier.matchParentSize()) {
                 drawCircle(
