@@ -17,6 +17,7 @@ import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
 import com.example.wall_etmobile.core.designKit.CustomTextField
 import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 
@@ -144,6 +145,7 @@ fun TransferPayment(
     buttonText: String = stringResource(R.string.transfer),
     operationsViewModel: OperationsViewModel,
     type: String,
+    userViewModel : AuthViewModel,
     @DrawableRes logo : Int = R.drawable.logo
 ): @Composable () -> Unit {
     return {
@@ -192,7 +194,8 @@ fun TransferPayment(
 
             PaymentSelector(
                 selectedObject = { paymentInput.value = it },
-                PaymentBySelfBalance = PaymentBySelfBalance
+                PaymentBySelfBalance = if(operationsViewModel.uiState.currentReceiverID == userViewModel.getUserData()?.email) false else if(operationsViewModel.uiState.currentAmount?.toDouble()!! <= userViewModel.getUserData()?.wallet?.balance!!) true else false,
+
             ) {
                 Text(text = stringResource(R.string.payment_method), fontWeight = FontWeight.Bold)
             }
