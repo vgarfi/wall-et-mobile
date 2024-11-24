@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -51,6 +52,7 @@ import com.example.wall_etmobile.core.designKit.TransactionTypeStyle
 import com.example.wall_etmobile.core.navigation.NavigatorWrapper
 import com.example.wall_etmobile.core.navigation.Screen
 import com.example.wall_etmobile.core.theme.MainBlack
+import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
@@ -101,7 +103,6 @@ fun HomeScreen(
         RoundedImageData(painter = painterResource(R.drawable.agustin), title = "Agustín", size = contactsSize),
         RoundedImageData(painter = painterResource(R.drawable.lautaro), title = "Lautaro", size = contactsSize),
         RoundedImageData(painter = painterResource(R.drawable.valentin), title = "Valentín", size = contactsSize),
-        RoundedImageData(painter = painterResource(R.drawable.nicole), title = "Nicole", size = contactsSize),
         )
 
 
@@ -246,18 +247,19 @@ fun HomeScreen(
                     )
                     Spacer(modifier = Modifier.padding(vertical = 10.dp))
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
                     ) {
                         CircularAddButton(
                             size = contactsSize,
                             text = stringResource(R.string.add)
                         )
-                        Spacer(modifier = Modifier.padding(end = 19.dp))
+                        Spacer(modifier = Modifier.padding(end = 25.dp))
                         LazyRow {
                             items(items = contacts) {
                                 RoundedImageWithText(size = it.size, title = it.title, painter = it.painter)
-                                Spacer(modifier = Modifier.padding(end = 15.dp))
+                                Spacer(modifier = Modifier.padding(end = 25.dp))
                             }
                         }
                         Spacer(modifier = Modifier.padding(vertical = 2.dp))

@@ -160,12 +160,10 @@ fun TransferScreenContent(
 
 fun getFrequentUsers(): List<User> {
     return listOf(
-        User(name = "Tomas Borda", profilePic = R.drawable.tomas, contact = "tborda@itba.edu.ar.com"),
+        User(name = "Tomas Borda", profilePic = R.drawable.tomas, contact = "tborda@gmail.com"),
         User(name = "Lautaro Paletta", profilePic = R.drawable.lautaro, contact = "lapaletta@gmail.com"),
-        User(name = "Agustin Ronda", profilePic = R.drawable.agustin, contact = ""),
-        User(name = "Valentin Garfi", profilePic = R.drawable.valentin, contact = "dario.lueilwitz@ethereal.email"),
-        User(name = "Nicole Salama", profilePic = R.drawable.nicole, contact = "dario.lueilwitz@ethereal.email")
-
+        User(name = "Agustin Ronda", profilePic = R.drawable.agustin, contact = "aronda@gmail.com"),
+        User(name = "Valentin Garfi", profilePic = R.drawable.valentin, contact = "vgarfi@gmail.com"),
     )
 }
 @Composable
@@ -202,13 +200,13 @@ fun FrequentUserRow(user: User, onClick: () -> Unit = {}) {
                 horizontalArrangement = Arrangement.Center
             ){
                 Icon(
-                    painter = painterResource(id = R.drawable.bank),
+                    painter = painterResource(id = R.drawable.logo),
                     contentDescription = "icono",
                     modifier = Modifier.size(13.dp),
                     tint = MainPurple
                 )
                 Box(modifier = Modifier.width(6.dp))
-                Text(text = stringResource(R.string.bank_account), color = Color.Gray)
+                Text(text = stringResource(R.string.wallet_account), color = Color.Gray)
             }
         }
     }
