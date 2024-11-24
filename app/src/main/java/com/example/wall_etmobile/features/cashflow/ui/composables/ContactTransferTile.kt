@@ -62,7 +62,9 @@ fun ContactTransferTile (
         }
         Spacer(modifier = Modifier.width(16.dp))
         Column {
-            Text(text = contactName, fontWeight = FontWeight.W600)
+            Text(text = getFrequentUsers()
+                .find { it.contact == contactName }
+                ?.name ?: contactName, fontWeight = FontWeight.W600)
             Row (
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center

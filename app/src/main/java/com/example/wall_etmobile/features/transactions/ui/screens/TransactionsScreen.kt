@@ -67,8 +67,7 @@ fun TransactionsScreen(
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
     val screenWidth = configuration.screenWidthDp
-    val isRotated =
-        configuration.orientation == Configuration.ORIENTATION_LANDSCAPE  // si es verdadero esta rotada
+    val isRotated = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE  // si es verdadero esta rotada
 
     var movementTileHeight by remember { mutableStateOf((screenHeight * 0.065).dp) }
     var movementTitleSize by remember { mutableStateOf((screenHeight * 0.025).sp) }

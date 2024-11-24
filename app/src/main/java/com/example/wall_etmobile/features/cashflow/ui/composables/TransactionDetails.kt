@@ -40,7 +40,7 @@ import kotlin.random.Random
 
 @Composable
 fun TransactionDetails(
-    operationsViewModel: OperationsViewModel
+    operationsViewModel: OperationsViewModel,
 ) {
     val operation = when(operationsViewModel.uiState.operationType){
         TransactionType.TRANSFER -> stringResource(R.string.operationTransferSucces)
@@ -98,7 +98,7 @@ fun TransactionDetails(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
 
-                ContactTransferTile(icon = R.drawable.logo, contactName = "", contactDetails = operationsViewModel.uiState.currentReceiverID ?: "")
+                ContactTransferTile(icon = R.drawable.logo, contactName = operationsViewModel.uiState.currentReceiverID ?: "", contactDetails = stringResource(R.string.wallet_account))
                 Spacer(modifier = Modifier.height(12.dp))
                 Row {
                     Text(
