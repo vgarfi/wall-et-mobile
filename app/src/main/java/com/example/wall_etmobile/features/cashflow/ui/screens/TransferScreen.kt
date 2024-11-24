@@ -262,7 +262,7 @@ fun TransferOptionCard(
                 Icon(
                     painter = painterResource(id = iconRes),
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = MainPurple,
                     modifier = Modifier.size(40.dp)
                 )
                 Spacer(modifier = Modifier.height(8.dp))

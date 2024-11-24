@@ -53,6 +53,7 @@ import com.example.wall_etmobile.features.cashflow.ui.composables.TransactionDet
 import com.example.wall_etmobile.core.theme.MainWhite
 import java.util.Locale
 import com.example.wall_etmobile.core.designKit.DoneTransactionDetails
+import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 
 
@@ -187,11 +188,12 @@ fun TransactionsScreen(
             ) {
                 OutlinedCard(
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
+                        containerColor = MainWhite,
                     ),
                     border = BorderStroke(1.dp, Color.Black),
                     modifier = Modifier
                         .fillMaxSize()
+
                 ) {
                     if (showDetails && uiState.currentTransaction != null){
                         Box(modifier = Modifier.fillMaxSize()){

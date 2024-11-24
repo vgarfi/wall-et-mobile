@@ -35,6 +35,7 @@ import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.LightPurple
 import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.core.theme.MainGreen
+import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
 import com.example.wall_etmobile.core.theme.WalletMobileTheme
@@ -109,6 +110,7 @@ fun MovementTile(
                     text = subTitle,
                     fontWeight = FontWeight.W300,
                     fontSize = subTitleSize,
+                    color = MainGrey
                 )
             }
             Spacer(modifier = Modifier.weight(1f))

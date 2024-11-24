@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainBlack
+import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.core.theme.MainWhite
 
 @Composable
@@ -100,7 +101,7 @@ fun FavoriteTile(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(5.dp),
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = MainPurple
                     )
                 }
 

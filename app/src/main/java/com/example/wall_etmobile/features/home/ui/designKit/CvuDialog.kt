@@ -17,6 +17,7 @@ import compose.icons.fontawesomeicons.regular.Copy
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.CopyCVU
 import com.example.wall_etmobile.core.theme.MainBlack
+import com.example.wall_etmobile.core.theme.MainGrey
 import com.example.wall_etmobile.core.theme.MainWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,7 +65,7 @@ fun CvuBottomSheet(
                 Text(
                     text = stringResource(R.string.cvu_presenter),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = MainGrey,
                     modifier = Modifier.align(Alignment.Start)
                 )
                 Spacer(modifier = Modifier.height(16.dp))

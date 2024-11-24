@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.theme.MainPurple
 
 @Composable
 fun SearchBar(
@@ -37,7 +38,7 @@ fun SearchBar(
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = "search-icon",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = MainPurple
                 )
             }
         )

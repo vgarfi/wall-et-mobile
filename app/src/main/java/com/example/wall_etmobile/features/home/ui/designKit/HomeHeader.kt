@@ -35,7 +35,7 @@ fun HomeHeader(onClick: () -> Unit){
         Text(
             text = stringResource(R.string.app_name),
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MainWhite,
             modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .weight(1f)

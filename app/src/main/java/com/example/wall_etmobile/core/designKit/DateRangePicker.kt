@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.theme.MainGrey
+import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.core.theme.MainWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +55,7 @@ fun DateRangePickerModal(
             TextButton(onClick = onDismiss) {
                 Text(stringResource(R.string.cancel))
             }
-        }
+        },
     ) {
         DateRangePicker(
             state = dateRangePickerState,
