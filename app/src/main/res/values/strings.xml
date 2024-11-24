@@ -168,4 +168,7 @@
     <string name="wallet_account">Wall-et account</string>
     <string name="bank_account">Bank account</string>
 
+    <string name="terms_title">Wall-et Terms and Conditions</string>
+    <string name="terms_content">Welcome to Wall-et. Before using our virtual wallet app, please read and accept the following terms and conditions. By registering and using the app, you agree to comply with these conditions.&#10;1. Use of Service&#10;The app is intended for personal, non-commercial use only.&#10;You are responsible for maintaining the security of your account and password.&#10;2. Data Privacy&#10;We respect your privacy and will handle your personal data in accordance with applicable laws.&#10;We will not share your information with third parties without your consent, except as required by law.&#10;3. Transactions&#10;All transactions made through our app are the user\'s responsibility.&#10;Carefully verify the information entered before confirming any operation.&#10;4. Limitation of Liability&#10;The app is not responsible for errors in transactions caused by incorrect data entry or technical issues.&#10;We do not guarantee uninterrupted access to the service as maintenance or technical failures may occur.&#10;5. Changes to Terms&#10;We reserve the right to modify these terms at any time. Users will be notified of changes through the app.</string>
+
 </resources>
