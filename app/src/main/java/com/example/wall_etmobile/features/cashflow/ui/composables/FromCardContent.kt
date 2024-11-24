@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -24,9 +25,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wall_etmobile.MyApplication
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cards.model.CreditCard
 import com.example.wall_etmobile.features.cards.viewmodel.CardViewModel
 import com.example.wall_etmobile.features.cashflow.ui.screens.calculateTopPadding
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
+import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 import kotlinx.coroutines.launch
 
 @SuppressLint("SuspiciousIndentation")
@@ -34,9 +38,12 @@ import kotlinx.coroutines.launch
 fun FromCardContent(
     navigateToScreen: (String, Map<String, String?>) -> Unit = { _, _ -> },
     onMethodChange : (() -> Unit) -> Unit = {},
-    viewModel : CardViewModel =( LocalContext.current.applicationContext as MyApplication).cardsViewmodel,
+    viewModel : CardViewModel = ( LocalContext.current.applicationContext as MyApplication).cardsViewmodel,
+    operationsViewModel: OperationsViewModel,
+    userViewModel : AuthViewModel,
+    transactionViewModel : TransactionViewModel,
 ){
-
+    val context = LocalContext.current
     val uiState = viewModel.uiCardState
 
     val totalSteps = 2
@@ -49,13 +56,14 @@ fun FromCardContent(
     val pagerState = rememberPagerState(pageCount = { totalSteps }, initialPage = currentStep)
 
     val pages = listOf(
+
         EnterAmount(
-            onAmountChange = amount
+            operationsViewModel = operationsViewModel,
+
         ),
         EnterPayment(
-            cards = uiState.cards,
-            selectedObject = { selectedObject.value = it },
-            amount = amount.value,
+            amount = operationsViewModel.uiState.currentAmount ?: "0",
+            operationsViewModel = operationsViewModel
         )
     )
     val onclick : () -> Unit = {
@@ -68,6 +76,12 @@ fun FromCardContent(
                 pagerState.animateScrollToPage(currentStep)
             }
         }
+    }
+    LaunchedEffect(operationsViewModel.uiState.payment) {
+        if (operationsViewModel.uiState.payment == null) return@LaunchedEffect
+        operationsViewModel.uiState.payment?.let { transactionViewModel.addPayment(it) }
+        currentStep = 0
+        navigateToScreen("transaction-details", emptyMap())
     }
 
         CashFlowStepIndicator(
@@ -103,6 +117,7 @@ fun FromCardContent(
                                     }
                                 }
                             } else {
+                                operationsViewModel.makePayment(context)
                                 currentStep = 0;
                                 onMethodChange(onclick)
 //                        navigateToScreen("transaction-details", emptyMap())

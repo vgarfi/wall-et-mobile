@@ -25,16 +25,15 @@ import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseSc
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowStepIndicator
 import com.example.wall_etmobile.features.cashflow.ui.composables.ChargeAmount
 import com.example.wall_etmobile.features.cashflow.ui.composables.ChargeQR
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun ChargeScreen(
     navController: NavController,
     navigateToScreen: (String, Map<String, String?>) -> Unit = { _, _ -> },
+    operationsViewModel : OperationsViewModel,
 ) {
-    var amount by remember { mutableStateOf("") }
-    var message = remember { mutableStateOf("") }
-
     val totalSteps = 2
     var currentStep by remember { mutableIntStateOf( 0) }
 
@@ -54,12 +53,9 @@ fun ChargeScreen(
     }
     val pages = listOf(
         ChargeAmount(
-            onValueChange =  { newAmount ->
-                amount = newAmount
-            },
-            messageController = message
+            operationsViewModel = operationsViewModel,
         ),
-        ChargeQR(amount = amount, message = message.value)
+        ChargeQR(amount = operationsViewModel.uiState.currentAmount ?: "", message = operationsViewModel.uiState.currentMessage ?:"")
     )
     CashFlowBaseScaffold(bigText = stringResource(R.string.charge), navController = navController, onArrowClick = onclick) {
         CashFlowStepIndicator(
@@ -93,11 +89,13 @@ fun ChargeScreen(
                             }
                         }
                         else{
+                            currentStep--
+                            operationsViewModel.clearAll()
                             navigateToScreen("home", emptyMap())
                         }
                     },
                     elevation = true,
-                    enabled = amount.isNotEmpty(),
+                    enabled = operationsViewModel.uiState.currentAmount?.isNotEmpty() == true && operationsViewModel.uiState.currentAmount?.equals("0")!!,
                     modifier = Modifier.fillMaxWidth()
                 )
                 }

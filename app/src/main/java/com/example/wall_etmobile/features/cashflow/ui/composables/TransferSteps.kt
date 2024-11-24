@@ -1,11 +1,9 @@
 package com.example.wall_etmobile.features.cashflow.ui.composables
 
-import com.example.wall_etmobile.core.designKit.CustomTextField
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -16,28 +14,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.designKit.ActionButton
+import com.example.wall_etmobile.core.designKit.CustomTextField
 import com.example.wall_etmobile.core.theme.MainPurple
 import com.example.wall_etmobile.features.cards.model.CreditCard
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 
 @Composable
 fun TransferTo(
-    topPadding: Int,
     onClick: () -> Unit = {},
-    onValueChange: MutableState<String>,
     hint: String = "",
-    header: String = ""
-): @Composable () -> Unit {
+    header: String = "",
+    operationsViewModel: OperationsViewModel
+) : @Composable () -> Unit {
     return {
-        Column (
+        val input = remember { mutableStateOf(operationsViewModel.uiState.currentReceiverID ?: "") }
+
+        LaunchedEffect(input.value) {
+            operationsViewModel.setReceiverID(input.value)
+        }
+
+        Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Bottom
         ) {
-
-                if (header.isNotEmpty()) {
-                    Text(text = header, fontWeight = FontWeight.Bold)
-                }
-            Column(horizontalAlignment = Alignment.CenterHorizontally)
-            {
+            if (header.isNotEmpty()) {
+                Text(text = header, fontWeight = FontWeight.Bold)
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
@@ -47,154 +50,151 @@ fun TransferTo(
                             hint = hint,
                             label = "",
                             isPassword = false,
-                            controller = onValueChange,
+                            controller = input,
                         )
                     }
                 }
                 ActionButton(
                     title = stringResource(R.string.continue_text),
-                onClick = onClick,
-                elevation = true,
-                modifier = Modifier.align(Alignment.End)
+                    onClick = onClick,
+                    elevation = true,
+                    modifier = Modifier.align(Alignment.End),
+                    enabled = input.value.isNotEmpty()
                 )
             }
-
         }
     }
 }
 
 @Composable
 fun TransferAmount(
-    topPadding: Int,
     onClick: () -> Unit = {},
-    onValueChange: MutableState<String>,
-    contactName: String = "Tomas",
-    contactDetails: String = "bordatomas@hotmail.com",
-    onAmountChange : MutableState<String>
-): @Composable () -> Unit {
+    operationsViewModel: OperationsViewModel
+) : @Composable () -> Unit {
     return {
+    val amountInput = remember { mutableStateOf(operationsViewModel.uiState.currentAmount ?: "") }
+    val messageInput = remember { mutableStateOf(operationsViewModel.uiState.currentMessage ?: "") }
 
-        Column(
-            verticalArrangement = Arrangement.Bottom,
-                    modifier = Modifier.fillMaxSize(),
-        ) {
+    LaunchedEffect(amountInput.value) {
+        operationsViewModel.setAmount(amountInput.value)
+    }
+    LaunchedEffect(messageInput.value) {
+        operationsViewModel.setDescription(messageInput.value)
+    }
 
-                ContactTransferTile(
-                    icon = R.drawable.logo,
-                    contactName = contactName,
-                    contactDetails = contactDetails,
-                )
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        ContactTransferTile(
+            icon = R.drawable.logo,
+            contactName = "",
+            contactDetails = operationsViewModel.uiState.currentReceiverID ?: "",
+        )
 
-
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-              LazyColumn(horizontalAlignment = Alignment.CenterHorizontally,
-                  modifier = Modifier.weight(1f)) {
-
-
-                  item {
-                      AmountInputField(onValueChange = {onAmountChange.value= it})
-                  }
-                  item {
-                      Row(
-                          verticalAlignment = Alignment.CenterVertically,
-                          horizontalArrangement = Arrangement.Start,
-                          modifier = Modifier
-                              .padding(horizontal = 5.dp)
-                              .padding(top = 50.dp)
-                      ) {
-                          Text(
-                              text = stringResource(R.string.message),
-                              fontWeight = FontWeight.Bold
-                          )
-                          Text(text = " " + stringResource(R.string.optional))
-                          Spacer(modifier = Modifier.weight(1f))
-                      }
-                  }
-
-                  item {
-                      CustomTextField(
-                          hint = stringResource(R.string.write_a_message),
-                          label = "",
-                          isPassword = false,
-                          controller = onValueChange,
-                      )
-                  }
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                item {
+                    AmountInputField(onValueChange = { amountInput.value = it }, textIn = amountInput.value)
+                }
+                item {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start,
+                        modifier = Modifier
+                            .padding(horizontal = 5.dp)
+                            .padding(top = 50.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.message),
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(text = " " + stringResource(R.string.optional))
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
+                }
+                item {
+                    CustomTextField(
+                        hint = stringResource(R.string.write_a_message),
+                        label = "",
+                        isPassword = false,
+                        controller = messageInput,
+                    )
+                }
             }
             ActionButton(
                 title = stringResource(R.string.continue_text),
                 onClick = onClick,
-                elevation = true
+                elevation = true,
+                enabled = amountInput.value.isNotEmpty() && amountInput.value.toDouble() > 0
             )
         }
-        }
+    }
     }
 }
 
 @Composable
 fun TransferPayment(
-    topPadding: Int,
     onClick: () -> Unit = {},
-    onValueChange: MutableState<String>,
-    contactName: String = "Tomas",
-    contactDetails: String = "bordatomas@hotmail.com",
-    message: String = "Asado",
-    cardsInfo: List<CreditCard> = listOf(
-        CreditCard(
-            number = "0000000000000000",
-            expirationDate = "",
-            holderName = "",
-            cvv = "",
-            color = 0
-        )
-    ),
     PaymentBySelfBalance: Boolean = false,
-    selectedObject: (CreditCard) -> Unit = {},
     buttonText: String = stringResource(R.string.transfer),
-    amount: String = "0",
-    buttonEnabled: Boolean = true
+    operationsViewModel: OperationsViewModel
 ): @Composable () -> Unit {
     return {
+        val paymentInput = remember { mutableStateOf<CreditCard?>(operationsViewModel.uiState.currentPaymentMethod) }
+
+        LaunchedEffect(paymentInput.value) {
+            paymentInput.value?.let { operationsViewModel.setPaymentMethod(it) }
+        }
+
         Column(
             verticalArrangement = Arrangement.Bottom,
             modifier = Modifier.fillMaxSize(),
         ) {
-
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                ContactTransferTile(
-                    icon = R.drawable.logo,
-                    contactName = contactName,
-                    contactDetails = contactDetails,
-                )
+                operationsViewModel.uiState.currentReceiverID?.let {
+                    ContactTransferTile(
+                        icon = R.drawable.logo,
+                        contactName = "",
+                        contactDetails = it,
+                    )
+                }
             }
 
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.weight(1f)
             ) {
-
                 item {
                     Text(text = stringResource(R.string.you_are_transfering), fontWeight = FontWeight.Bold)
                 }
                 item {
-                    Text("$" + amount, style = TextStyle(
-                        fontSize = 54.sp,
-                        color = MainPurple,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
-                    ),)
+                    Text(
+                        "$" + operationsViewModel.uiState.currentAmount,
+                        style = TextStyle(
+                            fontSize = 54.sp,
+                            color = MainPurple,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                        ),
+                    )
                 }
-
                 item {
-                    Text(text = stringResource(R.string.message) + ": " + if(message.isEmpty()) stringResource(R.string.no_message) else message, fontWeight = FontWeight.Light)
+                    Text(
+                        text = stringResource(R.string.message) + ": " + if (operationsViewModel.uiState.currentMessage?.isEmpty() == true) stringResource(R.string.no_message) else operationsViewModel.uiState.currentMessage,
+                        fontWeight = FontWeight.Light
+                    )
                 }
                 item {
-                    Column(modifier = Modifier.heightIn(max = 240.dp)) {
+                    Column {
                         PaymentSelector(
-                            selectedObject = selectedObject,
+                            selectedObject = { paymentInput.value = it },
                             PaymentBySelfBalance = PaymentBySelfBalance
                         ) {
                             Text(text = stringResource(R.string.payment_method), fontWeight = FontWeight.Bold)
@@ -203,14 +203,15 @@ fun TransferPayment(
                 }
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            ActionButton(
-                modifier = Modifier.fillMaxWidth(),
-                title = buttonText,
-                onClick = onClick,
-                elevation = true,
-                enabled = buttonEnabled,
-            )
+                ActionButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    title = buttonText,
+                    onClick = onClick,
+                    elevation = true,
+                    enabled = operationsViewModel.uiState.currentPaymentMethod != null,
+                )
             }
         }
     }
+
 }

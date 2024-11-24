@@ -33,7 +33,8 @@ fun CreditCardComponent(
     cardHolder: String,
     cardExpiration: String,
     cardImageIndex: Int,
-    scaleFactor: Float = 1f
+    scaleFactor: Float = 1f,
+    alpha : Float = 1f
 ) {
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
@@ -54,7 +55,8 @@ fun CreditCardComponent(
             contentDescription = "card",
             modifier = Modifier.fillMaxWidth(),
             contentScale = ContentScale.FillWidth,
-            alignment = Alignment.TopCenter
+            alignment = Alignment.TopCenter,
+            alpha = alpha
         )
         Column(
             verticalArrangement = Arrangement.Top,
@@ -69,7 +71,7 @@ fun CreditCardComponent(
             ) {
                 Text(text = bankName, color = MainWhite, fontWeight = FontWeight.Bold)
                 Box(modifier = Modifier.height(3.dp))
-                FormatCardNumber(cardNumber = cardNumber)
+               if (cardNumber.isNotEmpty()) FormatCardNumber(cardNumber = cardNumber)
             }
             Box(modifier = Modifier.height((80*scaleFactor).dp))
             Row {
@@ -77,18 +79,18 @@ fun CreditCardComponent(
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.Start
                 ) {
-                    Text(text = "Card Name", color = MainWhite, fontWeight = FontWeight.W300)
+                    if (cardNumber.isNotEmpty()) Text(text = "Card Name", color = MainWhite, fontWeight = FontWeight.W300)
                     Box(modifier = Modifier.height(3.dp))
-                    Text(text = cardHolder, color = MainWhite, fontWeight = FontWeight.Bold)
+                    if (cardNumber.isNotEmpty())  Text(text = cardHolder, color = MainWhite, fontWeight = FontWeight.Bold)
                 }
                 Box(modifier = Modifier.width((50*scaleFactor).dp))
                 Column (
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.Start
                 ) {
-                    Text(text = "Exp", color = MainWhite, fontWeight = FontWeight.W300)
+                    if (cardNumber.isNotEmpty()) Text(text = "Exp", color = MainWhite, fontWeight = FontWeight.W300)
                     Box(modifier = Modifier.height(3.dp))
-                    Text(text = cardExpiration, color = MainWhite, fontWeight = FontWeight.W500)
+                    if (cardNumber.isNotEmpty()) Text(text = cardExpiration, color = MainWhite, fontWeight = FontWeight.W500)
                 }
             }
         }

@@ -13,9 +13,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.features.auth.viewmodel.AuthViewModel
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowBaseScaffold
 import com.example.wall_etmobile.features.cashflow.ui.composables.FromCardContent
 import com.example.wall_etmobile.features.cashflow.ui.composables.WithCVUContent
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
+import com.example.wall_etmobile.features.transactions.model.TransactionType
+import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -24,7 +28,11 @@ fun EnterFromScreen (
     navigateToScreen: (String, Map<String, String?>) -> Unit = { _, _ -> },
     source: String?,
     page: Int?,
+    operationsViewModel: OperationsViewModel,
+    userViewModel : AuthViewModel,
+    transactionViewModel : TransactionViewModel,
 ) {
+    userViewModel.getUserData()?.let { operationsViewModel.setReceiverID(it.email) }
     val headerText = when (source) {
         "bank" -> stringResource(R.string.from_another_bank_account)
         "card" -> stringResource(R.string.using_any_card)
@@ -41,7 +49,12 @@ fun EnterFromScreen (
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
             if (source == "card") {
-                FromCardContent(onMethodChange = { onclick.value = it }, navigateToScreen = navigateToScreen)
+                FromCardContent(onMethodChange = { onclick.value = it },
+                    navigateToScreen = navigateToScreen,
+                    operationsViewModel = operationsViewModel,
+                    userViewModel = userViewModel,
+                    transactionViewModel = transactionViewModel
+                )
             } else {
                 WithCVUContent()
             }

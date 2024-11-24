@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun TransferScreen(
     navController: NavController,
-    navigateToScreen: (String, Map<String, String?>) -> Unit
+    navigateToScreen: (String, Map<String, String?>) -> Unit,
 ) {
     val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
     var topPadding by remember { mutableIntStateOf(0) }

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,12 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wall_etmobile.R
 import com.example.wall_etmobile.core.theme.MainPurple
+import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 
 @Composable
 fun ChargeAmount(
-    onValueChange: (String) -> Unit,
-    messageController: MutableState<String>,
-
+    operationsViewModel : OperationsViewModel,
     ) : @Composable () -> Unit {
     return {
         Column(
@@ -42,14 +42,23 @@ fun ChargeAmount(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(top = 80.dp)
         ) {
-            var amount by remember { mutableStateOf("") }
+            var amountInput = remember { mutableStateOf(operationsViewModel.uiState.currentAmount ?: "") }
+            var messageInput = remember { mutableStateOf(operationsViewModel.uiState.currentMessage ?: "") }
+
+            LaunchedEffect(amountInput.value) {
+                operationsViewModel.setAmount(amountInput.value)
+            }
+            LaunchedEffect(messageInput.value) {
+                operationsViewModel.setDescription(messageInput.value)
+            }
+
             Text(text = stringResource(R.string.i_want_to_charge), fontSize = 22.sp)
             Box(modifier = Modifier.height(10.dp))
             AmountInputField(
                 onValueChange =  { newAmount ->
-                    amount = newAmount
-                    onValueChange(amount)
-                }
+                    amountInput.value = newAmount
+                },
+                textIn = amountInput.value
             )
             Spacer(modifier = Modifier.height(85.dp))
             Column (
@@ -65,7 +74,7 @@ fun ChargeAmount(
                     hint = stringResource(R.string.write_a_message),
                     label = "",
                     isPassword = false,
-                    controller = messageController,
+                    controller = messageInput,
                 )
             }
         }
