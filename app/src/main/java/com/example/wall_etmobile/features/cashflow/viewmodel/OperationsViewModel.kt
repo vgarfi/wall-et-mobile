@@ -47,14 +47,15 @@ class OperationsViewModel(
 
     fun clearAll() {
         viewModelScope.launch {
-            operationRepository.setOperationType(null)
-            operationRepository.setAmount(null)
-            operationRepository.setReceiverID(null)
-            operationRepository.setDescription(null)
-            operationRepository.setSelectedMethodPayment(null)
+            setOperationType(null)
+            setAmount(null)
+            setReceiverID(null)
+            setDescription(null)
+            setPaymentMethod(null)
             uiState = uiState.copy(
                payment = null
             )
+
         }
     }
 
@@ -64,7 +65,7 @@ class OperationsViewModel(
         { state, response -> state.copy(currentAmount = response)}
     )
 
-   fun setAmount(amount: String) = runOnViewModelScope(
+   fun setAmount(amount: String?) = runOnViewModelScope(
         { operationRepository.setAmount(amount) },
         { state, response -> state.copy(currentAmount = response)}
     )
@@ -74,7 +75,7 @@ class OperationsViewModel(
         { state, response -> state.copy(currentReceiverID = response)}
     )
 
-    fun setReceiverID(id: String) = runOnViewModelScope(
+    fun setReceiverID(id: String?) = runOnViewModelScope(
         { operationRepository.setReceiverID(id) },
         { state, response -> state.copy(currentReceiverID = response)}
     )
@@ -84,12 +85,12 @@ class OperationsViewModel(
         { state, response -> state.copy(currentMessage = response)}
     )
 
-    fun setDescription(description: String) = runOnViewModelScope(
+    fun setDescription(description: String?) = runOnViewModelScope(
         { operationRepository.setDescription(description) },
         { state, response -> state.copy(currentMessage = response)}
     )
 
-    fun setPaymentMethod(paymentMethod: CreditCard) = runOnViewModelScope(
+    fun setPaymentMethod(paymentMethod: CreditCard?) = runOnViewModelScope(
         { operationRepository.setSelectedMethodPayment(paymentMethod) },
         { state, response -> state.copy(currentPaymentMethod = response)}
     )
@@ -99,7 +100,7 @@ class OperationsViewModel(
         { state, response -> state.copy(currentPaymentMethod = response)}
     )
 
-    fun setOperationType(operationType: TransactionType) = runOnViewModelScope(
+    fun setOperationType(operationType: TransactionType?) = runOnViewModelScope(
         { operationRepository.setOperationType(operationType) },
         { state, response -> state.copy(operationType = response)}
     )
