@@ -19,6 +19,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -83,10 +87,10 @@ fun HomeScreen(
     val cvu = currentUser?.wallet?.cbu ?: "--------"
     val username = currentUser?.firstName ?: "usuario"
 
-    var movementTileHeight = (screenHeight*0.055).dp
-    var movementTitleSize = (screenHeight*0.02).sp
-    var movementSubTitleSize = (screenHeight*0.015).sp
-    var movementMountSize = (screenHeight*0.03).sp
+    var movementTileHeight by remember { mutableStateOf((screenHeight * 0.065).dp) }
+    var movementTitleSize by remember { mutableStateOf((screenHeight * 0.025).sp) }
+    var movementSubTitleSize by remember { mutableStateOf((screenHeight * 0.015).sp) }
+    var movementMountSize by remember { mutableStateOf((screenHeight * 0.03).sp) }
     val onMovementTileClick = { id: Int ->
 
     }
