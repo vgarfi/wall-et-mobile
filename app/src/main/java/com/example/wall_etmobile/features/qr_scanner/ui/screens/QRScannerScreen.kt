@@ -25,6 +25,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.example.wall_etmobile.R
+import com.example.wall_etmobile.core.theme.MainBlack
 import com.example.wall_etmobile.core.theme.MainRed
 import com.example.wall_etmobile.core.theme.MainWhite
 import com.example.wall_etmobile.features.cashflow.ui.composables.CashFlowTitleRow
@@ -91,7 +92,7 @@ fun QrScannerScreen(
                     text = stringResource(R.string.need_camera),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = MainRed
+                    color = MainBlack
                 )
             }
         }
@@ -103,7 +104,14 @@ fun QrScannerScreen(
             contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter
         )
-        CashFlowTitleRow(bigText = stringResource(R.string.scan_qr), navController = NavController(context = context), arrowAction =  onBack)
-
+        Box(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            CashFlowTitleRow(
+                bigText = stringResource(R.string.scan_qr),
+                navController = NavController(context = context),
+                arrowAction = onBack
+            )
+        }
     }
 }
