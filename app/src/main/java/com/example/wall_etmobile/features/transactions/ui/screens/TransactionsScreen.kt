@@ -150,7 +150,12 @@ fun TransactionsScreen(
                             .height((screenHeight * 0.08).dp)
 
                     ) {
-                        if (uiState.startDate != null && uiState.endDate != null && formatedStartDate != null && formatedEndDate != null) {
+                        if (uiState.startDate != null && uiState.endDate != null) {
+                            formatedStartDate =
+                                SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.startDate)
+                            formatedEndDate =
+                                SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.endDate)
+
                             FilterIndicator(
                                 formatedStartDate = formatedStartDate!!,
                                 formatedEndDate = formatedEndDate!!,
@@ -161,6 +166,7 @@ fun TransactionsScreen(
                                 }
                             )
                             Spacer(modifier = Modifier.padding(8.dp))
+
                         }
 
                         FilterButton(
@@ -228,7 +234,12 @@ fun TransactionsScreen(
                     .fillMaxWidth()
                     .height((screenHeight * 0.05).dp)
             ) {
-                if (uiState.startDate != null && uiState.endDate != null && formatedStartDate != null && formatedEndDate != null) {
+                if (uiState.startDate != null && uiState.endDate != null) {
+                    formatedStartDate =
+                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.startDate)
+                    formatedEndDate =
+                        SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(uiState.endDate)
+
                     FilterIndicator(
                         formatedStartDate = formatedStartDate!!,
                         formatedEndDate = formatedEndDate!!,
@@ -239,6 +250,7 @@ fun TransactionsScreen(
                         }
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
+
                 }
                 FilterButton(
                     onClick = filterAction
