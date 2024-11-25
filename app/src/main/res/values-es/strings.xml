@@ -127,7 +127,9 @@
     <string name="expiration_date">Fecha de vencimiento</string>
     <string name="select_month">Selecciona el mes</string>
     <string name="select_year">Selecciona el año</string>
+    <string name="cbu_not_valid">CBU/CVU no valido</string>
 
+    <string name="emptyReceiver">Usuario no encontrado</string>
 
     <string name="example_mail">usuario@gmail.com</string>
 

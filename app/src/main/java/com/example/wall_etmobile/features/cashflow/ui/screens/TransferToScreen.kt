@@ -4,6 +4,8 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,6 +32,7 @@ import com.example.wall_etmobile.features.cashflow.ui.composables.TransferPaymen
 import com.example.wall_etmobile.features.cashflow.ui.composables.TransferTo
 import com.example.wall_etmobile.features.cashflow.viewmodel.OperationsViewModel
 import com.example.wall_etmobile.features.transactions.model.TransactionType
+import com.example.wall_etmobile.features.transactions.model.body.NetworkPaymentBody
 import com.example.wall_etmobile.features.transactions.ui.TransactionViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.roundToLong
@@ -47,8 +50,11 @@ fun TransferToScreen(
     cardViewModel : CardViewModel,
     transactionViewModel : TransactionViewModel
 ) {
-
+    val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
+    val emailError = stringResource(R.string.the_email_is_not_valid)
+    val cbuError = stringResource(R.string.cbu_not_valid)
+
     val totalSteps = 3
     LaunchedEffect(Unit) {
         if (!contactDetail.isNullOrEmpty()){
@@ -90,7 +96,24 @@ fun TransferToScreen(
             header = fixedStrings[0],
             onClick = {
                 coroutineScope.launch {
-                    if (pagerState.currentPage < pagerState.pageCount - 1) {
+                    val emailPattern = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")
+                    val currentReceiverID = operationsViewModel.uiState.currentReceiverID
+                    val alphanumericPattern = Regex("^[a-zA-Z0-9]+$")
+                    var pattern = when(target){
+                        "user" -> emailPattern
+                        "account" -> alphanumericPattern
+                        else -> alphanumericPattern
+                    }
+                    var messageError = when(target){
+                        "user" -> emailError
+                        "account" -> cbuError
+                        else -> emailError
+                    }
+
+
+                    if (currentReceiverID.isNullOrBlank() || !pattern.matches(currentReceiverID)) {
+                        snackbarHostState.showSnackbar(messageError)
+                    } else if (pagerState.currentPage < pagerState.pageCount - 1) {
                         currentStep++
                         pagerState.animateScrollToPage(currentStep)
                     }
@@ -130,25 +153,44 @@ fun TransferToScreen(
     LaunchedEffect(operationsViewModel.uiState.payment) {
         if (operationsViewModel.uiState.payment == null) return@LaunchedEffect
         operationsViewModel.uiState.payment?.let { transactionViewModel.addPayment(it) }
-        currentStep = 0
-        navigateToScreen("transaction-details", emptyMap())
+            ?.invokeOnCompletion {
+               if(transactionViewModel.uiState.error == null){
+                    navigateToScreen("transaction-details", emptyMap())
+               }
+                else{
+                    var error = ""
+                   if(transactionViewModel.uiState.error!!.message.equals("Receiver details not found"))
+                   {
+                       error = context.getString(R.string.emptyReceiver)
+                   }
+                   coroutineScope.launch { snackbarHostState.showSnackbar(error) }
+               }
+            }
+        operationsViewModel.clearPayment()
     }
 
     CashFlowBaseScaffold(bigText = ("$" + "%.2f".format(userViewModel.state.user?.wallet?.balance)), smallText = stringResource(R.string.home_mount_text),  navController = navController, onArrowClick = onclick) {
+
         CashFlowStepIndicator(
             currentStep = currentStep,
             totalSteps = totalSteps,
             modifier = Modifier.padding(top = (calculateTopPadding()*0.5).dp),
 
         ) {
+
+            SnackbarHost(
+                hostState = snackbarHostState,
+            )
             HorizontalPager(
                 modifier = Modifier.padding(top = (calculateTopPadding() * 0.1).dp).padding(horizontal = 16.dp),
                 state = pagerState,
                 userScrollEnabled = false,
             ) { page ->
                 pages[page].invoke()
+
             }
         }
+
     }
 }
 

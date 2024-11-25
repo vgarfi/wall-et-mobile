@@ -150,13 +150,11 @@ fun TransferPayment(
     return {
         val paymentInput = remember { mutableStateOf<CreditCard?>(operationsViewModel.uiState.currentPaymentMethod) }
         val allowSelfBalance = when {
-            // Prevents self-payment
+
             operationsViewModel.uiState.currentReceiverID == userViewModel.getUserData()?.email -> false
 
-            // Ensures currentAmount is not null or invalid
             operationsViewModel.uiState.currentAmount.isNullOrEmpty() -> false
 
-            // Ensures wallet balance and currentAmount are valid
             else -> {
                 val currentAmount = operationsViewModel.uiState.currentAmount?.toDoubleOrNull()
                 val walletBalance = userViewModel.getUserData()?.wallet?.balance

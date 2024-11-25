@@ -109,6 +109,10 @@ class OperationsViewModel(
         { state, response -> state.copy(operationType = response)}
     )
 
+   fun clearPayment(){
+        uiState = uiState.copy(payment = null)
+   }
+
     fun makePayment(context: Context) = runOnViewModelScope(
         { operationRepository.makePayment(context) },
         { state, response -> state.copy(payment = response)}
