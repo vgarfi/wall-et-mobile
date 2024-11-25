@@ -3,6 +3,7 @@ package com.example.wall_etmobile.features.home.ui.screens
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -69,7 +70,8 @@ fun HomeScreen(
     homeViewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)),
     authViewModel: AuthViewModel,
     operationsViewModel : OperationsViewModel,
-) {
+    navigateToScreen: (String, Map<String, String?>) -> Unit = { _, _ -> },
+    ) {
     val currentUser by remember { mutableStateOf(authViewModel.getUserData()) }
 
     val configuration = LocalConfiguration.current
@@ -101,10 +103,10 @@ fun HomeScreen(
     val contactsSize = (screenHeight * 0.065).dp
 
     val contacts = listOf(
-        RoundedImageData(painter = painterResource(R.drawable.tomas), title = "Tomas", size = contactsSize),
-        RoundedImageData(painter = painterResource(R.drawable.agustin), title = "Agustín", size = contactsSize),
-        RoundedImageData(painter = painterResource(R.drawable.lautaro), title = "Lautaro", size = contactsSize),
-        RoundedImageData(painter = painterResource(R.drawable.valentin), title = "Valentín", size = contactsSize),
+        RoundedImageData(painter = painterResource(R.drawable.tomas), title = "Tomas", size = contactsSize, fullname = "Tomas Borda", contact = "tborda@gmail.com"),
+        RoundedImageData(painter = painterResource(R.drawable.agustin), title = "Agustín", size = contactsSize, fullname = "Agustin Ronda", contact = "vgarfi@gmail.com"),
+        RoundedImageData(painter = painterResource(R.drawable.lautaro), title = "Lautaro", size = contactsSize, fullname = "Lautaro Paletta", contact = "lapaletta@gmail.com"),
+        RoundedImageData(painter = painterResource(R.drawable.valentin), title = "Valentín", size = contactsSize, fullname = "Valentin Garfi", contact = "aronda@gmail.com"),
         )
 
 
@@ -260,7 +262,17 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.padding(end = 25.dp))
                         LazyRow {
                             items(items = contacts) {
-                                RoundedImageWithText(size = it.size, title = it.title, painter = it.painter)
+                                Box(
+                                    modifier = Modifier.clickable{
+                                        navigateToScreen("transferTo", mapOf("target" to "user","contactName" to it.fullname,"contactDetail" to it.contact,"page" to "1"))
+                                    }
+                                ) {
+                                    RoundedImageWithText(
+                                        size = it.size,
+                                        title = it.title,
+                                        painter = it.painter
+                                    )
+                                }
                                 Spacer(modifier = Modifier.padding(end = 25.dp))
                             }
                         }
