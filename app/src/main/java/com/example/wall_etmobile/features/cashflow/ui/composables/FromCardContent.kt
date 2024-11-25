@@ -75,8 +75,15 @@ fun FromCardContent(
     LaunchedEffect(operationsViewModel.uiState.payment) {
         if (operationsViewModel.uiState.payment == null) return@LaunchedEffect
         operationsViewModel.uiState.payment?.let { transactionViewModel.addPayment(it) }
-        currentStep = 0
-        navigateToScreen("transaction-details", emptyMap())
+            ?.invokeOnCompletion {
+
+                    transactionViewModel.getTransactions()
+                    coroutineScope.launch {
+                        userViewModel.updateBalance()
+                    }
+                    navigateToScreen("transaction-details", emptyMap())
+            }
+        operationsViewModel.clearPayment()
     }
 
     val pages = listOf(

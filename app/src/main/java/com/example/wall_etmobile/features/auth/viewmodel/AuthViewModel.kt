@@ -53,6 +53,11 @@ class AuthViewModel(
         { state, response -> state.copy(user = response) }
     )
 
+    suspend fun updateBalance() = runOnViewModelScope(
+        { userRepository.getCurrentUser(true) },
+        { state, response -> state.copy(user = response) }
+    )
+
     fun getUserData() = state.user
     fun getError() = state.error
     fun isAuthenticated() = state.isAuthenticated

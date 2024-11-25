@@ -84,7 +84,7 @@ fun HomeScreen(
     LaunchedEffect(Unit) {
         cardsViewModel.getCards()
         transactionViewModel.getTransactions()
-        authViewModel.getUserData()
+        authViewModel.updateBalance()
     }
 
     val cvu = currentUser?.wallet?.cbu ?: "--------"

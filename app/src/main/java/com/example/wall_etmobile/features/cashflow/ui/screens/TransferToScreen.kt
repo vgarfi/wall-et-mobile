@@ -164,7 +164,9 @@ fun TransferToScreen(
                    }
                 else{
                     transactionViewModel.getTransactions()
-                       coroutineScope.launch { userViewModel.getUserData() }
+                       coroutineScope.launch {
+                           userViewModel.updateBalance()
+                       }
                        navigateToScreen("transaction-details", emptyMap())
 
                    }
