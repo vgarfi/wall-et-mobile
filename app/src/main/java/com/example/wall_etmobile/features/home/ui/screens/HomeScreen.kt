@@ -104,9 +104,9 @@ fun HomeScreen(
 
     val contacts = listOf(
         RoundedImageData(painter = painterResource(R.drawable.tomas), title = "Tomas", size = contactsSize, fullname = "Tomas Borda", contact = "tborda@gmail.com"),
-        RoundedImageData(painter = painterResource(R.drawable.agustin), title = "Agustín", size = contactsSize, fullname = "Agustin Ronda", contact = "vgarfi@gmail.com"),
+        RoundedImageData(painter = painterResource(R.drawable.agustin), title = "Agustín", size = contactsSize, fullname = "Agustin Ronda", contact = "aronda@gmail.com"),
         RoundedImageData(painter = painterResource(R.drawable.lautaro), title = "Lautaro", size = contactsSize, fullname = "Lautaro Paletta", contact = "lapaletta@gmail.com"),
-        RoundedImageData(painter = painterResource(R.drawable.valentin), title = "Valentín", size = contactsSize, fullname = "Valentin Garfi", contact = "aronda@gmail.com"),
+        RoundedImageData(painter = painterResource(R.drawable.valentin), title = "Valentín", size = contactsSize, fullname = "Valentin Garfi", contact = "vgarfi@gmail.com"),
         )
 
 
