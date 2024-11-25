@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,6 +28,7 @@ fun EnterScreen(
             modifier = Modifier
                 .padding(all = 12.dp)
                 .padding(top = 80.dp)
+                .verticalScroll(rememberScrollState())
         ){
             Text(text = stringResource(R.string.choose_any_option), fontWeight = FontWeight.Bold, fontSize = 20.sp)
             Spacer(modifier = Modifier.height(30.dp))
