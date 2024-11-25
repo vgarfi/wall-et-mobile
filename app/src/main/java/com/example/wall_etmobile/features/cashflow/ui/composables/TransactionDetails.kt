@@ -108,7 +108,7 @@ fun TransactionDetails(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = operationsViewModel.uiState.currentMessage ?: "",
+                            text = if (operationsViewModel.uiState.currentMessage.isNullOrEmpty()) stringResource(R.string.no_message) else operationsViewModel.uiState.currentMessage!!,
                             color = Color.Gray
                         )
                     }
