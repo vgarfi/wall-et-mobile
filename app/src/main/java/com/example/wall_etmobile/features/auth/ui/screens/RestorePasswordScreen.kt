@@ -42,7 +42,7 @@ fun RestorePasswordScreen(navController: NavController) {
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(70.dp))
             Text(
                 stringResource(R.string.restore_your_password),
                 fontSize = 18.sp,
