@@ -48,7 +48,7 @@ fun WithCVUContent(
         CopyCVU(number = "0042078575744892407")
         Spacer(modifier = Modifier.weight(0.2f))
         ActionButton(
-            title = stringResource(R.string.home),
+            title = stringResource(R.string.back_to_home),
             onClick = onClick,
             elevation = true,
 
