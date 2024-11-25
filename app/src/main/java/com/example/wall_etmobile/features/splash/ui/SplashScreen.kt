@@ -2,8 +2,10 @@ package com.example.wall_etmobile.features.splash.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -60,24 +63,32 @@ fun SplashScreen(
         }
     }
 
-    Scaffold {
-        innerPadding ->
-        Column (
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize().padding(innerPadding).padding(16.dp)
-        ) {
+        Scaffold { innerPadding ->
             Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo",
-                modifier = Modifier.size(230.dp),
-                colorFilter = ColorFilter.tint(MainPurple)
+                painter = painterResource(R.drawable.splash),
+                contentDescription = "splash",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
             )
-            LinearProgressIndicator(
-                progress = { progress },
-                color = MainPurple,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
+            Column(
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .padding(16.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier.size(230.dp),
+                    colorFilter = ColorFilter.tint(MainPurple)
+                )
+                LinearProgressIndicator(
+                    progress = { progress },
+                    color = MainPurple,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
     }
 }

@@ -179,16 +179,23 @@ fun CardsScreen(
             Box(
                 modifier = Modifier
                     .width((screenWidth * 0.5).dp)
-                    .fillMaxHeight().align(Alignment.CenterVertically)
+                    .fillMaxHeight()
+                    .align(Alignment.CenterVertically)
             ) {
-                Box(modifier = Modifier.height(10.dp))
-                BigIconButton(
-                    icon = R.drawable.add_card_icon,
-                    boldText = stringResource(R.string.add),
-                    normalText = stringResource(R.string.a_new_card),
-                    onClick = { showDialog = true },
-                )
-                Box(modifier = Modifier.height(10.dp))
+                Column (
+                    modifier = Modifier.fillMaxSize().background(color = MainWhite).padding(16.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    Box(modifier = Modifier.height(10.dp))
+                    BigIconButton(
+                        icon = R.drawable.add_card_icon,
+                        boldText = stringResource(R.string.add),
+                        normalText = stringResource(R.string.a_new_card),
+                        onClick = { showDialog = true },
+                    )
+                    Box(modifier = Modifier.height(10.dp))
+                }
             }
         }
 
