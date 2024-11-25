@@ -122,7 +122,7 @@ fun ChargeQR (
                     Row (
                     ){
                         Text(text = stringResource(R.string.message), fontWeight = FontWeight.Bold)
-                        Text(text = if (message.isNotEmpty()) message else ": " + stringResource(R.string.no_message))
+                        Text(text = if (message.isNotEmpty()) ": $message" else ": " + stringResource(R.string.no_message))
                     }
                 Spacer(modifier = Modifier.weight(0.4f))
                 ActionButton(
