@@ -70,7 +70,7 @@ fun HomeScreen(
     authViewModel: AuthViewModel,
     operationsViewModel : OperationsViewModel,
 ) {
-    val currentUser = authViewModel.getUserData()
+    val currentUser by remember { mutableStateOf(authViewModel.getUserData()) }
 
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
@@ -83,6 +83,8 @@ fun HomeScreen(
 
     LaunchedEffect(Unit) {
         cardsViewModel.getCards()
+        transactionViewModel.getTransactions()
+        authViewModel.getUserData()
     }
 
     val cvu = currentUser?.wallet?.cbu ?: "--------"
@@ -169,7 +171,7 @@ fun HomeScreen(
                     ) {
                         HomeHeader(onClick = { homeViewModel.toggleShowCvu() })
                         MountVisor(
-                            mount = currentUser?.wallet?.balance ?: -1.0,
+                            mount = authViewModel.getUserData()?.wallet?.balance ?: -1.0,
                             onClick = { homeViewModel.toggleShowMoney() },
                             showMoney = uiHomeState.showMoney
                         )
@@ -229,7 +231,7 @@ fun HomeScreen(
                 HomeHeader(onClick = { homeViewModel.toggleShowCvu() })
                 Box(modifier = Modifier.height((screenHeight*0.035).dp))
                 MountVisor(
-                    mount = currentUser?.wallet?.balance ?: -1.0,
+                    mount = authViewModel.getUserData()?.wallet?.balance ?: -1.0,
                     onClick = { homeViewModel.toggleShowMoney() },
                     showMoney = uiHomeState.showMoney
                 )

@@ -63,6 +63,7 @@ fun TransferToScreen(
         operationsViewModel.getReceiverID()
     }
 
+
     var currentStep by remember { mutableIntStateOf(page ?: 0) }
     operationsViewModel.setOperationType(TransactionType.TRANSFER)
     val coroutineScope = rememberCoroutineScope()
@@ -154,17 +155,19 @@ fun TransferToScreen(
         if (operationsViewModel.uiState.payment == null) return@LaunchedEffect
         operationsViewModel.uiState.payment?.let { transactionViewModel.addPayment(it) }
             ?.invokeOnCompletion {
-               if(transactionViewModel.uiState.error == null){
-                    navigateToScreen("transaction-details", emptyMap())
-               }
-                else{
                     var error = ""
                    if(transactionViewModel.uiState.error!!.message.equals("Receiver details not found"))
                    {
                        error = context.getString(R.string.emptyReceiver)
+                       coroutineScope.launch { snackbarHostState.showSnackbar(error) }
+
                    }
-                   coroutineScope.launch { snackbarHostState.showSnackbar(error) }
-               }
+                else{
+                    transactionViewModel.getTransactions()
+                       coroutineScope.launch { userViewModel.getUserData() }
+                       navigateToScreen("transaction-details", emptyMap())
+
+                   }
             }
         operationsViewModel.clearPayment()
     }
