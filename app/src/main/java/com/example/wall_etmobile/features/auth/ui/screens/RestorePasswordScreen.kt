@@ -58,12 +58,14 @@ fun RestorePasswordScreen(navController: NavController) {
                 label = stringResource(R.string.new_password),
                 hint = stringResource(R.string.enter_your_new_password),
                 controller = newPassword,
+                isPassword = true
             )
             Spacer(modifier = Modifier.height(20.dp))
             CustomTextField(
                 label = stringResource(R.string.confirm_your_new_password),
                 hint = stringResource(R.string.enter_your_new_password),
                 controller = newPasswordConfirmation,
+                isPassword = true
             )
             Spacer(modifier = Modifier.height(30.dp))
             ActionButton(

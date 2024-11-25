@@ -157,7 +157,7 @@ fun MainApp() {
                     }
                 },
             ) { innerPadding -> Box(
-                modifier = Modifier.fillMaxSize().padding(if (currentRouteModel?.route == Screen.LOGIN.route) innerPadding else PaddingValues(0.dp))
+                modifier = Modifier.fillMaxSize().padding(if (currentRouteModel?.route == Screen.LOGIN.route || currentRouteModel?.route == Screen.RESTOREPASSWORD.route) innerPadding else PaddingValues(0.dp))
                 ) {
                 NavigationHostWrapper(navController = navController, adaptiveInfo = adaptiveInfo, navigatorWrapper = navigatorWrapper)
             }
